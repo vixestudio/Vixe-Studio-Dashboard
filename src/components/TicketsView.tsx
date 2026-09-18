@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ServerInfo } from '../types';
+import { DiscordSwitch } from './common';
 
 interface TicketsViewProps {
   currentServer: ServerInfo;
@@ -200,54 +201,13 @@ export const TicketsView: React.FC<TicketsViewProps> = ({ currentServer, onBackT
                   Tickets
                 </h4>
                 <div>
-                  <div className="flex justify-start cursor-pointer gap-2.5 items-center">
-                    <div className="flex justify-start cursor-pointer gap-2.5 items-center flex-row-reverse">
-                      <div
-                        onClick={() => setIsActive(!isActive)}
-                        className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                          isActive ? 'bg-brand-default' : 'bg-dark-700'
-                        }`}
-                      >
-                        <div
-                          className={`absolute left-0 top-0 w-full h-full flex items-center ${
-                            isActive ? 'justify-start px-2' : 'justify-end px-2'
-                          }`}
-                        >
-                          <div
-                            className={`text-[10px] font-bold ${
-                              isActive ? 'text-dark-900' : 'text-dark-400'
-                            }`}
-                            translate="no"
-                          >
-                            {isActive ? 'ON' : 'OFF'}
-                          </div>
-                        </div>
-                        <div
-                          className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center h-5 w-5 ${
-                            isActive
-                              ? 'translate-x-8 bg-white'
-                              : 'translate-x-1 bg-dark-500'
-                          }`}
-                        >
-                          <div
-                            className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                              isActive ? 'bg-brand-dark' : 'bg-dark-700'
-                            }`}
-                          />
-                        </div>
-                      </div>
-                      <label
-                        onClick={() => setIsActive(!isActive)}
-                        className="select-none cursor-pointer flex flex-col gap-0.5"
-                      >
-                        <div className="text-dark-100 text-base">
-                          <p className="text-sm text-dark-100 hidden md:inline-block font-medium">
-                            {isActive ? 'Ativo' : 'Desativado'}
-                          </p>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
+                  <DiscordSwitch
+                    checked={isActive}
+                    onChange={setIsActive}
+                    label={isActive ? 'Ativo' : 'Desativado'}
+                    activeColor="blurple"
+                    switchPosition="right"
+                  />
                 </div>
               </div>
               <p className="text-base text-dark-300 max-w-[830px] ml-0 w-full mt-3 text-center sm:text-left">
@@ -401,29 +361,14 @@ export const TicketsView: React.FC<TicketsViewProps> = ({ currentServer, onBackT
                             Reivindicar um ticket.
                           </p>
                         </div>
-                        <div className="flex justify-start cursor-pointer gap-2.5 ml-auto items-center">
-                          <div
-                            onClick={() =>
-                              setCommandsState((prev) => ({ ...prev, claim: !prev.claim }))
+                        <div className="ml-auto">
+                          <DiscordSwitch
+                            checked={commandsState.claim}
+                            onChange={(val) =>
+                              setCommandsState((prev) => ({ ...prev, claim: val }))
                             }
-                            className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                              commandsState.claim ? 'bg-brand-default' : 'bg-dark-700'
-                            }`}
-                          >
-                            <div
-                              className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center h-5 w-5 ${
-                                commandsState.claim
-                                  ? 'translate-x-8 bg-white'
-                                  : 'translate-x-1 bg-dark-500'
-                              }`}
-                            >
-                              <div
-                                className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                                  commandsState.claim ? 'bg-brand-dark' : 'bg-dark-700'
-                                }`}
-                              />
-                            </div>
-                          </div>
+                            activeColor="blurple"
+                          />
                         </div>
                         <button
                           title="Editar permissões"
@@ -459,29 +404,14 @@ export const TicketsView: React.FC<TicketsViewProps> = ({ currentServer, onBackT
                             Fechar um ticket.
                           </p>
                         </div>
-                        <div className="flex justify-start cursor-pointer gap-2.5 ml-auto items-center">
-                          <div
-                            onClick={() =>
-                              setCommandsState((prev) => ({ ...prev, close: !prev.close }))
+                        <div className="ml-auto">
+                          <DiscordSwitch
+                            checked={commandsState.close}
+                            onChange={(val) =>
+                              setCommandsState((prev) => ({ ...prev, close: val }))
                             }
-                            className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                              commandsState.close ? 'bg-brand-default' : 'bg-dark-700'
-                            }`}
-                          >
-                            <div
-                              className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center h-5 w-5 ${
-                                commandsState.close
-                                  ? 'translate-x-8 bg-white'
-                                  : 'translate-x-1 bg-dark-500'
-                              }`}
-                            >
-                              <div
-                                className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                                  commandsState.close ? 'bg-brand-dark' : 'bg-dark-700'
-                                }`}
-                              />
-                            </div>
-                          </div>
+                            activeColor="blurple"
+                          />
                         </div>
                         <button
                           title="Editar permissões"
@@ -517,29 +447,14 @@ export const TicketsView: React.FC<TicketsViewProps> = ({ currentServer, onBackT
                             Excluir um ticket.
                           </p>
                         </div>
-                        <div className="flex justify-start cursor-pointer gap-2.5 ml-auto items-center">
-                          <div
-                            onClick={() =>
-                              setCommandsState((prev) => ({ ...prev, delete: !prev.delete }))
+                        <div className="ml-auto">
+                          <DiscordSwitch
+                            checked={commandsState.delete}
+                            onChange={(val) =>
+                              setCommandsState((prev) => ({ ...prev, delete: val }))
                             }
-                            className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                              commandsState.delete ? 'bg-brand-default' : 'bg-dark-700'
-                            }`}
-                          >
-                            <div
-                              className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center h-5 w-5 ${
-                                commandsState.delete
-                                  ? 'translate-x-8 bg-white'
-                                  : 'translate-x-1 bg-dark-500'
-                              }`}
-                            >
-                              <div
-                                className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                                  commandsState.delete ? 'bg-brand-dark' : 'bg-dark-700'
-                                }`}
-                              />
-                            </div>
-                          </div>
+                            activeColor="blurple"
+                          />
                         </div>
                         <button
                           title="Editar permissões"
@@ -575,29 +490,14 @@ export const TicketsView: React.FC<TicketsViewProps> = ({ currentServer, onBackT
                             Reabrir um ticket fechado.
                           </p>
                         </div>
-                        <div className="flex justify-start cursor-pointer gap-2.5 ml-auto items-center">
-                          <div
-                            onClick={() =>
-                              setCommandsState((prev) => ({ ...prev, reopen: !prev.reopen }))
+                        <div className="ml-auto">
+                          <DiscordSwitch
+                            checked={commandsState.reopen}
+                            onChange={(val) =>
+                              setCommandsState((prev) => ({ ...prev, reopen: val }))
                             }
-                            className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                              commandsState.reopen ? 'bg-brand-default' : 'bg-dark-700'
-                            }`}
-                          >
-                            <div
-                              className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center h-5 w-5 ${
-                                commandsState.reopen
-                                  ? 'translate-x-8 bg-white'
-                                  : 'translate-x-1 bg-dark-500'
-                              }`}
-                            >
-                              <div
-                                className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                                  commandsState.reopen ? 'bg-brand-dark' : 'bg-dark-700'
-                                }`}
-                              />
-                            </div>
-                          </div>
+                            activeColor="blurple"
+                          />
                         </div>
                         <button
                           title="Editar permissões"

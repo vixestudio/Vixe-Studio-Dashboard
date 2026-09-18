@@ -9,7 +9,8 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { WelcomeConfig, ServerInfo } from '../types';
-import { DEFAULT_WELCOME } from '../data/mockData';
+import { DEFAULT_WELCOME, ROLES_LIST } from '../data/mockData';
+import { DiscordChannelSelect, DiscordSwitch, VariablePills } from './common';
 
 interface WelcomeGoodbyeViewProps {
   currentServer: ServerInfo;
@@ -72,23 +73,13 @@ export const WelcomeGoodbyeView: React.FC<WelcomeGoodbyeViewProps> = ({
         {/* Left Form Settings */}
         <div className="lg:col-span-7 space-y-6">
           {/* Main Activation Box */}
-          <div className="p-5 bg-dark-800 border border-dark-700 rounded-2xl flex items-center justify-between">
-            <div className="space-y-0.5">
-              <span className="text-sm font-bold text-white">
-                Enviar uma mensagem quando um usuário entrar no servidor
-              </span>
-              <p className="text-xs text-dark-400">
-                Ativa os alertas automáticos no canal selecionado.
-              </p>
-            </div>
-            <button
-              onClick={() => setConfig({ ...config, enabled: !config.enabled })}
-              className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors cursor-pointer ${
-                config.enabled ? 'bg-dark-100 justify-end' : 'bg-dark-700 justify-start'
-              }`}
-            >
-              <div className="bg-white w-4 h-4 rounded-full shadow-md" />
-            </button>
+          <div className="p-5 bg-dark-800 border border-dark-700 rounded-2xl">
+            <DiscordSwitch
+              checked={config.enabled}
+              onChange={(checked) => setConfig({ ...config, enabled: checked })}
+              label="Enviar uma mensagem quando um usuário entrar no servidor"
+              description="Ativa os alertas automáticos no canal selecionado."
+            />
           </div>
 
           {/* Channel and Message Text */}
@@ -97,55 +88,47 @@ export const WelcomeGoodbyeView: React.FC<WelcomeGoodbyeViewProps> = ({
               Canal e Mensagem de Boas-Vindas
             </h3>
 
-            <div>
-              <label className="text-xs text-dark-400 block mb-1">
-                Canal de Recepção
-              </label>
-              <select
-                value={config.channel}
-                onChange={(e) => setConfig({ ...config, channel: e.target.value })}
-                className="w-full bg-dark-default border border-dark-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-dark-500"
-              >
-                <option value="#boas-vindas">#boas-vindas</option>
-                <option value="#geral">#geral</option>
-                <option value="#lobby">#lobby</option>
-              </select>
-            </div>
+            <DiscordChannelSelect
+              label="Canal de Recepção"
+              value={config.channel}
+              onChange={(val) => setConfig({ ...config, channel: val })}
+              placeholder="Selecione o canal de recepção..."
+            />
 
-            <div>
-              <label className="text-xs text-dark-400 block mb-1">
-                Texto da Mensagem (Suporta variáveis como {`{user}`}, {`{server}`}, {`{member_count}`})
+            <div className="space-y-2">
+              <label className="text-xs text-dark-400 block">
+                Texto da Mensagem
               </label>
               <textarea
                 rows={3}
                 value={config.messageText}
                 onChange={(e) => setConfig({ ...config, messageText: e.target.value })}
-                className="w-full bg-dark-default border border-dark-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-dark-500 leading-relaxed"
+                className="w-full bg-dark-default border border-dark-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-[#5865F2] leading-relaxed"
+              />
+              <VariablePills
+                variables={[
+                  { tag: '{user}', label: 'Menção do membro', description: 'Menciona o novo usuário (@Nome)' },
+                  { tag: '{server}', label: 'Nome do servidor', description: 'Nome deste servidor' },
+                  { tag: '{member_count}', label: 'Contagem de membros', description: 'Número total de membros' },
+                ]}
+                onSelect={(tag) =>
+                  setConfig({
+                    ...config,
+                    messageText: `${config.messageText} ${tag}`,
+                  })
+                }
               />
             </div>
           </div>
 
           {/* Welcome Card Image with Direct Link */}
           <div className="p-5 bg-dark-800 border border-dark-700 rounded-2xl space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="space-y-0.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
-                  <ImageIcon className="w-4 h-4 text-dark-200" />
-                  Cartão Ilustrado de Boas-Vindas (Link Direto)
-                </span>
-                <p className="text-xs text-dark-400">
-                  Gera um cartão com avatar do novo membro sobre a imagem de fundo especificada.
-                </p>
-              </div>
-              <button
-                onClick={() => setConfig({ ...config, sendCard: !config.sendCard })}
-                className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors cursor-pointer ${
-                  config.sendCard ? 'bg-dark-100 justify-end' : 'bg-dark-700 justify-start'
-                }`}
-              >
-                <div className="bg-white w-4 h-4 rounded-full shadow-md" />
-              </button>
-            </div>
+            <DiscordSwitch
+              checked={config.sendCard}
+              onChange={(checked) => setConfig({ ...config, sendCard: checked })}
+              label="Cartão Ilustrado de Boas-Vindas (Link Direto)"
+              description="Gera um cartão com avatar do novo membro sobre a imagem de fundo especificada."
+            />
 
             {config.sendCard && (
               <div className="space-y-3 pt-2">
@@ -173,24 +156,12 @@ export const WelcomeGoodbyeView: React.FC<WelcomeGoodbyeViewProps> = ({
 
           {/* Automatic Role on Join */}
           <div className="p-5 bg-dark-800 border border-dark-700 rounded-2xl space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="space-y-0.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-white">
-                  Dar um Cargo Automaticamente aos Novos Membros
-                </span>
-                <p className="text-xs text-dark-400">
-                  Atribui instantaneamente um cargo inicial assim que a pessoa entra.
-                </p>
-              </div>
-              <button
-                onClick={() => setConfig({ ...config, giveRole: !config.giveRole })}
-                className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors cursor-pointer ${
-                  config.giveRole ? 'bg-dark-100 justify-end' : 'bg-dark-700 justify-start'
-                }`}
-              >
-                <div className="bg-white w-4 h-4 rounded-full shadow-md" />
-              </button>
-            </div>
+            <DiscordSwitch
+              checked={config.giveRole}
+              onChange={(checked) => setConfig({ ...config, giveRole: checked })}
+              label="Dar um Cargo Automaticamente aos Novos Membros"
+              description="Atribui instantaneamente um cargo inicial assim que a pessoa entra."
+            />
 
             {config.giveRole && (
               <div>
@@ -203,6 +174,11 @@ export const WelcomeGoodbyeView: React.FC<WelcomeGoodbyeViewProps> = ({
                   <option value="Membro Recruta">@Membro Recruta</option>
                   <option value="Comunidade">@Comunidade</option>
                   <option value="Visitante">@Visitante</option>
+                  {ROLES_LIST.map((r) => (
+                    <option key={r.id} value={r.name}>
+                      @{r.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             )}

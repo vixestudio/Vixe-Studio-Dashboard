@@ -17,6 +17,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import { ServerInfo } from '../types';
+import { DiscordSwitch } from './common';
 
 interface BotCustomizerViewProps {
   currentServer: ServerInfo;
@@ -246,34 +247,14 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                 </h4>
 
                 {/* Main Active Toggle Switch */}
-                <div
-                  onClick={() => setIsActive(!isActive)}
-                  className="flex justify-start cursor-pointer gap-2.5 items-center flex-row-reverse select-none"
-                >
-                  <div
-                    className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                      isActive ? 'bg-zinc-200' : 'bg-dark-700 border border-zinc-700'
-                    }`}
-                  >
-                    <div
-                      className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center h-5 w-5 ${
-                        isActive
-                          ? 'translate-x-8 bg-zinc-950 shadow-sm'
-                          : 'translate-x-1 bg-zinc-400'
-                      }`}
-                    >
-                      <div
-                        className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                          isActive ? 'bg-zinc-200' : 'bg-dark-800'
-                        }`}
-                      />
-                    </div>
-                  </div>
-                  <label className="select-none cursor-pointer flex flex-col gap-0.5">
-                    <div className="text-zinc-300 text-sm max-w-field flex font-medium">
-                      {isActive ? 'Ativo' : 'Desativado'}
-                    </div>
-                  </label>
+                <div className="flex items-center">
+                  <DiscordSwitch
+                    checked={isActive}
+                    onChange={setIsActive}
+                    label={isActive ? 'Ativo' : 'Desativado'}
+                    activeColor="zinc"
+                    switchPosition="right"
+                  />
                 </div>
               </div>
 
@@ -372,30 +353,11 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                       História de fundo
                     </div>
 
-                    <div
-                      onClick={() => setIsBackstoryActive(!isBackstoryActive)}
-                      className="flex justify-start cursor-pointer gap-2.5 items-center flex-row select-none"
-                    >
-                      <div
-                        className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                          isBackstoryActive ? 'bg-zinc-200' : 'bg-dark-700 border border-zinc-700'
-                        }`}
-                      >
-                        <div
-                          className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center h-5 w-5 ${
-                            isBackstoryActive
-                              ? 'translate-x-8 bg-zinc-950 shadow-sm'
-                              : 'translate-x-1 bg-zinc-400'
-                          }`}
-                        >
-                          <div
-                            className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                              isBackstoryActive ? 'bg-zinc-200' : 'bg-dark-800'
-                            }`}
-                          />
-                        </div>
-                      </div>
-                    </div>
+                    <DiscordSwitch
+                      checked={isBackstoryActive}
+                      onChange={setIsBackstoryActive}
+                      activeColor="zinc"
+                    />
                   </div>
 
                   {/* Card Body */}

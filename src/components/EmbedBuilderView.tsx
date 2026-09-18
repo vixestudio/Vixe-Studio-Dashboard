@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { DiscordEmbedData } from '../types';
 import { DEFAULT_EMBED, DIRECT_IMAGE_PRESETS } from '../data/mockData';
+import { DiscordChannelSelect, DiscordColorPicker } from './common';
 
 interface EmbedBuilderViewProps {
   onOpenDirectImageModal: () => void;
@@ -129,39 +130,32 @@ export const EmbedBuilderView: React.FC<EmbedBuilderViewProps> = ({
               Destino & Aparência
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
               <div>
-                <label className="text-xs font-medium text-dark-400 block mb-1.5">
-                  Canal do Discord
-                </label>
-                <select
+                <DiscordChannelSelect
+                  label="Canal do Discord"
                   value={channel}
-                  onChange={(e) => setChannel(e.target.value)}
-                  className="w-full bg-dark-default border border-dark-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-dark-500"
-                >
-                  <option value="#regras-e-anuncios">#regras-e-anuncios</option>
-                  <option value="#geral">#geral</option>
-                  <option value="#boas-vindas">#boas-vindas</option>
-                  <option value="#sorteios">#sorteios</option>
-                </select>
+                  onChange={(val) => setChannel(val)}
+                  placeholder="Selecione o canal..."
+                />
               </div>
 
               <div>
                 <label className="text-xs font-medium text-dark-400 block mb-1.5">
-                  Cor da Barra Lateral ({embed.color})
+                  Cor da Barra Lateral
                 </label>
                 <div className="flex items-center gap-2">
-                  <input
-                    type="color"
-                    value={embed.color}
-                    onChange={(e) => setEmbed({ ...embed, color: e.target.value })}
-                    className="w-9 h-9 rounded-lg bg-transparent border border-dark-700 cursor-pointer p-0.5"
+                  <DiscordColorPicker
+                    color={embed.color}
+                    onChange={(newColor) => setEmbed({ ...embed, color: newColor })}
+                    triggerType="swatch"
                   />
                   <input
                     type="text"
                     value={embed.color}
                     onChange={(e) => setEmbed({ ...embed, color: e.target.value })}
                     className="flex-1 bg-dark-default border border-dark-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none font-mono"
+                    placeholder="#5865F2"
                   />
                 </div>
               </div>

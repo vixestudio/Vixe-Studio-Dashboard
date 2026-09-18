@@ -101,6 +101,7 @@ export const INITIAL_PLUGINS: PluginItem[] = [
     isNew: true,
     isActive: false,
     popular: false,
+    targetScreen: 'starboards',
   },
 
   // Gerenciar Servidor
@@ -163,6 +164,7 @@ export const INITIAL_PLUGINS: PluginItem[] = [
     isNew: true,
     isActive: false,
     popular: false,
+    targetScreen: 'emojis',
   },
   {
     id: 'polls',
@@ -382,7 +384,7 @@ export const INITIAL_PLUGINS: PluginItem[] = [
   {
     id: 'economy',
     title: 'Economia',
-    description: 'Players can gain coins by claiming it once a day with the command /daily; consecutive days grant bonus multipliers.',
+    description: 'Os membros podem ganhar moedas resgatando uma vez por dia com o comando /daily; dias consecutivos concedem multiplicadores de bônus.',
     category: 'engajamento',
     iconName: 'Landmark',
     iconBgColor: 'bg-dark-700',

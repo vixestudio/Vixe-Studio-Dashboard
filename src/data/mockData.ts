@@ -1,4 +1,4 @@
-import { BotCustomizerConfig, DiscordEmbedData, LeaderboardUser, ServerInfo, WelcomeConfig } from '../types';
+import { BotCustomizerConfig, DiscordEmbedData, DiscordRole, LeaderboardUser, ServerCategory, ServerInfo, WelcomeConfig } from '../types';
 
 export const SERVERS: ServerInfo[] = [
   {
@@ -238,3 +238,91 @@ export const DEFAULT_BOT_CUSTOMIZER: BotCustomizerConfig = {
   activityType: 'PLAYING',
   activityStatus: 'Desativado • Offline',
 };
+
+export const SERVER_CHANNELS: string[] = [
+  '🔹・liberar',
+  '👋🏻・bem-vindos',
+  '🔹・convites',
+  '🔹・comunicados',
+  '🔹・regras',
+  '🔹・sobre-nós',
+  '🔹・sorteios',
+  '🔹・lançamentos',
+  '🔹・recomendações',
+  '🔹・comandos',
+  '🔹・ferramentas',
+  '🔹・análise-parceria',
+  '🔹・criar-produtos',
+  '🔹・moderator',
+  '🔹・log-parcerias-aprovadas',
+  '🔹・log-parcerias-reprovadas',
+  '⭐・destaques',
+  '🌟・starboard',
+];
+
+export const SERVER_CATEGORIES: ServerCategory[] = [
+  {
+    name: 'Acesso',
+    channels: ['🔹・liberar'],
+  },
+  {
+    name: 'VISÃO GERAL',
+    channels: ['👋🏻・bem-vindos', '🔹・convites', '🔹・regras', '🔹・sobre-nós'],
+  },
+  {
+    name: 'INFORMAÇÕES',
+    channels: ['🔹・comunicados', '🔹・sorteios', '🔹・lançamentos'],
+  },
+  {
+    name: 'PRODUTOS',
+    channels: ['🔹・veículos', '🔹・props', '🔹・mapas', '🔹・roupas'],
+  },
+  {
+    name: 'PARCERIA',
+    channels: ['🔹・parcerias', '🔹・análise-parceria'],
+  },
+  {
+    name: 'ᴇǫᴜɪᴘᴇ ᴠɪxᴇ sᴛᴜᴅɪᴏ',
+    channels: ['🔹・moderator', '🔹・log-parcerias-aprovadas', '🔹・log-parcerias-reprovadas'],
+  },
+  {
+    name: 'FERRAMENTA',
+    channels: [
+      '🔹・comandos',
+      '🔹・ferramentas',
+      '🔹・fórum',
+      '🔹・médias',
+      '🔹・recomendações',
+      '🔹・atendimento',
+      '🔹・feedback',
+      '🔹・status',
+      '⭐・destaques',
+    ],
+  },
+];
+
+export const ROLES_LIST: DiscordRole[] = [
+  { id: 'r1', name: 'Proprietário(a)', color: 'rgb(47, 34, 221)' },
+  { id: 'r2', name: 'Gerenciamento', color: 'rgb(47, 34, 221)' },
+  { id: 'r3', name: 'Moderador', color: 'rgb(47, 34, 221)' },
+  { id: 'r4', name: 'Português', color: 'rgb(47, 34, 221)' },
+  { id: 'r5', name: 'Inglês', color: 'rgb(47, 34, 221)' },
+  { id: 'r6', name: 'Ferramentas', color: 'rgb(47, 34, 221)' },
+  { id: 'r7', name: 'Cliente', color: 'rgb(47, 34, 221)' },
+  { id: 'r8', name: 'Aluno(a)', color: 'rgb(47, 34, 221)' },
+  { id: 'r9', name: 'Parceiro', color: 'rgb(47, 34, 221)' },
+  { id: 'r10', name: 'Membros', color: 'rgb(47, 34, 221)' },
+];
+
+export const DISCORD_PRESET_COLORS = [
+  { label: 'Dourado Estrela', value: '#FFAC33' },
+  { label: 'Blurple Discord', value: '#5865F2' },
+  { label: 'Verde Discord', value: '#57F287' },
+  { label: 'Amarelo Discord', value: '#FEE75C' },
+  { label: 'Fúcsia Discord', value: '#EB459E' },
+  { label: 'Vermelho Discord', value: '#ED4245' },
+  { label: 'Esmeralda', value: '#10B981' },
+  { label: 'Roxo Estelar', value: '#8B5CF6' },
+  { label: 'Ciano Neon', value: '#06B6D4' },
+  { label: 'Dark Discord', value: '#2B2D31' },
+];

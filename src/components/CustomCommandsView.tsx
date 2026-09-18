@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Terminal, Plus, Trash2, Edit2, Check, MessageSquare, Code2, BarChart2 } from 'lucide-react';
 import { ServerInfo } from '../types';
+import { CommandConfigPage } from './CommandConfigPage';
 
 interface CustomCommandsViewProps {
   currentServer: ServerInfo;
@@ -40,6 +41,7 @@ export const CustomCommandsView: React.FC<CustomCommandsViewProps> = ({ currentS
   const [newCmdName, setNewCmdName] = useState('');
   const [newCmdResponse, setNewCmdResponse] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
+  const [editingCommand, setEditingCommand] = useState<string | null>(null);
 
   const handleAddCommand = (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,6 +72,15 @@ export const CustomCommandsView: React.FC<CustomCommandsViewProps> = ({ currentS
   };
 
   const totalUses = commands.reduce((acc, curr) => acc + curr.usesCount, 0);
+
+  if (editingCommand) {
+    return (
+      <CommandConfigPage
+        commandName={editingCommand}
+        onBack={() => setEditingCommand(null)}
+      />
+    );
+  }
 
   return (
     <div className="space-y-8 pb-16 animate-fadeIn" id="dashboard__content">
@@ -189,6 +200,13 @@ export const CustomCommandsView: React.FC<CustomCommandsViewProps> = ({ currentS
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      onClick={() => setEditingCommand(cmd.name)}
+                      className="p-2 text-dark-400 hover:text-white hover:bg-dark-700 rounded-lg transition-colors cursor-pointer"
+                      title="Configurar comando"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                    </button>
                     <button
                       onClick={() => handleDelete(cmd.id)}
                       className="p-2 text-dark-400 hover:text-rose-400 hover:bg-dark-700 rounded-lg transition-colors cursor-pointer"

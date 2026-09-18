@@ -88,6 +88,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
       setOpenSections((prev) => ({ ...prev, gerenciar: true }));
     } else if (activeScreen === 'customizer' || activeScreen === 'ai') {
       setOpenSections((prev) => ({ ...prev, ia: true }));
+    } else if (activeScreen === 'emojis' || activeScreen === 'embeds') {
+      setOpenSections((prev) => ({ ...prev, utilidades: true }));
     }
   }, [activeScreen]);
 
@@ -266,9 +268,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button
               id="nav-config-btn"
               onClick={() => handleNavClick('settings')}
-              className="w-full flex items-center gap-3 px-3 py-2 rounded-lg font-semibold text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-all cursor-pointer"
+              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg font-semibold transition-all cursor-pointer ${
+                activeScreen === 'settings'
+                  ? 'bg-zinc-800 text-white border border-zinc-700 shadow-xs'
+                  : 'text-zinc-300 hover:text-white hover:bg-zinc-800/70'
+              }`}
             >
-              <Settings className="w-4 h-4 text-zinc-400" />
+              <Settings className="w-4 h-4 text-zinc-300" />
               <span>Configurações</span>
             </button>
           </div>
@@ -343,8 +349,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <span className="truncate">Conquistas</span>
                 </button>
                 <button
-                  onClick={() => handleNavClick('painel', 'essenciais')}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
+                  onClick={() => handleNavClick('starboards')}
+                  className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left transition-colors cursor-pointer ${
+                    activeScreen === 'starboards'
+                      ? 'bg-zinc-800 text-white font-semibold border border-zinc-700'
+                      : 'text-zinc-300 hover:text-white hover:bg-zinc-800/70'
+                  }`}
                 >
                   <Star className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
                   <span className="truncate">Starboards</span>
@@ -492,8 +502,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
             {openSections['utilidades'] && (
               <div className="space-y-0.5 pl-1">
                 <button
-                  onClick={() => handleNavClick('painel', 'utilidades')}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
+                  onClick={() => handleNavClick('emojis')}
+                  className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left transition-colors cursor-pointer ${
+                    activeScreen === 'emojis'
+                      ? 'bg-zinc-800 text-white font-semibold border border-zinc-700'
+                      : 'text-zinc-300 hover:text-white hover:bg-zinc-800/70'
+                  }`}
                 >
                   <Smile className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
                   <span className="truncate">Emojis</span>

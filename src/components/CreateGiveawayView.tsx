@@ -23,265 +23,7 @@ import {
   X,
 } from 'lucide-react';
 import { ServerInfo } from '../types';
-
-interface SketchPickerModalProps {
-  color: string;
-  onChange: (color: string) => void;
-  hexInput: string;
-  setHexInput: (hex: string) => void;
-}
-
-const SketchPickerModal: React.FC<SketchPickerModalProps> = ({
-  color,
-  onChange,
-  hexInput,
-  setHexInput,
-}) => {
-  return (
-    <div
-      className="sketch-picker custom-color-picker"
-      style={{
-        width: '200px',
-        padding: '10px 10px 0px',
-        boxSizing: 'initial',
-        background: 'rgb(255, 255, 255)',
-        borderRadius: '4px',
-        boxShadow:
-          'rgba(0, 0, 0, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.15) 0px 8px 16px',
-      }}
-    >
-      <div
-        style={{
-          width: '100%',
-          paddingBottom: '75%',
-          position: 'relative',
-          overflow: 'hidden',
-          cursor: 'crosshair',
-        }}
-        onClick={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          const x = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
-          const y = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
-          const r = Math.round(112 + (255 - 112) * (1 - y) * (1 - x));
-          const g = Math.round(177 * (1 - y));
-          const b = Math.round(255 * (1 - y) * x);
-          const hex = `${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toUpperCase();
-          onChange(`#${hex}`);
-          setHexInput(hex);
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            inset: '0px',
-            background: color,
-          }}
-        >
-          <div
-            style={{
-              position: 'absolute',
-              inset: '0px',
-              background:
-                'linear-gradient(to right, #fff, rgba(255,255,255,0))',
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                inset: '0px',
-                background: 'linear-gradient(to top, #000, rgba(0,0,0,0))',
-              }}
-            ></div>
-            <div
-              style={{
-                position: 'absolute',
-                top: '0%',
-                left: '56.0784%',
-                cursor: 'default',
-              }}
-            >
-              <div
-                style={{
-                  width: '4px',
-                  height: '4px',
-                  boxShadow:
-                    'rgb(255, 255, 255) 0px 0px 0px 1.5px, rgba(0, 0, 0, 0.3) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.4) 0px 0px 1px 2px',
-                  borderRadius: '50%',
-                  transform: 'translate(-2px, -2px)',
-                }}
-              ></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style={{ display: 'flex' }}>
-        <div style={{ padding: '4px 0px', flex: '1 1 0%' }}>
-          <div style={{ position: 'relative', height: '10px', overflow: 'hidden' }}>
-            <div
-              style={{
-                position: 'absolute',
-                inset: '0px',
-                background:
-                  'linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%)',
-              }}
-            ></div>
-          </div>
-          <div
-            style={{
-              position: 'relative',
-              height: '10px',
-              marginTop: '4px',
-              overflow: 'hidden',
-              background: `linear-gradient(to right, rgba(112, 177, 255, 0) 0%, ${color} 100%)`,
-            }}
-          ></div>
-        </div>
-        <div
-          style={{
-            width: '24px',
-            height: '24px',
-            position: 'relative',
-            marginTop: '4px',
-            marginLeft: '4px',
-            borderRadius: '3px',
-            backgroundColor: color,
-            boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.25) 0px 0px 4px inset',
-          }}
-        ></div>
-      </div>
-
-      <div style={{ display: 'flex', paddingTop: '4px' }}>
-        <div style={{ flex: '2 1 0%' }}>
-          <div style={{ position: 'relative' }}>
-            <input
-              spellCheck={false}
-              value={hexInput}
-              onChange={(e) => {
-                setHexInput(e.target.value);
-                if (e.target.value.length === 6) {
-                  onChange(`#${e.target.value}`);
-                }
-              }}
-              style={{
-                width: '80%',
-                padding: '4px 10% 3px',
-                border: 'none',
-                boxShadow: 'rgb(204, 204, 204) 0px 0px 0px 1px inset',
-                fontSize: '11px',
-                color: '#333',
-                textAlign: 'center',
-              }}
-            />
-            <label
-              style={{
-                display: 'block',
-                textAlign: 'center',
-                fontSize: '11px',
-                color: 'rgb(34, 34, 34)',
-                paddingTop: '3px',
-                paddingBottom: '4px',
-                textTransform: 'capitalize',
-              }}
-            >
-              hex
-            </label>
-          </div>
-        </div>
-        <div style={{ flex: '1 1 0%', paddingLeft: '6px' }}>
-          <div style={{ position: 'relative' }}>
-            <input
-              readOnly
-              value="112"
-              style={{
-                width: '80%',
-                padding: '4px 10% 3px',
-                border: 'none',
-                boxShadow: 'rgb(204, 204, 204) 0px 0px 0px 1px inset',
-                fontSize: '11px',
-                color: '#333',
-                textAlign: 'center',
-              }}
-            />
-            <label
-              style={{
-                display: 'block',
-                textAlign: 'center',
-                fontSize: '11px',
-                color: 'rgb(34, 34, 34)',
-                paddingTop: '3px',
-                paddingBottom: '4px',
-                textTransform: 'capitalize',
-              }}
-            >
-              r
-            </label>
-          </div>
-        </div>
-        <div style={{ flex: '1 1 0%', paddingLeft: '6px' }}>
-          <div style={{ position: 'relative' }}>
-            <input
-              readOnly
-              value="177"
-              style={{
-                width: '80%',
-                padding: '4px 10% 3px',
-                border: 'none',
-                boxShadow: 'rgb(204, 204, 204) 0px 0px 0px 1px inset',
-                fontSize: '11px',
-                color: '#333',
-                textAlign: 'center',
-              }}
-            />
-            <label
-              style={{
-                display: 'block',
-                textAlign: 'center',
-                fontSize: '11px',
-                color: 'rgb(34, 34, 34)',
-                paddingTop: '3px',
-                paddingBottom: '4px',
-                textTransform: 'capitalize',
-              }}
-            >
-              g
-            </label>
-          </div>
-        </div>
-        <div style={{ flex: '1 1 0%', paddingLeft: '6px' }}>
-          <div style={{ position: 'relative' }}>
-            <input
-              readOnly
-              value="255"
-              style={{
-                width: '80%',
-                padding: '4px 10% 3px',
-                border: 'none',
-                boxShadow: 'rgb(204, 204, 204) 0px 0px 0px 1px inset',
-                fontSize: '11px',
-                color: '#333',
-                textAlign: 'center',
-              }}
-            />
-            <label
-              style={{
-                display: 'block',
-                textAlign: 'center',
-                fontSize: '11px',
-                color: 'rgb(34, 34, 34)',
-                paddingTop: '3px',
-                paddingBottom: '4px',
-                textTransform: 'capitalize',
-              }}
-            >
-              b
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import { DiscordChannelSelect, DiscordColorPicker, DiscordSwitch } from './common';
 
 interface CreateGiveawayViewProps {
   currentServer: ServerInfo;
@@ -302,7 +44,6 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
 
   // Form Fields
   const [selectedChannel, setSelectedChannel] = useState('');
-  const [isChannelDropdownOpen, setIsChannelDropdownOpen] = useState(false);
   const [giveawayTitle, setGiveawayTitle] = useState('');
 
   // Winning configs
@@ -313,8 +54,6 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
 
   // Message & Embed configs
   const [stripeColor, setStripeColor] = useState('#70B1FF');
-  const [showColorPicker, setShowColorPicker] = useState(false);
-  const [showStripePicker, setShowStripePicker] = useState(false);
   const [colorHistory, setColorHistory] = useState<string[]>(['#70B1FF', '#607D8B']);
   const [hexInput, setHexInput] = useState('70B1FF');
   const [authorName, setAuthorName] = useState('');
@@ -387,12 +126,12 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
     { name: 'Proprietário(a)', color: '#2F22DD' },
     { name: 'Gerenciamento', color: '#2F22DD' },
     { name: 'Vixe System', color: '#2F22DD' },
-    { name: 'Moderator', color: '#2F22DD' },
+    { name: 'Moderador', color: '#2F22DD' },
     { name: 'Vixe Studio', color: '#2F22DD' },
     { name: 'Português', color: '#2F22DD' },
-    { name: 'English', color: '#2F22DD' },
-    { name: 'Tools', color: '#2F22DD' },
-    { name: 'Customer', color: '#2F22DD' },
+    { name: 'Inglês', color: '#2F22DD' },
+    { name: 'Ferramentas', color: '#2F22DD' },
+    { name: 'Cliente', color: '#2F22DD' },
     { name: 'Aluno(a)', color: '#2F22DD' },
   ];
 
@@ -664,63 +403,13 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
               <div className="p-6 pt-0 border-t border-dark-700/80">
                 <div className="w-full grid grid-cols-1 gap-4 pt-4">
                       {/* Canal Selector */}
-                      <div>
-                        <label className="text-sm font-medium text-dark-400 mb-2 flex items-start max-w-max justify-start">
-                          Canal<span className="text-rose-500 ml-1">*</span>
-                        </label>
-                        <div id="giveaway_channel-channel_selector" className="relative w-full">
-                          <div
-                            onClick={() => setIsChannelDropdownOpen(!isChannelDropdownOpen)}
-                            className="rounded-lg cursor-pointer bg-dark-900 min-h-[50px] px-3 flex items-center justify-start border border-solid transition duration-200 border-dark-900 hover:border-dark-700"
-                          >
-                            <div className="w-full flex items-center justify-between">
-                              <p className="text-dark-100 text-sm font-medium flex items-center gap-2">
-                                <span className="text-dark-400">#</span>
-                                <span className={selectedChannel ? 'text-dark-100' : 'text-dark-400 font-normal'}>
-                                  {selectedChannel || 'Selecione um canal...'}
-                                </span>
-                              </p>
-                              <ChevronDown
-                                className={`w-5 h-5 text-dark-400 transform transition-transform duration-200 ${
-                                  isChannelDropdownOpen ? 'rotate-180' : ''
-                                }`}
-                              />
-                            </div>
-                          </div>
-
-                          {isChannelDropdownOpen && (
-                            <div className="absolute left-0 z-30 w-full mt-1 rounded-lg bg-dark-900 border border-dark-700 max-h-[300px] overflow-y-auto shadow-2xl p-2">
-                              <p className="uppercase text-dark-400 font-bold text-xs px-2 mb-1.5 pt-1">
-                                Canais de Texto
-                              </p>
-                              <div className="space-y-0.5">
-                                {channels.map((ch, idx) => (
-                                  <div
-                                    key={idx}
-                                    onClick={() => {
-                                      setSelectedChannel(ch);
-                                      setIsChannelDropdownOpen(false);
-                                    }}
-                                    className={`flex items-center justify-between p-2 rounded-lg cursor-pointer text-sm transition-colors ${
-                                      selectedChannel === ch
-                                        ? 'bg-dark-700 text-white font-semibold'
-                                        : 'text-dark-200 hover:bg-dark-800'
-                                    }`}
-                                  >
-                                    <div className="flex items-center gap-2">
-                                      <span className="text-dark-400">#</span>
-                                      <span>{ch}</span>
-                                    </div>
-                                    {selectedChannel === ch && (
-                                      <Check className="w-4 h-4 text-brand-default" />
-                                    )}
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
+                      <DiscordChannelSelect
+                        label="Canal"
+                        required
+                        value={selectedChannel}
+                        onChange={setSelectedChannel}
+                        placeholder="Selecione um canal..."
+                      />
 
                       {/* Nome do Sorteio */}
                       <div>
@@ -790,69 +479,24 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
                         </p>
 
                         <div className="space-y-4">
-                          {/* Switch XP */}
-                          <div
-                            onClick={() => setGiveXp(!giveXp)}
-                            className="flex justify-start cursor-pointer gap-3 items-center"
-                          >
-                            <div
-                              className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                                giveXp ? 'bg-brand-default' : 'bg-dark-600'
-                              }`}
-                            >
-                              <div
-                                className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center bg-grey-100 h-5 w-5 shadow-xs ${
-                                  giveXp ? 'translate-x-8' : 'left-1'
-                                }`}
-                              />
-                            </div>
-                            <label className="select-none cursor-pointer text-dark-100 text-sm font-medium">
-                              Também dê XP aos vencedores
-                            </label>
-                          </div>
+                          <DiscordSwitch
+                            checked={giveXp}
+                            onChange={setGiveXp}
+                            label="Também dê XP aos vencedores"
+                          />
 
-                          {/* Switch Coins */}
-                          <div
-                            onClick={() => setGiveCoins(!giveCoins)}
-                            className="flex justify-start cursor-pointer gap-3 items-center"
-                          >
-                            <div
-                              className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                                giveCoins ? 'bg-brand-default' : 'bg-dark-600'
-                              }`}
-                            >
-                              <div
-                                className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center bg-grey-100 h-5 w-5 shadow-xs ${
-                                  giveCoins ? 'translate-x-8' : 'left-1'
-                                }`}
-                              />
-                            </div>
-                            <label className="select-none cursor-pointer text-dark-100 text-sm font-medium">
-                              Também dê moedas aos vencedores
-                            </label>
-                          </div>
+                          <DiscordSwitch
+                            checked={giveCoins}
+                            onChange={setGiveCoins}
+                            label="Também dê moedas aos vencedores"
+                          />
 
-                          {/* Switch Role Odds */}
                           <div className="flex items-center gap-2">
-                            <div
-                              onClick={() => setAdjustRoleOdds(!adjustRoleOdds)}
-                              className="flex justify-start cursor-pointer gap-3 items-center"
-                            >
-                              <div
-                                className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                                  adjustRoleOdds ? 'bg-brand-default' : 'bg-dark-600'
-                                }`}
-                              >
-                                <div
-                                  className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center bg-grey-100 h-5 w-5 shadow-xs ${
-                                    adjustRoleOdds ? 'translate-x-8' : 'left-1'
-                                  }`}
-                                />
-                              </div>
-                              <label className="select-none cursor-pointer text-dark-100 text-sm font-medium">
-                                Ajuste as probabilidades por cargos
-                              </label>
-                            </div>
+                            <DiscordSwitch
+                              checked={adjustRoleOdds}
+                              onChange={setAdjustRoleOdds}
+                              label="Ajuste as probabilidades por cargos"
+                            />
 
                             <div className="relative inline-block ml-1 group">
                               <HelpCircle className="w-4 h-4 text-dark-400 cursor-pointer" />
@@ -912,109 +556,28 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
                       <label className="text-sm font-medium text-dark-400 mb-2 flex items-start max-w-max justify-start">
                         Cor da listra
                       </label>
-                      <div className="relative max-w-[360px] mb-4">
-                        <div
-                          onClick={() => {
-                            setShowColorPicker(!showColorPicker);
-                            setShowStripePicker(false);
-                          }}
-                          className="bg-dark-900 rounded-lg flex items-center cursor-pointer p-4 justify-between"
-                        >
-                          <div className="flex items-center justify-center">
-                            <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <circle cx="8.001" cy="1.778" r="1.778" fill="#B072FF" />
-                              <circle cx="12.446" cy="3.556" r="1.778" fill="#FF7673" />
-                              <circle cx="14.223" cy="8" r="1.778" fill="#FFBB5C" />
-                              <circle cx="12.446" cy="12.444" r="1.778" fill="#FFD74E" />
-                              <circle cx="8.001" cy="14.222" r="1.778" fill="#6DE194" />
-                              <circle cx="3.556" cy="12.444" r="1.778" fill="#63ECDB" />
-                              <circle cx="1.779" cy="8" r="1.778" fill="#5ACFF5" />
-                              <circle cx="3.556" cy="3.556" r="1.778" fill="#70B1FF" />
-                            </svg>
-                          </div>
-                          {stripeColors.map((c, i) => (
-                            <div
-                              key={i}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setStripeColor(c);
-                                setHexInput(c.replace('#', ''));
-                                if (!colorHistory.includes(c)) {
-                                  setColorHistory((prev) => [c, ...prev.slice(0, 5)]);
-                                }
-                              }}
-                              className={`w-[18px] h-[18px] rounded-full flex items-center justify-center cursor-pointer ring-[2px] ring-dark-800 hover:ring-dark-900 border-[1px] border-solid border-dark-800 ${
-                                stripeColor === c ? 'ring-dark-200 hover:ring-dark-200' : ''
-                              }`}
-                              style={{ backgroundColor: c }}
-                            >
-                              {stripeColor === c && (
-                                <svg
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="text-dark-100 h-2 w-2"
-                                >
-                                  <path
-                                    d="M18 7L9.429 17 6 13"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Dropdown color picker modal */}
-                        {showColorPicker && (
-                          <div className="rounded-xl border border-solid border-dark-700 bg-dark-800 shadow-2xl p-2.5 absolute top-[calc(100%+6px)] left-0 z-30 transform transition-all duration-200 w-max">
-                            <SketchPickerModal
-                              color={stripeColor}
-                              onChange={setStripeColor}
-                              hexInput={hexInput}
-                              setHexInput={setHexInput}
-                            />
-                          </div>
-                        )}
-                      </div>
+                      <DiscordColorPicker
+                        color={stripeColor}
+                        onChange={(c) => {
+                          setStripeColor(c);
+                          setHexInput(c.replace('#', ''));
+                        }}
+                        triggerType="swatch"
+                      />
                     </div>
 
                     {/* Form Embed Container with Lateral Color Stripe */}
                     <div className="flex gap-3 sm:gap-4 pt-2 relative items-stretch">
                       {/* Barra lateral de cor (Embed Color Stripe) */}
                       <div className="relative flex flex-col shrink-0 items-center">
-                        <div
-                          onClick={() => {
-                            setShowStripePicker(!showStripePicker);
-                            setShowColorPicker(false);
+                        <DiscordColorPicker
+                          color={stripeColor}
+                          onChange={(c) => {
+                            setStripeColor(c);
+                            setHexInput(c.replace('#', ''));
                           }}
-                          className="w-1.5 sm:w-2 self-stretch h-full min-h-[260px] rounded-full cursor-pointer transition-all hover:w-2.5 sm:hover:w-3 hover:brightness-125 relative group shadow-md"
-                          style={{ backgroundColor: stripeColor }}
-                          title="Clique para alterar a cor lateral do embed"
-                        >
-                          {/* Tooltip on hover */}
-                          <div className="absolute left-5 top-2 bg-dark-default text-white text-xs font-medium px-3 py-1.5 rounded-lg shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-30 flex items-center gap-2 border border-dark-700">
-                            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: stripeColor }} />
-                            <span>Mudar cor lateral ({stripeColor})</span>
-                          </div>
-                        </div>
-
-                        {/* Dropdown color picker anchored directly to the lateral stripe */}
-                        {showStripePicker && (
-                          <div className="rounded-xl border border-solid border-dark-700 bg-dark-800 shadow-2xl p-2.5 absolute top-0 left-6 z-40 transform transition-all duration-200 w-max">
-                            <SketchPickerModal
-                              color={stripeColor}
-                              onChange={setStripeColor}
-                              hexInput={hexInput}
-                              setHexInput={setHexInput}
-                            />
-                          </div>
-                        )}
+                          triggerType="wheel"
+                        />
                       </div>
 
                       {/* Embed Form Inputs */}

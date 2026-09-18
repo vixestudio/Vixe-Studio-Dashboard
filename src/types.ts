@@ -86,3 +86,21 @@ export interface BotCustomizerConfig {
   activityType: 'PLAYING' | 'LISTENING' | 'WATCHING' | 'STREAMING';
   activityStatus: string;
 }
+
+export interface DiscordRole {
+  id: string;
+  name: string;
+  color: string;
+}
+
+export interface ServerCategory {
+  name: string;
+  channels: string[];
+}
+
+export interface DiscordEmbedButton {
+  label: string;
+  url?: string;
+  style?: 'primary' | 'secondary' | 'success' | 'danger' | 'link';
+  disabled?: boolean;
+}

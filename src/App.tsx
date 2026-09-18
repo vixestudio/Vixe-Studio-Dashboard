@@ -12,6 +12,9 @@ import { PremiumView } from './components/PremiumView';
 import { NotificationsView } from './components/NotificationsView';
 import { TicketsView } from './components/TicketsView';
 import { GiveawaysView } from './components/GiveawaysView';
+import { EmojisView } from './components/EmojisView';
+import { StarboardsView } from './components/StarboardsView';
+import { SettingsView } from './components/SettingsView';
 import { PluginConfigModal } from './components/PluginConfigModal';
 import { DirectImageModal } from './components/DirectImageModal';
 import { CategoryId, PluginItem, ServerInfo } from './types';
@@ -143,6 +146,20 @@ export default function App() {
               />
             )}
 
+            {activeScreen === 'emojis' && (
+              <EmojisView
+                currentServer={currentServer}
+                onBackToDashboard={() => handleNavigate('painel')}
+              />
+            )}
+
+            {activeScreen === 'starboards' && (
+              <StarboardsView
+                currentServer={currentServer}
+                onBackToDashboard={() => handleNavigate('painel')}
+              />
+            )}
+
             {(activeScreen === 'premium' || activeScreen === 'monetization') && (
               <PremiumView currentServer={currentServer} />
             )}
@@ -160,9 +177,9 @@ export default function App() {
             )}
 
             {activeScreen === 'settings' && (
-              <BotCustomizerView
+              <SettingsView
                 currentServer={currentServer}
-                onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
+                onBackToDashboard={() => handleNavigate('painel')}
               />
             )}
 
