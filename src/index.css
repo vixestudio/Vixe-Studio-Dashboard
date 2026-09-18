@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-default: #F2F4FB;
+  --color-brand-hover: #FFFFFF;
+  --color-brand-dark: #272934;
+  --color-brand-very-dark: #17181E;
+
+  --color-dark-default: #0F0F10;
+  --color-dark-900: #17181E;
+  --color-dark-800: #1F2129;
+  --color-dark-700: #272934;
+  --color-dark-600: #313442;
+  --color-dark-500: #3D4155;
+  --color-dark-400: #656A83;
+  --color-dark-300: #9195AB;
+  --color-dark-200: #C6C8D7;
+  --color-dark-100: #F2F4FB;
+
+  --color-success-default: #D1D5DB;
+  --color-success-very-dark: #1F2129;
+  --color-warning-default: #9CA3AF;
+  --color-warning-dark: #374151;
+  --color-danger-default: #E5E7EB;
+  --color-danger-very-dark: #1F2129;
+
+  --color-discord-blurple: #272934;
+  --color-discord-dark: #1F2129;
+  --color-discord-darker: #17181E;
+  --color-discord-darkest: #0F0F10;
+}
+
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #0F0F10;
+    color: #C6C8D7;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  }
+}
+
+/* Custom dark scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0F0F10;
+}
+::-webkit-scrollbar-thumb {
+  background: #272934;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3D4155;
+}
+
+@utility text-h5 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+@utility text-h6 {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+}
+
+@utility bg-grey-100 {
+  background-color: #f3f4f6;
+}
+
+@utility border-blue-supplementary {
+  border-color: #0084ff;
+}

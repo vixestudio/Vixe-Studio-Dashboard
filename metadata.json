@@ -1,0 +1,7 @@
+{
+  "name": "Vixe Dashboard - Vixe Studio",
+  "description": "Painel de controle completo para bots do Discord com gerenciador de plugins, incorporador de mensagens, placar de XP e suporte a links diretos de imagens HTML.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

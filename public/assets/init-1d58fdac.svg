@@ -1,0 +1,42 @@
+<svg width="400" height="240" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="panelGrad" x1="120" y1="40" x2="280" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E2024" />
+      <stop offset="1" stop-color="#2B2D33" />
+    </linearGradient>
+    <linearGradient id="ticketGlow" x1="140" y1="50" x2="260" y2="170" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0084FF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#5865F2" stop-opacity="0.05" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Ambient Glow -->
+  <circle cx="200" cy="120" r="90" fill="#0084FF" fill-opacity="0.07" filter="blur(20px)" />
+
+  <!-- Base Panel -->
+  <rect x="110" y="50" width="180" height="120" rx="16" fill="url(#panelGrad)" stroke="#3F4147" stroke-width="1.5" />
+  
+  <!-- Dashed ticket divider -->
+  <line x1="110" y1="100" x2="290" y2="100" stroke="#4F545C" stroke-width="1.5" stroke-dasharray="4 4" />
+
+  <!-- Left / Right ticket punch-out circles -->
+  <circle cx="110" cy="100" r="10" fill="#141517" stroke="#3F4147" stroke-width="1.5" />
+  <circle cx="290" cy="100" r="10" fill="#141517" stroke="#3F4147" stroke-width="1.5" />
+
+  <!-- Ticket Header Elements -->
+  <rect x="135" y="68" width="50" height="8" rx="4" fill="#0084FF" />
+  <rect x="135" y="82" width="90" height="6" rx="3" fill="#5D6269" />
+  <circle cx="260" cy="76" r="10" fill="#0084FF" fill-opacity="0.2" />
+  <path d="M256 76L259 79L265 73" stroke="#0084FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Ticket Lower Elements -->
+  <rect x="135" y="118" width="130" height="6" rx="3" fill="#4F545C" />
+  <rect x="135" y="130" width="80" height="6" rx="3" fill="#3B3E45" />
+
+  <!-- Tiny floating sparkles / accents -->
+  <circle cx="85" cy="80" r="3" fill="#0084FF" fill-opacity="0.6" />
+  <circle cx="315" cy="135" r="4" fill="#5865F2" fill-opacity="0.6" />
+  <circle cx="300" cy="65" r="2.5" fill="#3BA55D" fill-opacity="0.7" />
+  <path d="M95 140L98 143L95 146L92 143Z" fill="#FAA81A" fill-opacity="0.8" />
+  <path d="M295 155L297 157L295 159L293 157Z" fill="#0084FF" fill-opacity="0.8" />
+</svg>
