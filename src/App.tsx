@@ -63,7 +63,7 @@ export default function App() {
         onNavigate={handleNavigate}
       />
 
-      <div className="flex-1 flex pt-0">
+      <div className="flex-1 flex pt-0 w-full min-w-0">
         {/* Left Sidebar (256px wide, fixed) */}
         <Sidebar
           currentServer={currentServer}
@@ -74,104 +74,106 @@ export default function App() {
           onCloseMobile={() => setIsMobileMenuOpen(false)}
         />
 
-        {/* Primary Content Arena (offset by sidebar width on desktop) */}
-        <main
-          id="main-content-area"
-          className="flex-1 lg:ml-64 w-full min-w-0 px-3.5 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto transition-all"
-        >
-          {activeScreen === 'painel' && (
-            <DashboardView
-              plugins={plugins}
-              selectedCategory={selectedCategory}
-              onSelectCategory={setSelectedCategory}
-              onConfigurePlugin={handleConfigurePlugin}
-              onTogglePluginActive={handleTogglePluginActive}
-              onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
-              onNavigateToScreen={handleNavigate}
-            />
-          )}
+        {/* Primary Content Container */}
+        <div className="flex-1 min-w-0 lg:pl-64 flex flex-col w-full">
+          <main
+            id="main-content-area"
+            className="flex-1 w-[1280px] max-w-full min-w-0 px-4 sm:px-6 lg:px-8 xl:px-10 py-6 mx-auto transition-all"
+          >
+            {activeScreen === 'painel' && (
+              <DashboardView
+                plugins={plugins}
+                selectedCategory={selectedCategory}
+                onSelectCategory={setSelectedCategory}
+                onConfigurePlugin={handleConfigurePlugin}
+                onTogglePluginActive={handleTogglePluginActive}
+                onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
+                onNavigateToScreen={handleNavigate}
+              />
+            )}
 
-          {activeScreen === 'leaderboard' && (
-            <LeaderboardView
-              currentServer={currentServer}
-              onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
-            />
-          )}
+            {activeScreen === 'leaderboard' && (
+              <LeaderboardView
+                currentServer={currentServer}
+                onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
+              />
+            )}
 
-          {activeScreen === 'embeds' && (
-            <EmbedBuilderView
-              onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
-            />
-          )}
+            {activeScreen === 'embeds' && (
+              <EmbedBuilderView
+                onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
+              />
+            )}
 
-          {activeScreen === 'welcome' && (
-            <WelcomeGoodbyeView
-              currentServer={currentServer}
-              onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
-            />
-          )}
+            {activeScreen === 'welcome' && (
+              <WelcomeGoodbyeView
+                currentServer={currentServer}
+                onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
+              />
+            )}
 
-          {activeScreen === 'customizer' && (
-            <BotCustomizerView
-              currentServer={currentServer}
-              onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
-              onNavigateToCharacters={() => handleNavigate('ai')}
-              onBackToDashboard={() => handleNavigate('painel')}
-            />
-          )}
+            {activeScreen === 'customizer' && (
+              <BotCustomizerView
+                currentServer={currentServer}
+                onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
+                onNavigateToCharacters={() => handleNavigate('ai')}
+                onBackToDashboard={() => handleNavigate('painel')}
+              />
+            )}
 
-          {activeScreen === 'moderator' && (
-            <ModeratorView currentServer={currentServer} />
-          )}
+            {activeScreen === 'moderator' && (
+              <ModeratorView currentServer={currentServer} />
+            )}
 
-          {activeScreen === 'commands' && (
-            <CustomCommandsView currentServer={currentServer} />
-          )}
+            {activeScreen === 'commands' && (
+              <CustomCommandsView currentServer={currentServer} />
+            )}
 
-          {activeScreen === 'tickets' && (
-            <TicketsView
-              currentServer={currentServer}
-              onBackToDashboard={() => handleNavigate('painel')}
-            />
-          )}
+            {activeScreen === 'tickets' && (
+              <TicketsView
+                currentServer={currentServer}
+                onBackToDashboard={() => handleNavigate('painel')}
+              />
+            )}
 
-          {activeScreen === 'giveaways' && (
-            <GiveawaysView
-              currentServer={currentServer}
-              onBackToDashboard={() => handleNavigate('painel')}
-            />
-          )}
+            {activeScreen === 'giveaways' && (
+              <GiveawaysView
+                currentServer={currentServer}
+                onBackToDashboard={() => handleNavigate('painel')}
+              />
+            )}
 
-          {(activeScreen === 'premium' || activeScreen === 'monetization') && (
-            <PremiumView currentServer={currentServer} />
-          )}
+            {(activeScreen === 'premium' || activeScreen === 'monetization') && (
+              <PremiumView currentServer={currentServer} />
+            )}
 
-          {activeScreen === 'ai' && (
-            <DashboardView
-              plugins={plugins}
-              selectedCategory="ia"
-              onSelectCategory={setSelectedCategory}
-              onConfigurePlugin={handleConfigurePlugin}
-              onTogglePluginActive={handleTogglePluginActive}
-              onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
-              onNavigateToScreen={handleNavigate}
-            />
-          )}
+            {activeScreen === 'ai' && (
+              <DashboardView
+                plugins={plugins}
+                selectedCategory="ia"
+                onSelectCategory={setSelectedCategory}
+                onConfigurePlugin={handleConfigurePlugin}
+                onTogglePluginActive={handleTogglePluginActive}
+                onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
+                onNavigateToScreen={handleNavigate}
+              />
+            )}
 
-          {activeScreen === 'settings' && (
-            <BotCustomizerView
-              currentServer={currentServer}
-              onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
-            />
-          )}
+            {activeScreen === 'settings' && (
+              <BotCustomizerView
+                currentServer={currentServer}
+                onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
+              />
+            )}
 
-          {activeScreen === 'notifications' && (
-            <NotificationsView
-              currentServer={currentServer}
-              onBackToDashboard={() => handleNavigate('painel')}
-            />
-          )}
-        </main>
+            {activeScreen === 'notifications' && (
+              <NotificationsView
+                currentServer={currentServer}
+                onBackToDashboard={() => handleNavigate('painel')}
+              />
+            )}
+          </main>
+        </div>
       </div>
 
       {/* Direct Image Link Helper & Tester Modal */}

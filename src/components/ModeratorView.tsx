@@ -41,7 +41,7 @@ export const ModeratorView: React.FC<ModeratorViewProps> = ({ currentServer }) =
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-dark-700 pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded bg-dark-700 text-dark-200 border border-dark-600 text-[11px] font-bold uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded-md bg-dark-700 text-dark-200 border border-dark-600 text-[11px] font-bold uppercase tracking-wider">
               Essenciais • Moderador
             </span>
           </div>
@@ -212,7 +212,7 @@ export const ModeratorView: React.FC<ModeratorViewProps> = ({ currentServer }) =
             </p>
             <div className="p-3 rounded-xl bg-dark-900 border border-dark-700 flex items-center justify-between">
               <span className="text-xs text-dark-300 font-medium">Canal de ModLog:</span>
-              <span className="text-xs font-semibold text-violet-400 bg-violet-950/40 px-2 py-0.5 rounded border border-violet-800/40">
+              <span className="text-xs font-semibold text-violet-400 bg-violet-950/40 px-2 py-0.5 rounded-md border border-violet-800/40">
                 #mod-logs
               </span>
             </div>

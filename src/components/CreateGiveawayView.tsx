@@ -440,94 +440,229 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
     onBack();
   };
 
-  return (
-    <div
-      className="flex flex-1 overflow-y-auto relative px-3 sm:px-6 lg:px-10 py-0 lg:py-6 animate-fadeIn"
-      id="dashboard__content"
-    >
-      <div className="min-h-full w-full max-w-[1540px] mx-auto">
-        <div className="w-full min-h-full transition-all flex flex-col opacity-100">
-          {/* Header Action Bar */}
-          <div className="mb-9 pt-6 lg:pt-0 flex flex-col lg:flex-row items-center justify-between gap-4">
-            <div className="flex mb-2 lg:mb-0 items-center justify-start w-full lg:w-auto">
-              <button
-                onClick={onBack}
-                className="cursor-pointer mr-4 text-dark-300 hover:text-white transition-colors p-1 -ml-1 rounded-lg"
-                title="Voltar"
-              >
-                <ArrowLeft className="w-6 h-6" />
-              </button>
-              <h2 className="font-bold text-dark-100 text-2xl tracking-tight">
-                Criar novo Sorteio
-              </h2>
+  const renderDiscordPreview = () => (
+    <div className="flex items-start gap-3 sm:gap-4 text-left">
+      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-violet-600 flex items-center justify-center font-bold text-white shrink-0 text-sm sm:text-base">
+        V
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 mb-1 flex-wrap">
+          <span className="font-bold text-white text-sm">Vixe Bot</span>
+          <span className="text-[10px] bg-indigo-600 text-white font-bold px-1.5 py-0.5 rounded-md">
+            BOT
+          </span>
+          <span className="text-xs text-zinc-400">Hoje às 15:42</span>
+        </div>
+
+        {/* Discord Embed */}
+        <div
+          className="rounded-lg bg-[#2b2d31] p-3.5 sm:p-4 text-xs space-y-2.5 border-l-4 shadow-sm relative overflow-hidden break-words"
+          style={{ borderLeftColor: stripeColor }}
+        >
+          {/* Author row */}
+          {authorName && (
+            <div className="flex items-center gap-2">
+              {authorImage && (
+                <img
+                  src={authorImage}
+                  alt=""
+                  className="w-5 h-5 rounded-full object-cover shrink-0"
+                />
+              )}
+              {authorUrl ? (
+                <a
+                  href={authorUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] text-white hover:underline font-semibold truncate"
+                >
+                  {authorName}
+                </a>
+              ) : (
+                <span className="text-[11px] text-zinc-300 font-semibold truncate">{authorName}</span>
+              )}
+            </div>
+          )}
+
+          {/* Title and Thumbnail container */}
+          <div className="flex items-start justify-between gap-3">
+            <div className="space-y-1.5 flex-1 min-w-0">
+              {titleUrl ? (
+                <a
+                  href={titleUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-base font-bold text-sky-400 hover:underline block break-words"
+                >
+                  {titleText || '🎉 Novo sorteio 🎉'}
+                </a>
+              ) : (
+                <h4 className="text-base font-bold text-white break-words">
+                  {titleText || '🎉 Novo sorteio 🎉'}
+                </h4>
+              )}
+
+              <p className="text-zinc-300 whitespace-pre-wrap leading-relaxed break-words">
+                {messageTemplate || 'Clique no botão abaixo para participar!'}
+              </p>
             </div>
 
-            <div className="grid gap-3 grid-flow-col auto-cols-max w-full lg:w-max justify-end">
-              <button
-                type="button"
-                onClick={handleResetForm}
-                className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-white bg-opacity-10 text-white hover:bg-opacity-20 active:bg-opacity-5 text-sm px-4 py-2 cursor-pointer font-medium"
-                title="Limpar todos os campos preenchidos"
-              >
-                Limpar tudo
-              </button>
-              <button
-                type="button"
-                onClick={onBack}
-                className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-white bg-opacity-10 text-white hover:bg-opacity-20 active:bg-opacity-5 disabled:cursor-not-allowed text-sm px-4 py-2 cursor-pointer font-medium"
-              >
-                Descartar
-              </button>
-              <button
-                type="button"
-                onClick={handlePublish}
-                className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-white bg-opacity-10 text-white hover:bg-opacity-20 active:bg-opacity-5 text-sm px-4 py-2 cursor-pointer font-medium"
-              >
-                Salvar
-              </button>
-              <button
-                type="button"
-                onClick={handlePublish}
-                disabled={!prizeName.trim()}
-                className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-brand-default text-dark-100 hover:bg-brand-hover active:bg-brand-default disabled:cursor-not-allowed disabled:opacity-50 text-sm px-5 py-2 font-bold cursor-pointer"
-              >
-                Publicar
-              </button>
+            {/* Capa / Thumbnail Preview */}
+            {thumbnailImage && (
+              <img
+                src={thumbnailImage}
+                alt="Thumbnail"
+                className="w-14 h-14 sm:w-16 sm:h-16 rounded-md object-cover shrink-0 ml-2"
+              />
+            )}
+          </div>
+
+          <div className="py-2 border-t border-b border-zinc-700/50 space-y-1">
+            <div className="text-white font-semibold flex items-center gap-1.5 flex-wrap">
+              <span>Prêmio:</span>
+              <span className="text-emerald-400 font-bold break-words">
+                {prizeName || 'Gift Card Digital'}
+              </span>
+            </div>
+            <div className="text-zinc-400 flex items-center gap-3 sm:gap-4 flex-wrap text-[11px]">
+              <span>Ganhadores: {winnersCount}</span>
+              <span>Término: {endDate ? `${endDate} às ${endTime || '23:59'}` : 'Em 24 horas'}</span>
             </div>
           </div>
 
-          {/* Form Sections */}
-          <div className="space-y-4 max-w-4xl pb-16">
-            {/* 1. Sorteios (Canal e Nome) */}
-            <div
-              className="bg-dark-800 shadow-xs sub_feature_card rounded-2xl border border-dark-700/80 overflow-hidden"
-              id="plugins.giveaways.name"
-            >
-              <h3
-                onClick={() => setIsGiveawaysNameOpen(!isGiveawaysNameOpen)}
-                className="text-h6 text-dark-100 flex justify-between items-start hover:text-dark-200 transition-all py-4 lg:py-6 px-6 cursor-pointer select-none"
-              >
-                <div className="flex flex-col w-full pr-4 max-w-[760px]">
-                  <div className="sub_feature_title flex items-center text-lg font-semibold">
-                    Sorteios
-                  </div>
-                </div>
-                <div className="flex items-center justify-between gap-4 text-dark-300">
-                  <button className="pt-1">
-                    {isGiveawaysNameOpen ? (
-                      <ChevronUp className="w-6 h-6 transition-all" />
-                    ) : (
-                      <ChevronDown className="w-6 h-6 transition-all" />
-                    )}
-                  </button>
-                </div>
-              </h3>
+          {customFieldName && (
+            <div className={isFieldInline ? 'inline-block mr-4 mb-2' : 'block mb-2'}>
+              <div className="font-bold text-white text-[11px] break-words">{customFieldName}</div>
+              <div className="text-zinc-400 text-[11px] break-words">{customFieldDesc}</div>
+            </div>
+          )}
 
-              {isGiveawaysNameOpen && (
-                <div className="text-base transition-all">
-                  <div className="p-6 pt-0">
-                    <div className="grid w-full border-t border-solid border-dark-700 pt-4"></div>
-                    <div className="max-w-xl grid grid-cols-1 gap-4">
+          {/* Imagem / Big Image Preview */}
+          {embedImage && (
+            <div className="mt-2 rounded-lg overflow-hidden max-h-64">
+              <img
+                src={embedImage}
+                alt="Banner"
+                className="w-full object-cover max-h-64 rounded-md"
+              />
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className="flex items-center gap-2 text-[10px] text-zinc-400 pt-1">
+            {footerImage && (
+              <img
+                src={footerImage}
+                alt=""
+                className="w-4 h-4 rounded-full object-cover shrink-0"
+              />
+            )}
+            <span className="truncate">
+              {footerText || `Sorteio organizado via Vixe Bot • ${currentServer.name}`}
+            </span>
+          </div>
+        </div>
+
+        {/* Reaction Button */}
+        <div className="mt-3">
+          <button
+            type="button"
+            className="px-4 py-1.5 bg-[#2b2d31] hover:bg-[#35373c] border border-zinc-700 rounded-lg text-white font-semibold text-xs flex items-center gap-2 cursor-pointer transition-colors shadow-xs"
+          >
+            <span>🎉</span>
+            <span>Participar (0)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div id="dashboard__content" className="w-full flex flex-col animate-fadeIn">
+      {/* Header Action Bar */}
+      <div className="mb-6 pt-4 lg:pt-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-dark-700/60 pb-5">
+        <div className="flex items-center justify-start w-full sm:w-auto">
+          <button
+            onClick={onBack}
+            className="cursor-pointer mr-3 text-dark-300 hover:text-white transition-colors p-1.5 -ml-1 rounded-lg hover:bg-dark-800"
+            title="Voltar"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div>
+            <h2 className="font-bold text-white text-xl sm:text-2xl tracking-tight font-display">
+              Criar novo Sorteio
+            </h2>
+            <p className="text-xs text-dark-400 mt-0.5">
+              Configure prêmios, canal de postagem e regras do sorteio
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 w-full sm:w-auto justify-start sm:justify-end">
+          <button
+            type="button"
+            onClick={() => setShowPreviewModal(true)}
+            className="xl:hidden flex items-center gap-1.5 bg-dark-800 hover:bg-dark-750 border border-zinc-700 text-zinc-200 hover:text-white text-xs sm:text-sm px-3 py-2 rounded-xl font-medium cursor-pointer transition-colors shadow-xs"
+          >
+            <Eye className="w-4 h-4 text-brand-default" />
+            <span>Ver Prévia</span>
+          </button>
+          <button
+            type="button"
+            onClick={handleResetForm}
+            className="flex items-center gap-1.5 bg-dark-800 hover:bg-dark-750 border border-zinc-700 text-zinc-300 hover:text-white text-xs sm:text-sm px-3 py-2 rounded-xl font-medium cursor-pointer transition-colors shadow-xs"
+            title="Limpar todos os campos preenchidos"
+          >
+            Limpar tudo
+          </button>
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex items-center gap-1.5 bg-dark-800 hover:bg-dark-750 border border-zinc-700 text-zinc-300 hover:text-white text-xs sm:text-sm px-3 py-2 rounded-xl font-medium cursor-pointer transition-colors shadow-xs"
+          >
+            Descartar
+          </button>
+          <button
+            type="button"
+            onClick={handlePublish}
+            disabled={!prizeName.trim()}
+            className="flex items-center gap-1.5 bg-brand-default text-dark-900 hover:bg-brand-hover active:bg-brand-default disabled:cursor-not-allowed disabled:opacity-40 text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-xl font-bold cursor-pointer transition-colors shadow-xs"
+          >
+            Publicar
+          </button>
+        </div>
+      </div>
+
+      {/* 2-Column Responsive Layout: Form on Left/Center, Live Discord Embed Preview on Right (Desktop) */}
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 xl:gap-8 items-start pb-16 w-full">
+        {/* Left Form Column */}
+        <div className="xl:col-span-7 2xl:col-span-8 space-y-4 w-full min-w-0">
+        {/* 1. Sorteios (Canal e Nome) */}
+        <div
+          className="bg-dark-800 shadow-xs sub_feature_card rounded-2xl border border-dark-700/80 overflow-hidden"
+          id="plugins.giveaways.name"
+        >
+          <h3
+            onClick={() => setIsGiveawaysNameOpen(!isGiveawaysNameOpen)}
+            className="text-h6 text-dark-100 flex justify-between items-center hover:text-dark-200 transition-all py-4 lg:py-6 px-6 cursor-pointer select-none"
+          >
+            <span className="text-lg font-semibold text-dark-100">
+              Sorteios
+            </span>
+            <div className="text-dark-300">
+              {isGiveawaysNameOpen ? (
+                <ChevronUp className="w-6 h-6 transition-all" />
+              ) : (
+                <ChevronDown className="w-6 h-6 transition-all" />
+              )}
+            </div>
+          </h3>
+
+          {isGiveawaysNameOpen && (
+            <div className="text-base transition-all">
+              <div className="p-6 pt-0 border-t border-dark-700/80">
+                <div className="w-full grid grid-cols-1 gap-4 pt-4">
                       {/* Canal Selector */}
                       <div>
                         <label className="text-sm font-medium text-dark-400 mb-2 flex items-start max-w-max justify-start">
@@ -592,16 +727,14 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
                         <label className="text-sm font-medium text-dark-400 mb-2 flex items-start max-w-max justify-start">
                           Nome do sorteio<span className="text-rose-500 ml-1">*</span>
                         </label>
-                        <div className="relative flex flex-col">
-                          <div className="overflow-hidden flex items-center justify-start bg-dark-900 rounded-lg border border-solid transition-all duration-200 focus-within:ring-opacity-30 focus-within:ring-[4px] hover:border-brand-default focus-within:border-brand-default focus-within:ring-brand-default border-dark-900">
-                            <input
-                              type="text"
-                              placeholder="Como você quer chamar esse sorteio?"
-                              value={giveawayTitle}
-                              onChange={(e) => setGiveawayTitle(e.target.value)}
-                              className="bg-transparent outline-none border-none py-3 placeholder:text-dark-400 text-sm text-dark-100 w-full px-4"
-                            />
-                          </div>
+                        <div className="overflow-hidden flex items-center justify-start bg-dark-900 rounded-lg border border-solid transition-all duration-200 focus-within:ring-opacity-30 focus-within:ring-[4px] hover:border-brand-default focus-within:border-brand-default focus-within:ring-brand-default border-dark-900">
+                          <input
+                            type="text"
+                            placeholder="Como você quer chamar esse sorteio?"
+                            value={giveawayTitle}
+                            onChange={(e) => setGiveawayTitle(e.target.value)}
+                            className="bg-transparent outline-none border-none py-3 placeholder:text-dark-400 text-sm text-dark-100 w-full px-4"
+                          />
                         </div>
                       </div>
                     </div>
@@ -617,44 +750,37 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
             >
               <h3
                 onClick={() => setIsWinningOpen(!isWinningOpen)}
-                className="text-h6 text-dark-100 flex justify-between items-start hover:text-dark-200 transition-all py-4 lg:py-6 px-6 cursor-pointer select-none"
+                className="text-h6 text-dark-100 flex justify-between items-center hover:text-dark-200 transition-all py-4 lg:py-6 px-6 cursor-pointer select-none"
               >
-                <div className="flex flex-col w-full pr-4 max-w-[760px]">
-                  <div className="sub_feature_title flex items-center text-lg font-semibold">
-                    Configurar vencedores
-                  </div>
-                </div>
-                <div className="flex items-center justify-between gap-4 text-dark-300">
-                  <button className="pt-1">
-                    {isWinningOpen ? (
-                      <ChevronUp className="w-6 h-6 transition-all" />
-                    ) : (
-                      <ChevronDown className="w-6 h-6 transition-all" />
-                    )}
-                  </button>
+                <span className="text-lg font-semibold text-dark-100">
+                  Configurar vencedores
+                </span>
+                <div className="text-dark-300">
+                  {isWinningOpen ? (
+                    <ChevronUp className="w-6 h-6 transition-all" />
+                  ) : (
+                    <ChevronDown className="w-6 h-6 transition-all" />
+                  )}
                 </div>
               </h3>
 
               {isWinningOpen && (
                 <div className="text-base transition-all">
-                  <div className="p-6 pt-0">
-                    <div className="grid w-full border-t border-solid border-dark-700 pt-4"></div>
-                    <div className="w-full max-w-xl grid grid-cols-1 gap-5">
+                  <div className="p-6 pt-0 border-t border-dark-700/80">
+                    <div className="w-full grid grid-cols-1 gap-5 pt-4">
                       <div>
                         <p className="text-base font-semibold text-dark-100 mb-3">Nome do prêmio</p>
                         <label className="text-sm font-medium text-dark-400 mb-2 flex items-start max-w-max justify-start">
                           O que os membros ganharão?<span className="text-rose-500 ml-1">*</span>
                         </label>
-                        <div className="relative flex flex-col">
-                          <div className="overflow-hidden flex items-center justify-start bg-dark-900 rounded-lg border border-solid transition-all duration-200 focus-within:ring-opacity-30 focus-within:ring-[4px] hover:border-brand-default focus-within:border-brand-default focus-within:ring-brand-default border-dark-900">
-                            <input
-                              type="text"
-                              placeholder="Exemplo: Um gift card digital"
-                              value={prizeName}
-                              onChange={(e) => setPrizeName(e.target.value)}
-                              className="bg-transparent outline-none border-none py-3 placeholder:text-dark-400 text-sm text-dark-100 w-full px-4"
-                            />
-                          </div>
+                        <div className="overflow-hidden flex items-center justify-start bg-dark-900 rounded-lg border border-solid transition-all duration-200 focus-within:ring-opacity-30 focus-within:ring-[4px] hover:border-brand-default focus-within:border-brand-default focus-within:ring-brand-default border-dark-900">
+                          <input
+                            type="text"
+                            placeholder="Exemplo: Um gift card digital"
+                            value={prizeName}
+                            onChange={(e) => setPrizeName(e.target.value)}
+                            className="bg-transparent outline-none border-none py-3 placeholder:text-dark-400 text-sm text-dark-100 w-full px-4"
+                          />
                         </div>
                       </div>
 
@@ -665,53 +791,49 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
 
                         <div className="space-y-4">
                           {/* Switch XP */}
-                          <div className="flex items-center justify-start">
+                          <div
+                            onClick={() => setGiveXp(!giveXp)}
+                            className="flex justify-start cursor-pointer gap-3 items-center"
+                          >
                             <div
-                              onClick={() => setGiveXp(!giveXp)}
-                              className="flex justify-start cursor-pointer gap-3 items-center"
+                              className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
+                                giveXp ? 'bg-brand-default' : 'bg-dark-600'
+                              }`}
                             >
                               <div
-                                className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                                  giveXp ? 'bg-brand-default' : 'bg-dark-600'
+                                className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center bg-grey-100 h-5 w-5 shadow-xs ${
+                                  giveXp ? 'translate-x-8' : 'left-1'
                                 }`}
-                              >
-                                <div
-                                  className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center bg-grey-100 h-5 w-5 shadow-xs ${
-                                    giveXp ? 'translate-x-8' : 'left-1'
-                                  }`}
-                                />
-                              </div>
-                              <label className="select-none cursor-pointer text-dark-100 text-sm font-medium">
-                                Também dê XP aos vencedores
-                              </label>
+                              />
                             </div>
+                            <label className="select-none cursor-pointer text-dark-100 text-sm font-medium">
+                              Também dê XP aos vencedores
+                            </label>
                           </div>
 
                           {/* Switch Coins */}
-                          <div className="flex items-center justify-start">
+                          <div
+                            onClick={() => setGiveCoins(!giveCoins)}
+                            className="flex justify-start cursor-pointer gap-3 items-center"
+                          >
                             <div
-                              onClick={() => setGiveCoins(!giveCoins)}
-                              className="flex justify-start cursor-pointer gap-3 items-center"
+                              className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
+                                giveCoins ? 'bg-brand-default' : 'bg-dark-600'
+                              }`}
                             >
                               <div
-                                className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                                  giveCoins ? 'bg-brand-default' : 'bg-dark-600'
+                                className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center bg-grey-100 h-5 w-5 shadow-xs ${
+                                  giveCoins ? 'translate-x-8' : 'left-1'
                                 }`}
-                              >
-                                <div
-                                  className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center bg-grey-100 h-5 w-5 shadow-xs ${
-                                    giveCoins ? 'translate-x-8' : 'left-1'
-                                  }`}
-                                />
-                              </div>
-                              <label className="select-none cursor-pointer text-dark-100 text-sm font-medium">
-                                Também dê moedas aos vencedores
-                              </label>
+                              />
                             </div>
+                            <label className="select-none cursor-pointer text-dark-100 text-sm font-medium">
+                              Também dê moedas aos vencedores
+                            </label>
                           </div>
 
                           {/* Switch Role Odds */}
-                          <div className="flex items-center justify-start">
+                          <div className="flex items-center gap-2">
                             <div
                               onClick={() => setAdjustRoleOdds(!adjustRoleOdds)}
                               className="flex justify-start cursor-pointer gap-3 items-center"
@@ -732,7 +854,7 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
                               </label>
                             </div>
 
-                            <div className="relative inline-block ml-2 group">
+                            <div className="relative inline-block ml-1 group">
                               <HelpCircle className="w-4 h-4 text-dark-400 cursor-pointer" />
                               <div className="absolute left-6 top-0 hidden group-hover:block z-40 w-64 bg-dark-900 border border-dark-700 p-3 rounded-lg text-xs text-dark-200 shadow-xl">
                                 Se um membro possuir vários dos cargos listados, o maior impulso
@@ -754,25 +876,21 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
                 onClick={() => setIsMessageOpen(!isMessageOpen)}
                 className="text-h6 text-dark-100 flex justify-between items-start hover:text-dark-200 transition-all py-4 lg:py-6 px-6 cursor-pointer select-none"
               >
-                <div className="flex flex-col w-full pr-4 max-w-[760px]">
-                  <div className="sub_feature_title flex items-center text-lg font-semibold">
-                    <div className="flex flex-col">
-                      <div>
-                        Mensagem<span className="text-rose-500 ml-1">*</span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setShowPreviewModal(true);
-                        }}
-                        className="mt-3 relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-2 bg-white bg-opacity-10 text-white hover:bg-opacity-20 active:bg-opacity-5 text-xs px-4 py-2 w-max cursor-pointer font-medium"
-                      >
-                        <Eye className="w-4 h-4 text-dark-300" />
-                        <span>Pré-visualizar a mensagem incorporada do Sorteio</span>
-                      </button>
-                    </div>
-                  </div>
+                <div className="flex flex-col gap-3">
+                  <span className="text-lg font-semibold text-dark-100">
+                    Mensagem<span className="text-rose-500 ml-1">*</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPreviewModal(true);
+                    }}
+                    className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-2 bg-white bg-opacity-10 text-white hover:bg-opacity-20 active:bg-opacity-5 text-xs px-4 py-2 w-max cursor-pointer font-medium"
+                  >
+                    <Eye className="w-4 h-4 text-dark-300" />
+                    <span>Pré-visualizar a mensagem incorporada do Sorteio</span>
+                  </button>
                 </div>
                 <div className="flex items-center justify-between gap-4 text-dark-300">
                   <button className="pt-1">
@@ -787,8 +905,7 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
 
               {isMessageOpen && (
                 <div className="text-base transition-all">
-                  <div className="p-6 pt-0">
-                    <div className="grid w-full border-t border-solid border-dark-700 pt-4"></div>
+                  <div className="p-6 pt-0 border-t border-dark-700/80">
 
                     {/* Color of the stripe */}
                     <div className="mb-5">
@@ -855,7 +972,7 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
 
                         {/* Dropdown color picker modal */}
                         {showColorPicker && (
-                          <div className="rounded-lg border border-solid border-dark-900 bg-dark-800 shadow-lg p-2.5 absolute top-[calc(100%+6px)] left-0 z-30 transform transition-all duration-200 w-max">
+                          <div className="rounded-xl border border-solid border-dark-700 bg-dark-800 shadow-2xl p-2.5 absolute top-[calc(100%+6px)] left-0 z-30 transform transition-all duration-200 w-max">
                             <SketchPickerModal
                               color={stripeColor}
                               onChange={setStripeColor}
@@ -889,7 +1006,7 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
 
                         {/* Dropdown color picker anchored directly to the lateral stripe */}
                         {showStripePicker && (
-                          <div className="rounded-lg border border-solid border-dark-900 bg-dark-800 shadow-2xl p-2.5 absolute top-0 left-6 z-40 transform transition-all duration-200 w-max">
+                          <div className="rounded-xl border border-solid border-dark-700 bg-dark-800 shadow-2xl p-2.5 absolute top-0 left-6 z-40 transform transition-all duration-200 w-max">
                             <SketchPickerModal
                               color={stripeColor}
                               onChange={setStripeColor}
@@ -903,7 +1020,7 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
                       {/* Embed Form Inputs */}
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-w-0">
                       {/* Left side inputs */}
-                      <div className="flex max-w-[472px] flex-1 flex-col order-2 lg:order-none lg:col-span-8">
+                      <div className="flex w-full flex-1 flex-col order-2 lg:order-none lg:col-span-8 min-w-0">
                         {/* Author row with image and URL */}
                         <div className="flex flex-col items-start relative mb-4">
                           <div className="flex gap-4 items-center w-full">
@@ -1407,29 +1524,24 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
             >
               <h3
                 onClick={() => setIsRequirementsOpen(!isRequirementsOpen)}
-                className="text-h6 text-dark-100 flex justify-between items-start hover:text-dark-200 transition-all py-4 lg:py-6 px-6 cursor-pointer select-none"
+                className="text-h6 text-dark-100 flex justify-between items-center hover:text-dark-200 transition-all py-4 lg:py-6 px-6 cursor-pointer select-none"
               >
-                <div className="flex flex-col w-full pr-4 max-w-[760px]">
-                  <div className="sub_feature_title flex items-center text-lg font-semibold">
-                    Outros pré-requisitos
-                  </div>
-                </div>
-                <div className="flex items-center justify-between gap-4 text-dark-300">
-                  <button className="pt-1">
-                    {isRequirementsOpen ? (
-                      <ChevronUp className="w-6 h-6 transition-all" />
-                    ) : (
-                      <ChevronDown className="w-6 h-6 transition-all" />
-                    )}
-                  </button>
+                <span className="text-lg font-semibold text-dark-100">
+                  Outros pré-requisitos
+                </span>
+                <div className="text-dark-300">
+                  {isRequirementsOpen ? (
+                    <ChevronUp className="w-6 h-6 transition-all" />
+                  ) : (
+                    <ChevronDown className="w-6 h-6 transition-all" />
+                  )}
                 </div>
               </h3>
 
               {isRequirementsOpen && (
                 <div className="text-base transition-all">
-                  <div className="p-6 pt-0">
-                    <div className="grid w-full border-t border-solid border-dark-700 pt-4"></div>
-                    <div className="max-w-xl grid grid-cols-1 gap-5">
+                  <div className="p-6 pt-0 border-t border-dark-700/80">
+                    <div className="w-full grid grid-cols-1 gap-5 pt-4">
                       {/* End Date & Timezone */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
@@ -1571,24 +1683,22 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
                         <label className="text-sm font-medium text-dark-400 mb-2 flex items-start max-w-max justify-start">
                           Número de ganhadores<span className="text-rose-500 ml-1">*</span>
                         </label>
-                        <div className="relative flex flex-col">
-                          <div className="overflow-hidden flex items-center justify-start bg-dark-900 rounded-lg border border-solid transition-all duration-200 focus-within:ring-opacity-30 focus-within:ring-[4px] hover:border-brand-default focus-within:border-brand-default focus-within:ring-brand-default border-dark-900">
-                            <div className="h-full flex items-center min-h-[48px] whitespace-nowrap pl-4 text-dark-400">
-                              <Shield className="w-5 h-5" />
-                            </div>
-                            <input
-                              type="number"
-                              min={1}
-                              max={50}
-                              placeholder="Ex: 1"
-                              value={winnersCount}
-                              onChange={(e) => {
-                                const val = e.target.value;
-                                setWinnersCount(val === '' ? '' : Math.max(1, parseInt(val) || 1));
-                              }}
-                              className="bg-transparent outline-none border-none py-3 placeholder:text-dark-400 text-sm text-dark-100 w-full pl-3 pr-4"
-                            />
+                        <div className="overflow-hidden flex items-center justify-start bg-dark-900 rounded-lg border border-solid transition-all duration-200 focus-within:ring-opacity-30 focus-within:ring-[4px] hover:border-brand-default focus-within:border-brand-default focus-within:ring-brand-default border-dark-900">
+                          <div className="h-full flex items-center min-h-[48px] whitespace-nowrap pl-4 text-dark-400">
+                            <Shield className="w-5 h-5" />
                           </div>
+                          <input
+                            type="number"
+                            min={1}
+                            max={50}
+                            placeholder="Ex: 1"
+                            value={winnersCount}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              setWinnersCount(val === '' ? '' : Math.max(1, parseInt(val) || 1));
+                            }}
+                            className="bg-transparent outline-none border-none py-3 placeholder:text-dark-400 text-sm text-dark-100 w-full pl-3 pr-4"
+                          />
                         </div>
                         <div className="flex items-center justify-start text-xs text-dark-400 mt-2">
                           <HelpCircle className="w-4 h-4 mr-1.5 text-dark-400 shrink-0" />
@@ -1726,14 +1836,30 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
               )}
             </div>
           </div>
+
+        {/* Right Sticky Preview Column (Visible on Desktop >= xl) */}
+        <div className="hidden xl:block xl:col-span-5 2xl:col-span-4 sticky top-20 space-y-3">
+          <div className="flex items-center justify-between px-1">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+                Prévia ao Vivo no Discord
+              </span>
+            </div>
+            <span className="text-[11px] text-zinc-400 font-mono">tempo real</span>
+          </div>
+
+          <div className="bg-[#313338] border border-dark-700/80 rounded-2xl p-5 shadow-2xl overflow-hidden">
+            {renderDiscordPreview()}
+          </div>
         </div>
       </div>
 
       {/* Modal: Preview of Embedded Giveaway Message */}
       {showPreviewModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-[#313338] border border-dark-700 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl animate-fadeIn">
-            <div className="p-4 border-b border-dark-700/80 flex items-center justify-between bg-dark-900">
+          <div className="bg-[#313338] border border-dark-700 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl animate-fadeIn max-h-[90vh] flex flex-col">
+            <div className="p-4 border-b border-dark-700/80 flex items-center justify-between bg-dark-900 shrink-0">
               <span className="text-xs font-bold text-dark-300 uppercase tracking-wider">
                 Pré-visualização do Discord
               </span>
@@ -1745,145 +1871,11 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
               </button>
             </div>
 
-            <div className="p-6">
-              {/* Bot message envelope */}
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-violet-600 flex items-center justify-center font-bold text-white shrink-0">
-                  V
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-white text-sm">Vixe Bot</span>
-                    <span className="text-[10px] bg-indigo-600 text-white font-bold px-1.5 py-0.5 rounded">
-                      BOT
-                    </span>
-                    <span className="text-xs text-zinc-400">Hoje às 15:42</span>
-                  </div>
-
-                  {/* Discord Embed */}
-                  <div
-                    className="rounded-lg bg-[#2b2d31] p-4 text-xs space-y-2.5 border-l-4 shadow-sm relative overflow-hidden"
-                    style={{ borderLeftColor: stripeColor }}
-                  >
-                    {/* Author row */}
-                    {authorName && (
-                      <div className="flex items-center gap-2">
-                        {authorImage && (
-                          <img
-                            src={authorImage}
-                            alt=""
-                            className="w-5 h-5 rounded-full object-cover"
-                          />
-                        )}
-                        {authorUrl ? (
-                          <a
-                            href={authorUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[11px] text-white hover:underline font-semibold"
-                          >
-                            {authorName}
-                          </a>
-                        ) : (
-                          <span className="text-[11px] text-zinc-300 font-semibold">{authorName}</span>
-                        )}
-                      </div>
-                    )}
-
-                    {/* Title and Thumbnail container */}
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="space-y-1.5 flex-1">
-                        {titleUrl ? (
-                          <a
-                            href={titleUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-base font-bold text-sky-400 hover:underline block"
-                          >
-                            {titleText || '🎉 Novo sorteio 🎉'}
-                          </a>
-                        ) : (
-                          <h4 className="text-base font-bold text-white">
-                            {titleText || '🎉 Novo sorteio 🎉'}
-                          </h4>
-                        )}
-
-                        <p className="text-zinc-300 whitespace-pre-wrap leading-relaxed">
-                          {messageTemplate || 'Clique no botão abaixo para participar!'}
-                        </p>
-                      </div>
-
-                      {/* Capa / Thumbnail Preview */}
-                      {thumbnailImage && (
-                        <img
-                          src={thumbnailImage}
-                          alt="Thumbnail"
-                          className="w-16 h-16 rounded-md object-cover shrink-0 ml-2"
-                        />
-                      )}
-                    </div>
-
-                    <div className="py-2 border-t border-b border-zinc-700/50 space-y-1">
-                      <div className="text-white font-semibold flex items-center gap-1.5">
-                        <span>Prêmio:</span>
-                        <span className="text-emerald-400 font-bold">
-                          {prizeName || 'Gift Card Digital'}
-                        </span>
-                      </div>
-                      <div className="text-zinc-400 flex items-center gap-4">
-                        <span>Ganhadores: {winnersCount}</span>
-                        <span>Término: {endDate} às {endTime}</span>
-                      </div>
-                    </div>
-
-                    {customFieldName && (
-                      <div className={isFieldInline ? 'inline-block mr-4' : 'block'}>
-                        <div className="font-bold text-white text-[11px]">{customFieldName}</div>
-                        <div className="text-zinc-400 text-[11px]">{customFieldDesc}</div>
-                      </div>
-                    )}
-
-                    {/* Imagem / Big Image Preview */}
-                    {embedImage && (
-                      <div className="mt-2 rounded-lg overflow-hidden max-h-64">
-                        <img
-                          src={embedImage}
-                          alt="Banner"
-                          className="w-full object-cover max-h-64 rounded-md"
-                        />
-                      </div>
-                    )}
-
-                    {/* Footer */}
-                    <div className="flex items-center gap-2 text-[10px] text-zinc-400 pt-1">
-                      {footerImage && (
-                        <img
-                          src={footerImage}
-                          alt=""
-                          className="w-4 h-4 rounded-full object-cover"
-                        />
-                      )}
-                      <span>
-                        {footerText || `Sorteio organizado via Vixe Bot • ${currentServer.name}`}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Reaction Button */}
-                  <div className="mt-3">
-                    <button
-                      type="button"
-                      className="px-4 py-1.5 bg-[#2b2d31] hover:bg-[#35373c] border border-zinc-700 rounded-lg text-white font-semibold text-xs flex items-center gap-2 cursor-pointer transition-colors shadow-xs"
-                    >
-                      <span>🎉</span>
-                      <span>Participar (0)</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+            <div className="p-6 overflow-y-auto">
+              {renderDiscordPreview()}
             </div>
 
-            <div className="p-4 bg-dark-900 border-t border-dark-700/80 flex justify-end">
+            <div className="p-4 bg-dark-900 border-t border-dark-700/80 flex justify-end shrink-0">
               <button
                 type="button"
                 onClick={() => setShowPreviewModal(false)}

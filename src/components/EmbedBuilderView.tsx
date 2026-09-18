@@ -85,10 +85,10 @@ export const EmbedBuilderView: React.FC<EmbedBuilderViewProps> = ({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-dark-700 pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded bg-dark-700 text-dark-200 border border-dark-600 text-[11px] font-bold uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded-md bg-dark-700 text-dark-200 border border-dark-600 text-[11px] font-bold uppercase tracking-wider">
               Utilidades • Mensagens Incorporadas
             </span>
-            <span className="px-2 py-0.5 rounded bg-dark-700 text-dark-200 border border-dark-600 text-[10px] font-bold">
+            <span className="px-2 py-0.5 rounded-md bg-dark-700 text-dark-200 border border-dark-600 text-[10px] font-bold">
               HTML Images OK
             </span>
           </div>
@@ -391,7 +391,7 @@ export const EmbedBuilderView: React.FC<EmbedBuilderViewProps> = ({
                     <span className="font-semibold text-sm text-white hover:underline cursor-pointer">
                       Vixe
                     </span>
-                    <span className="bg-dark-700 text-dark-300 border border-dark-600 text-[10px] font-bold px-1.5 py-0.2 rounded">
+                    <span className="bg-dark-700 text-dark-300 border border-dark-600 text-[10px] font-bold px-1.5 py-0.2 rounded-md">
                       BOT
                     </span>
                     <span className="text-[11px] text-[#949ba4] ml-1">Hoje às 14:20</span>

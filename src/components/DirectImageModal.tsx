@@ -77,7 +77,7 @@ export const DirectImageModal: React.FC<DirectImageModalProps> = ({
                   Como funcionam os links diretos para imagens?
                 </p>
                 <p className="text-xs text-dark-400 leading-relaxed">
-                  Sim! Imagens hospedadas online (em serviços como CDN, Imgur, Discord CDN, Unsplash, Cloudinary, etc.) podem ser inseridas diretamente usando o atributo <code className="text-dark-100 bg-dark-700 border border-dark-600 px-1.5 py-0.5 rounded text-[11px]">src="URL_DIRETA"</code> no HTML ou nos campos de imagem das mensagens incorporadas e banners do Vixe.
+                  Sim! Imagens hospedadas online (em serviços como CDN, Imgur, Discord CDN, Unsplash, Cloudinary, etc.) podem ser inseridas diretamente usando o atributo <code className="text-dark-100 bg-dark-700 border border-dark-600 px-1.5 py-0.5 rounded-md text-[11px]">src="URL_DIRETA"</code> no HTML ou nos campos de imagem das mensagens incorporadas e banners do Vixe.
                 </p>
               </div>
             </div>
@@ -120,7 +120,7 @@ export const DirectImageModal: React.FC<DirectImageModalProps> = ({
                 type="text"
                 value={altText}
                 onChange={(e) => setAltText(e.target.value)}
-                className="bg-dark-default border border-dark-700 text-xs text-dark-200 px-2.5 py-1 rounded max-w-xs focus:outline-none focus:border-dark-500"
+                className="bg-dark-default border border-dark-700 text-xs text-dark-200 px-2.5 py-1 rounded-lg max-w-xs focus:outline-none focus:border-dark-500"
               />
             </div>
           </div>
@@ -196,7 +196,7 @@ export const DirectImageModal: React.FC<DirectImageModalProps> = ({
               <button
                 id="copy-html-tag-btn"
                 onClick={() => copyToClipboard(htmlCodeSnippet, 'html')}
-                className="px-3 py-1.5 bg-dark-700 hover:bg-dark-600 text-dark-200 text-xs font-medium rounded flex items-center gap-1.5 shrink-0 transition-colors"
+                className="px-3 py-1.5 bg-dark-700 hover:bg-dark-600 text-dark-200 text-xs font-medium rounded-lg flex items-center gap-1.5 shrink-0 transition-colors cursor-pointer"
               >
                 {copiedKey === 'html' ? (
                   <>
@@ -225,7 +225,7 @@ export const DirectImageModal: React.FC<DirectImageModalProps> = ({
               <button
                 id="copy-markdown-tag-btn"
                 onClick={() => copyToClipboard(markdownSnippet, 'md')}
-                className="px-3 py-1.5 bg-dark-700 hover:bg-dark-600 text-dark-200 text-xs font-medium rounded flex items-center gap-1.5 shrink-0 transition-colors"
+                className="px-3 py-1.5 bg-dark-700 hover:bg-dark-600 text-dark-200 text-xs font-medium rounded-lg flex items-center gap-1.5 shrink-0 transition-colors cursor-pointer"
               >
                 {copiedKey === 'md' ? (
                   <>
@@ -254,7 +254,7 @@ export const DirectImageModal: React.FC<DirectImageModalProps> = ({
               <button
                 id="copy-discord-json-btn"
                 onClick={() => copyToClipboard(discordJsonSnippet, 'json')}
-                className="px-3 py-1.5 bg-dark-700 hover:bg-dark-600 text-dark-200 text-xs font-medium rounded flex items-center gap-1.5 shrink-0 transition-colors"
+                className="px-3 py-1.5 bg-dark-700 hover:bg-dark-600 text-dark-200 text-xs font-medium rounded-lg flex items-center gap-1.5 shrink-0 transition-colors cursor-pointer"
               >
                 {copiedKey === 'json' ? (
                   <>

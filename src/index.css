@@ -3,6 +3,7 @@
 @theme {
   --color-brand-default: #F2F4FB;
   --color-brand-hover: #FFFFFF;
+  --color-brand-light: #70B1FF;
   --color-brand-dark: #272934;
   --color-brand-very-dark: #17181E;
 
@@ -17,14 +18,16 @@
   --color-dark-200: #C6C8D7;
   --color-dark-100: #F2F4FB;
 
-  --color-success-default: #D1D5DB;
+  --color-success-default: #22C55E;
   --color-success-very-dark: #1F2129;
   --color-warning-default: #9CA3AF;
   --color-warning-dark: #374151;
   --color-danger-default: #E5E7EB;
   --color-danger-very-dark: #1F2129;
 
-  --color-discord-blurple: #272934;
+  --color-discord-default: #5865F2;
+  --color-discord-blurple: #5865F2;
+  --color-grey-600: #313442;
   --color-discord-dark: #1F2129;
   --color-discord-darker: #17181E;
   --color-discord-darkest: #0F0F10;

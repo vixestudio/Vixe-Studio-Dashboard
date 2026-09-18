@@ -178,7 +178,7 @@ export const TicketsView: React.FC<TicketsViewProps> = ({ currentServer, onBackT
                   type="button"
                   onClick={onBackToDashboard}
                   aria-label="Voltar"
-                  className="sm:hidden text-dark-100 p-1 hover:bg-dark-700 rounded transition-colors"
+                  className="sm:hidden text-dark-100 p-1 hover:bg-dark-700 rounded-lg transition-colors"
                 >
                   <svg
                     width="24"
@@ -337,7 +337,7 @@ export const TicketsView: React.FC<TicketsViewProps> = ({ currentServer, onBackT
                           </div>
                           <button
                             onClick={() => handleDeletePanel(p.id)}
-                            className="text-xs text-rose-400 hover:text-rose-300 p-2 rounded hover:bg-rose-950/40 transition-colors"
+                            className="text-xs text-rose-400 hover:text-rose-300 p-2 rounded-lg hover:bg-rose-950/40 transition-colors cursor-pointer"
                           >
                             Excluir
                           </button>

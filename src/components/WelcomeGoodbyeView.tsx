@@ -34,10 +34,10 @@ export const WelcomeGoodbyeView: React.FC<WelcomeGoodbyeViewProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-dark-700 pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded bg-dark-700 text-dark-200 border border-dark-600 text-[11px] font-bold uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded-md bg-dark-700 text-dark-200 border border-dark-600 text-[11px] font-bold uppercase tracking-wider">
               Essenciais • Recepção e Despedida
             </span>
-            <span className="px-2 py-0.5 rounded bg-dark-700 text-dark-200 border border-dark-600 text-[10px] font-bold">
+            <span className="px-2 py-0.5 rounded-md bg-dark-700 text-dark-200 border border-dark-600 text-[10px] font-bold">
               Imagens HTML Diretas
             </span>
           </div>
@@ -228,7 +228,7 @@ export const WelcomeGoodbyeView: React.FC<WelcomeGoodbyeViewProps> = ({
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="font-semibold text-xs text-white">Vixe</span>
-                    <span className="bg-dark-700 text-dark-300 border border-dark-600 text-[9px] font-bold px-1 rounded">
+                    <span className="bg-dark-700 text-dark-300 border border-dark-600 text-[9px] font-bold px-1 rounded-md">
                       BOT
                     </span>
                     <span className="text-[10px] text-[#949ba4]">Hoje às 14:25</span>

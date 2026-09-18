@@ -77,7 +77,7 @@ export const CustomCommandsView: React.FC<CustomCommandsViewProps> = ({ currentS
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-dark-700 pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded bg-dark-700 text-dark-200 border border-dark-600 text-[11px] font-bold uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded-md bg-dark-700 text-dark-200 border border-dark-600 text-[11px] font-bold uppercase tracking-wider">
               Gerenciar Servidor • Comandos Customizáveis
             </span>
           </div>
@@ -173,11 +173,11 @@ export const CustomCommandsView: React.FC<CustomCommandsViewProps> = ({ currentS
                 >
                   <div className="space-y-1 min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-dark-700 text-dark-200 border border-dark-600">
+                      <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-dark-700 text-dark-200 border border-dark-600">
                         {cmd.name}
                       </span>
                       {cmd.roleReward && (
-                        <span className="text-[10px] px-2 py-0.2 rounded bg-dark-700 text-dark-300 border border-dark-600">
+                        <span className="text-[10px] px-2 py-0.2 rounded-md bg-dark-700 text-dark-300 border border-dark-600">
                           Atribui cargo @{cmd.roleReward}
                         </span>
                       )}

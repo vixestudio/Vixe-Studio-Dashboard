@@ -335,7 +335,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
             </p>
             <div className="p-3 rounded-xl bg-dark-900 border border-zinc-800/80 flex items-center justify-between">
               <span className="text-xs text-zinc-300 font-medium">Canal de Registro:</span>
-              <span className="text-xs font-semibold text-violet-400 bg-violet-950/40 px-2 py-0.5 rounded border border-violet-800/40">
+              <span className="text-xs font-semibold text-violet-400 bg-violet-950/40 px-2 py-0.5 rounded-md border border-violet-800/40">
                 #bot-logs
               </span>
             </div>

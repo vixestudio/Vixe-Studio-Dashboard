@@ -51,7 +51,7 @@ export const PluginConfigModal: React.FC<PluginConfigModalProps> = ({
               <div className="flex items-center gap-2">
                 <h3 className="text-sm sm:text-base font-bold text-dark-100 font-display truncate">{plugin.title}</h3>
                 {plugin.isNew && (
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-dark-700 text-dark-200 border border-dark-600 shrink-0">
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-dark-700 text-dark-200 border border-dark-600 shrink-0">
                     Novo!
                   </span>
                 )}
@@ -160,7 +160,7 @@ export const PluginConfigModal: React.FC<PluginConfigModalProps> = ({
                 <img
                   src={customBannerUrl}
                   alt="Prévia direta"
-                  className="h-24 w-full object-cover rounded"
+                  className="h-24 w-full object-cover rounded-md"
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = 'none';
                   }}

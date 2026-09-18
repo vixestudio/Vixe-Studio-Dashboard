@@ -1,14 +1,12 @@
 export type CategoryId =
   | 'todos'
   | 'essenciais'
-  | 'populares'
   | 'gerenciar'
   | 'utilidades'
   | 'sociais'
   | 'engajamento'
   | 'ia'
-  | 'monetizacao'
-  | 'web3';
+  | 'monetizacao';
 
 export interface PluginItem {
   id: string;

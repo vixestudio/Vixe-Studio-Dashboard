@@ -13,7 +13,6 @@ import {
   Cpu,
   Crown,
   DoorOpen,
-  Fuel,
   Gem,
   Gift,
   Headphones,
@@ -29,7 +28,6 @@ import {
   Radio,
   Rss,
   Search,
-  SearchCode,
   Settings,
   ShieldAlert,
   Smile,
@@ -81,7 +79,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     sociais: false,
     engajamento: false,
     monetizacao: false,
-    web3: false,
   });
 
   useEffect(() => {
@@ -363,7 +360,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
               className="w-full flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-zinc-400 hover:text-white py-1 px-1 transition-colors cursor-pointer"
             >
               <span className="flex items-center gap-1.5">
-                <Sparkles className="w-3 h-3 text-zinc-400" />
                 <span>IA VIXE</span>
                 <span className="text-[10px] text-zinc-500 font-normal">(4)</span>
               </span>
@@ -484,7 +480,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             >
               <span className="flex items-center gap-1.5">
                 <span>UTILIDADES</span>
-                <span className="text-[10px] text-zinc-500 font-normal">(7)</span>
+                <span className="text-[10px] text-zinc-500 font-normal">(8)</span>
               </span>
               {openSections['utilidades'] ? (
                 <ChevronDown className="w-3.5 h-3.5 text-zinc-400" />
@@ -495,6 +491,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
             {openSections['utilidades'] && (
               <div className="space-y-0.5 pl-1">
+                <button
+                  onClick={() => handleNavClick('painel', 'utilidades')}
+                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
+                >
+                  <Smile className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
+                  <span className="truncate">Emojis</span>
+                </button>
                 <button
                   onClick={() => handleNavClick('painel', 'utilidades')}
                   className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
@@ -723,78 +726,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
             )}
           </div>
-
-          {/* Categorized Collapsible: WEB3 (Fechado por padrão) */}
-          <div className="space-y-1 pt-1 border-t border-zinc-800">
-            <button
-              onClick={() => toggleSection('web3')}
-              className="w-full flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-zinc-400 hover:text-white py-1 px-1 transition-colors cursor-pointer"
-            >
-              <span className="flex items-center gap-1.5">
-                <span>WEB3</span>
-                <span className="text-[10px] text-zinc-500 font-normal">(7)</span>
-              </span>
-              {openSections['web3'] ? (
-                <ChevronDown className="w-3.5 h-3.5 text-zinc-400" />
-              ) : (
-                <ChevronRight className="w-3.5 h-3.5 text-zinc-400" />
-              )}
-            </button>
-
-            {openSections['web3'] && (
-              <div className="space-y-0.5 pl-1">
-                <button
-                  onClick={() => handleNavClick('painel', 'web3')}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
-                >
-                  <Layers className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
-                  <span className="truncate">Estatísticas NFT</span>
-                </button>
-                <button
-                  onClick={() => handleNavClick('painel', 'web3')}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
-                >
-                  <SearchCode className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
-                  <span className="truncate">Consultas NFT</span>
-                </button>
-                <button
-                  onClick={() => handleNavClick('painel', 'web3')}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
-                >
-                  <Tag className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
-                  <span className="truncate">Vendas e Listagem de NFT</span>
-                </button>
-                <button
-                  onClick={() => handleNavClick('painel', 'web3')}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
-                >
-                  <TrendingUp className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
-                  <span className="truncate">Estatísticas de Cripto</span>
-                </button>
-                <button
-                  onClick={() => handleNavClick('painel', 'web3')}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
-                >
-                  <Coins className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
-                  <span className="truncate">Consultas de Criptomoedas</span>
-                </button>
-                <button
-                  onClick={() => handleNavClick('painel', 'web3')}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
-                >
-                  <Fuel className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
-                  <span className="truncate">Gas Tracker</span>
-                </button>
-                <button
-                  onClick={() => handleNavClick('painel', 'web3')}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
-                >
-                  <Lock className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
-                  <span className="truncate">Gating</span>
-                </button>
-              </div>
-            )}
-          </div>
         </div>
 
         {/* Bottom Status Card */}
@@ -807,7 +738,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <p className="text-[10px] text-zinc-400">Estado: Desativado</p>
               </div>
             </div>
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-dark-700 text-zinc-400 border border-zinc-700">
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-dark-700 text-zinc-400 border border-zinc-700">
               Offline
             </span>
           </div>

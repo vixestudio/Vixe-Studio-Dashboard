@@ -92,7 +92,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
                 <h1 className="text-lg sm:text-2xl font-extrabold text-dark-100 font-display truncate">
                   Placar de XP • {currentServer.name}
                 </h1>
-                <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded bg-dark-700 text-dark-200 font-bold border border-dark-600 shrink-0">
+                <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded-md bg-dark-700 text-dark-200 font-bold border border-dark-600 shrink-0">
                   Temporada Ativa
                 </span>
               </div>
@@ -151,7 +151,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
               </span>
             </div>
             <h4 className="text-sm font-bold text-dark-100 font-display">{top3[1].username}</h4>
-            <span className="text-[11px] font-semibold px-2 py-0.5 rounded mt-1 bg-dark-700 text-dark-200 border border-dark-600">
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md mt-1 bg-dark-700 text-dark-200 border border-dark-600">
               {top3[1].role}
             </span>
             <div className="mt-3 text-xs text-dark-400">
@@ -160,7 +160,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
             </div>
             <button
               onClick={() => handleGiveXp(top3[1].id)}
-              className="mt-3 px-3 py-1 rounded bg-dark-700 hover:bg-dark-600 text-dark-200 hover:text-dark-100 text-[11px] font-semibold transition-colors flex items-center gap-1"
+              className="mt-3 px-3 py-1 rounded-lg bg-dark-700 hover:bg-dark-600 text-dark-200 hover:text-dark-100 text-[11px] font-semibold transition-colors flex items-center gap-1 cursor-pointer"
             >
               <Plus className="w-3 h-3" /> Dar +500 XP
             </button>
@@ -189,7 +189,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
             <h4 className="text-base font-extrabold text-dark-100 font-display">
               {top3[0].username}
             </h4>
-            <span className="text-xs font-bold px-2.5 py-0.5 rounded mt-1 bg-dark-700 text-dark-200 border border-dark-600">
+            <span className="text-xs font-bold px-2.5 py-0.5 rounded-md mt-1 bg-dark-700 text-dark-200 border border-dark-600">
               {top3[0].role}
             </span>
             <div className="mt-3 text-xs text-dark-300">
@@ -198,7 +198,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
             </div>
             <button
               onClick={() => handleGiveXp(top3[0].id)}
-              className="mt-4 px-4 py-1.5 rounded-lg bg-dark-100 hover:bg-white text-dark-default text-xs font-extrabold transition-colors flex items-center gap-1 shadow-xs"
+              className="mt-4 px-4 py-1.5 rounded-lg bg-dark-100 hover:bg-white text-dark-default text-xs font-extrabold transition-colors flex items-center gap-1 shadow-xs cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" /> Dar +500 XP
             </button>
@@ -222,7 +222,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
               </span>
             </div>
             <h4 className="text-sm font-bold text-dark-100 font-display">{top3[2].username}</h4>
-            <span className="text-[11px] font-semibold px-2 py-0.5 rounded mt-1 bg-dark-700 text-dark-200 border border-dark-600">
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md mt-1 bg-dark-700 text-dark-200 border border-dark-600">
               {top3[2].role}
             </span>
             <div className="mt-3 text-xs text-dark-400">
@@ -231,7 +231,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
             </div>
             <button
               onClick={() => handleGiveXp(top3[2].id)}
-              className="mt-3 px-3 py-1 rounded bg-dark-700 hover:bg-dark-600 text-dark-200 hover:text-dark-100 text-[11px] font-semibold transition-colors flex items-center gap-1"
+              className="mt-3 px-3 py-1 rounded-lg bg-dark-700 hover:bg-dark-600 text-dark-200 hover:text-dark-100 text-[11px] font-semibold transition-colors flex items-center gap-1 cursor-pointer"
             >
               <Plus className="w-3 h-3" /> Dar +500 XP
             </button>

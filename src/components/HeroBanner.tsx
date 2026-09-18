@@ -127,7 +127,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onOpenDirectImageModal }
                         <span className="text-xs sm:text-sm font-bold text-white group-hover:text-zinc-100 transition-colors truncate">
                           {mascot.name}
                         </span>
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-dark-700 text-zinc-300 border border-zinc-700 tracking-wider shrink-0">
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-dark-700 text-zinc-300 border border-zinc-700 tracking-wider shrink-0">
                           {mascot.tag}
                         </span>
                       </div>
@@ -163,7 +163,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onOpenDirectImageModal }
                     <h3 className="text-base font-bold text-dark-100 font-display">
                       Conversar com {selectedMascot.name}
                     </h3>
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-dark-700 text-dark-300 border border-dark-600">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-dark-700 text-dark-300 border border-dark-600">
                       BOT
                     </span>
                   </div>
@@ -181,7 +181,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onOpenDirectImageModal }
                     <button
                       key={m.id}
                       onClick={() => setSelectedMascot(m)}
-                      className={`px-2 py-1 rounded text-xs font-semibold transition-colors cursor-pointer ${
+                      className={`px-2 py-1 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
                         m.id === selectedMascot.id
                           ? 'bg-zinc-700 text-white border border-zinc-600'
                           : 'text-zinc-400 hover:text-zinc-200'
@@ -227,7 +227,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onOpenDirectImageModal }
                     <div className="flex items-center gap-1.5 mb-1 font-semibold text-xs opacity-75">
                       <span>{msg.sender}</span>
                       {msg.isBot && (
-                        <span className="text-[9px] bg-dark-800 text-dark-300 border border-dark-700 px-1 py-0.2 rounded font-bold">
+                        <span className="text-[9px] bg-dark-800 text-dark-300 border border-dark-700 px-1 py-0.2 rounded-md font-bold">
                           BOT
                         </span>
                       )}

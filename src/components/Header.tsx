@@ -158,7 +158,7 @@ export const Header: React.FC<HeaderProps> = ({
                 className="relative py-2 px-3 hover:bg-dark-800 hover:text-white bg-transparent transition-all rounded-lg cursor-pointer whitespace-nowrap text-sm text-zinc-300 flex items-center justify-between"
               >
                 <span>Pro</span>
-                <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30">
                   VIP
                 </span>
               </div>

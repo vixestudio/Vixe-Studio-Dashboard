@@ -14,6 +14,7 @@ import {
   Hash,
   Smile,
   Plus,
+  Trash2,
 } from 'lucide-react';
 import { ServerInfo } from '../types';
 
@@ -65,8 +66,16 @@ const ALL_CHANNELS = [
   { id: 'c27', name: '🔹・log-parcerias-aprovadas' },
 ];
 
+const DiscordLogo: React.FC<{ className?: string }> = ({ className = 'w-6 h-6 text-white' }) => (
+  <svg className={className} viewBox="0 0 127.14 96.36" fill="currentColor">
+    <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.91,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.91,96.12,53,91.08,65.69,84.69,65.69Z" />
+  </svg>
+);
+
 const DICAS_ILLUSTRATION_BASE64 =
   'data:image/png;base64,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';
+
+const DEFAULT_BOT_ICON = 'https://cdn.discordapp.com/embed/avatars/0.png';
 
 export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
   currentServer,
@@ -76,23 +85,23 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
 }) => {
   // Config state
   const [isActive, setIsActive] = useState(true);
-  const [activeTab, setActiveTab] = useState<'basics' | 'backstory'>('backstory');
+  const [activeTab, setActiveTab] = useState<'basics' | 'backstory'>('basics');
   
   // Bot identity
-  const [botName, setBotName] = useState('vixestudio');
-  const [botIcon, setBotIcon] = useState('https://cdn.discordapp.com/embed/avatars/0.png');
+  const [botName, setBotName] = useState('');
+  const [botIcon, setBotIcon] = useState(DEFAULT_BOT_ICON);
   const [botBanner, setBotBanner] = useState<string | null>(null);
   
   // Status & Activity
   const [status, setStatus] = useState<StatusOption>('online');
   const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
 
-  const [activityType, setActivityType] = useState<ActivityOption>('listening');
+  const [activityType, setActivityType] = useState<ActivityOption>('none');
   const [isActivityDropdownOpen, setIsActivityDropdownOpen] = useState(false);
 
-  const [statusText, setStatusText] = useState('/help');
+  const [statusText, setStatusText] = useState('');
   const [streamUrl, setStreamUrl] = useState('');
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(true);
 
   // Backstory AI states
   const [isBackstoryActive, setIsBackstoryActive] = useState(true);
@@ -296,7 +305,7 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                 >
                   <div className="flex items-center justify-start gap-2">
                     <p>História de fundo</p>
-                    <div className="text-white bg-gradient-to-r from-violet-600 to-indigo-600 px-1.5 py-0.5 rounded text-[11px] font-extrabold tracking-wider">
+                    <div className="text-white bg-gradient-to-r from-violet-600 to-indigo-600 px-1.5 py-0.5 rounded-md text-[11px] font-extrabold tracking-wider">
                       AI
                     </div>
                   </div>
@@ -441,7 +450,7 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                                       setBackstoryPrompt((prev) => prev + ' ' + emoji);
                                       setShowEmojiPicker(false);
                                     }}
-                                    className="p-1.5 hover:bg-dark-700 rounded text-base cursor-pointer transition-transform hover:scale-110"
+                                    className="p-1.5 hover:bg-dark-700 rounded-lg text-base cursor-pointer transition-transform hover:scale-110"
                                   >
                                     {emoji}
                                   </button>
@@ -514,7 +523,7 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                                     <p className="text-white text-sm font-semibold text-ellipsis overflow-hidden max-w-[120px] whitespace-nowrap">
                                       {botName}
                                     </p>
-                                    <div className="bg-[#5865F2] rounded px-1 text-[10px] font-semibold py-0.5 text-white uppercase">
+                                    <div className="bg-[#5865F2] rounded-md px-1 text-[10px] font-semibold py-0.5 text-white uppercase">
                                       APP
                                     </div>
                                   </div>
@@ -565,7 +574,7 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                                 <div className="mt-2">
                                   <div className="flex items-center gap-1.5">
                                     <p className="text-white text-lg font-bold">{botName}</p>
-                                    <div className="bg-[#5865F2] rounded px-1.5 text-[10px] font-semibold py-0.5 text-white uppercase">
+                                    <div className="bg-[#5865F2] rounded-md px-1.5 text-[10px] font-semibold py-0.5 text-white uppercase">
                                       APP
                                     </div>
                                   </div>
@@ -780,91 +789,135 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
               </div>
             )}
 
-            {/* TAB CONTENT 2: BASICS (WITH FULL FORM AND DISCORD PREVIEWS) */}
+            {/* TAB CONTENT 2: BASICS */}
             {activeTab === 'basics' && (
-              <div className="pb-8 animate-fadeIn">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                  {/* Left Column: Form & Assets (Col 7 / 8) */}
-                  <div className="lg:col-span-7 xl:col-span-8 space-y-6">
-                    {/* Card 1: Identidade Visual */}
-                    <div className="bg-dark-800 border border-zinc-800 shadow-xs p-6 rounded-2xl">
-                      <h4 className="text-base font-bold text-white mb-5 font-display">Identidade Visual</h4>
-                      <div className="flex flex-col sm:flex-row items-start gap-8">
-                      <div>
-                        <p className="text-dark-400 text-sm font-medium mb-3">Ícone</p>
-                        <div
-                          onClick={() => iconFileInputRef.current?.click()}
-                          className="relative group cursor-pointer w-fit"
-                          title="Clique para alterar o ícone"
-                        >
-                          <img
-                            src={botIcon}
-                            alt="Ícone do Bot"
-                            className="rounded-lg w-[120px] h-[120px] object-cover"
-                          />
-                          <div className="absolute top-2 right-2 flex gap-1.5 opacity-100 xl:opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div className="bg-dark-800 bg-opacity-80 rounded p-1.5 hover:bg-opacity-100">
-                              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                              </svg>
-                            </div>
-                          </div>
-                          <input
-                            type="file"
-                            ref={iconFileInputRef}
-                            accept="image/*"
-                            onChange={(e) => handleFileChange(e, 'icon')}
-                            className="hidden"
-                          />
+              <div className="bg-dark-800 shadow-xs mt-6 lg:mt-0 p-6 rounded-lg relative">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-8 items-start">
+                  {/* Seção 1: Ícone e Papel de parede */}
+                  <div className="lg:col-span-4 xl:col-span-3 flex flex-col gap-6 w-full">
+                    <div>
+                      <p className="text-dark-400 text-sm font-medium mb-3">Ícone</p>
+                      <div
+                        onClick={() => iconFileInputRef.current?.click()}
+                        className="relative group cursor-pointer w-[120px] h-[120px]"
+                        title="Clique para alterar o ícone"
+                      >
+                        <img
+                          src={botIcon}
+                          alt="Ícone do Bot"
+                          className="rounded-lg w-full h-full object-cover"
+                        />
+                        <div className="absolute top-2 right-2 flex items-center gap-1.5 opacity-100 xl:opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              iconFileInputRef.current?.click();
+                            }}
+                            className="bg-dark-800 bg-opacity-80 hover:bg-opacity-100 hover:bg-zinc-700 rounded p-1.5 shadow text-white transition-colors cursor-pointer"
+                            title="Alterar foto"
+                          >
+                            <svg
+                              className="w-4 h-4 text-white"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            </svg>
+                          </button>
+                          {botIcon !== DEFAULT_BOT_ICON && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setBotIcon(DEFAULT_BOT_ICON);
+                                if (iconFileInputRef.current) iconFileInputRef.current.value = '';
+                              }}
+                              className="bg-dark-800 bg-opacity-80 hover:bg-opacity-100 hover:bg-rose-500/20 rounded p-1.5 shadow text-zinc-300 hover:text-rose-400 transition-colors cursor-pointer"
+                              title="Remover foto"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          )}
                         </div>
+                        <input
+                          type="file"
+                          ref={iconFileInputRef}
+                          accept="image/*"
+                          onChange={(e) => handleFileChange(e, 'icon')}
+                          className="hidden"
+                        />
                       </div>
+                    </div>
 
-                      <div>
-                        <p className="text-dark-400 text-sm font-medium mb-3">Papel de parede</p>
-                        <div
-                          onClick={() => bannerFileInputRef.current?.click()}
-                          className="relative group w-fit cursor-pointer"
-                          title="Clique para carregar o banner"
-                        >
-                          <div className="rounded-lg w-[272px] h-[96px] overflow-hidden">
-                            {botBanner ? (
-                              <img
-                                src={botBanner}
-                                alt="Papel de parede"
-                                className="w-full h-full object-cover"
-                              />
-                            ) : (
-                              <div className="w-full h-full bg-dark-700 flex items-center justify-center">
-                                <span className="text-dark-400 text-sm">
-                                  Click to upload your banner
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                          <div className="absolute top-2 right-2 flex gap-1.5 opacity-100 xl:opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div className="bg-dark-800 bg-opacity-80 rounded p-1.5 hover:bg-opacity-100 cursor-pointer">
-                              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                              </svg>
+                    <div>
+                      <p className="text-dark-400 text-sm font-medium mb-3">Papel de parede</p>
+                      <div
+                        onClick={() => bannerFileInputRef.current?.click()}
+                        className="relative group w-full max-w-[280px] cursor-pointer"
+                        title="Clique para carregar o banner"
+                      >
+                        <div className="rounded-lg w-full h-[96px] overflow-hidden bg-dark-700">
+                          {botBanner ? (
+                            <img
+                              src={botBanner}
+                              alt="Papel de parede"
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center p-2 text-center">
+                              <span className="text-dark-400 text-sm">Click to upload your banner</span>
                             </div>
-                          </div>
-                          <input
-                            type="file"
-                            ref={bannerFileInputRef}
-                            accept="image/*"
-                            onChange={(e) => handleFileChange(e, 'banner')}
-                            className="hidden"
-                          />
+                          )}
                         </div>
+                        <div className="absolute top-2 right-2 flex items-center gap-1.5 opacity-100 xl:opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              bannerFileInputRef.current?.click();
+                            }}
+                            className="bg-dark-800 bg-opacity-80 hover:bg-opacity-100 hover:bg-zinc-700 rounded p-1.5 shadow text-white transition-colors cursor-pointer"
+                            title="Alterar banner"
+                          >
+                            <svg
+                              className="w-4 h-4 text-white"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            </svg>
+                          </button>
+                          {Boolean(botBanner) && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setBotBanner(null);
+                                if (bannerFileInputRef.current) bannerFileInputRef.current.value = '';
+                              }}
+                              className="bg-dark-800 bg-opacity-80 hover:bg-opacity-100 hover:bg-rose-500/20 rounded p-1.5 shadow text-zinc-300 hover:text-rose-400 transition-colors cursor-pointer"
+                              title="Remover foto"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          )}
+                        </div>
+                        <input
+                          type="file"
+                          ref={bannerFileInputRef}
+                          accept="image/*"
+                          onChange={(e) => handleFileChange(e, 'banner')}
+                          className="hidden"
+                        />
                       </div>
                     </div>
                   </div>
 
-                  {/* Card 2: Inputs Form */}
-                  <div className="bg-dark-800 border border-zinc-800 shadow-xs p-6 rounded-2xl">
-                    <h4 className="text-base font-bold text-white mb-5 font-display">Configurações Gerais</h4>
-                    <div className="w-full flex flex-col lg:grid lg:grid-cols-2 gap-5">
-                      <div className="relative flex flex-col lg:col-span-2">
+                  {/* Seção 2: Formulário de Campos */}
+                  <div className="lg:col-span-8 xl:col-span-5 w-full flex flex-col gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div className="relative flex flex-col sm:col-span-2">
                         <label className="text-sm font-medium text-dark-400 mb-2 flex items-start max-w-max justify-start">
                           Nome do bot
                         </label>
@@ -872,13 +925,19 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                           <input
                             type="text"
                             value={botName}
-                            onChange={(e) => setBotName(e.target.value)}
+                            placeholder="Insira o nome do bot"
+                            title="Insira o nome do bot"
+                            aria-label="Insira o nome do bot"
+                            onChange={(e) => {
+                              setBotName(e.target.value);
+                              setIsSaved(false);
+                            }}
                             className="bg-transparent outline-none border-none py-3 placeholder:text-dark-300 text-base text-dark-100 w-full px-4"
                           />
                         </div>
                       </div>
 
-                      <div className="relative lg:col-span-2">
+                      <div className="relative z-30 sm:col-span-2">
                         <label className="text-sm font-medium text-dark-400 mb-2 flex items-start max-w-max justify-start">
                           Status do bot
                         </label>
@@ -890,14 +949,14 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                             }}
                             className="overflow-hidden flex items-center justify-start group bg-dark-900 rounded-lg border border-solid transition-all duration-200 active:ring-opacity-30 active:ring-[4px] hover:border-blue-default border-dark-900 active:border-blue-default ring-blue-default cursor-pointer"
                           >
-                            <div className="bg-transparent outline-none border-none py-3 w-full px-4 cursor-pointer flex justify-between items-center text-body text-dark-100">
+                            <div className="bg-transparent outline-none border-none w-full cursor-pointer flex justify-between items-center text-dark-100 py-3 px-4 text-body">
                               <div className="flex-1 min-w-0 overflow-hidden">
                                 <div className="flex items-center justify-start">
                                   <div
                                     className="h-2 w-2 rounded-full mr-2 border-[2px] border-solid"
                                     style={{
-                                      backgroundColor: statusConfigs[status].color,
                                       borderColor: statusConfigs[status].color,
+                                      backgroundColor: statusConfigs[status].color,
                                     }}
                                   />
                                   {statusConfigs[status].label}
@@ -916,49 +975,56 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                                 <path
                                   d="M7 14.5l5-5 5 5"
                                   stroke="currentColor"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
                               </svg>
                             </div>
                           </div>
 
                           {isStatusDropdownOpen && (
-                            <div className="top-[81px] absolute left-0 z-30 w-full rounded-lg bg-dark-900 max-h-[320px] overflow-y-auto overflow-x-hidden transition-all duration-200 shadow-xl p-2 border border-zinc-700">
-                              <ul className="space-y-1">
-                                {(Object.keys(statusConfigs) as StatusOption[]).map((st) => (
-                                  <li
-                                    key={st}
-                                    onClick={() => {
-                                      setStatus(st);
-                                      setIsStatusDropdownOpen(false);
-                                    }}
-                                    className={`p-2 rounded-lg transition duration-200 font-sans text-base text-dark-100 cursor-pointer flex items-center justify-start ${
-                                      status === st ? 'bg-zinc-700 font-semibold' : 'hover:bg-dark-700'
-                                    }`}
-                                  >
-                                    <div className="w-full">
-                                      <div className="flex items-center justify-start">
-                                        <div
-                                          className="h-2 w-2 rounded-full mr-2 border-[2px] border-solid"
-                                          style={{
-                                            backgroundColor: statusConfigs[st].color,
-                                            borderColor: statusConfigs[st].color,
-                                          }}
-                                        />
-                                        {statusConfigs[st].label}
+                            <>
+                              <div
+                                className="fixed inset-0 z-40"
+                                onClick={() => setIsStatusDropdownOpen(false)}
+                              />
+                              <div className="top-full mt-1.5 absolute left-0 z-50 w-full rounded-lg bg-dark-900 max-h-[320px] overflow-y-auto overflow-x-hidden transition-all duration-200 shadow-2xl p-2 border border-zinc-700">
+                                <ul className="space-y-1">
+                                  {(Object.keys(statusConfigs) as StatusOption[]).map((st) => (
+                                    <li
+                                      key={st}
+                                      onClick={() => {
+                                        setStatus(st);
+                                        setIsStatusDropdownOpen(false);
+                                        setIsSaved(false);
+                                      }}
+                                      className={`p-2 rounded-lg transition duration-200 hover:bg-grey-600 font-sans text-base text-dark-100 cursor-pointer flex items-center justify-start ${
+                                        status === st ? 'bg-grey-600 font-semibold' : ''
+                                      }`}
+                                    >
+                                      <div className="w-full">
+                                        <div className="flex items-center justify-start">
+                                          <div
+                                            className="h-2 w-2 rounded-full mr-2 border-[2px] border-solid"
+                                            style={{
+                                              borderColor: statusConfigs[st].color,
+                                              backgroundColor: statusConfigs[st].color,
+                                            }}
+                                          />
+                                          {statusConfigs[st].label}
+                                        </div>
                                       </div>
-                                    </div>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </>
                           )}
                         </div>
                       </div>
 
-                      <div className={`relative ${activityType === 'none' ? 'lg:col-span-2' : ''}`}>
+                      <div className={`relative z-20 ${activityType === 'none' ? 'sm:col-span-2' : 'sm:col-span-1'}`}>
                         <label className="text-sm font-medium text-dark-400 mb-2 flex items-start max-w-max justify-start">
                           Tipo de Atividade
                         </label>
@@ -970,7 +1036,7 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                             }}
                             className="overflow-hidden flex items-center justify-start group bg-dark-900 rounded-lg border border-solid transition-all duration-200 active:ring-opacity-30 active:ring-[4px] hover:border-blue-default border-dark-900 active:border-blue-default ring-blue-default cursor-pointer"
                           >
-                            <div className="bg-transparent outline-none border-none py-3 w-full px-4 cursor-pointer flex justify-between items-center text-body text-dark-100">
+                            <div className="bg-transparent outline-none border-none w-full cursor-pointer flex justify-between items-center text-dark-100 py-3 px-4 text-body">
                               <div className="flex-1 min-w-0 overflow-hidden">
                                 <div className="flex items-center justify-start gap-2">
                                   {activityLabels[activityType]}
@@ -989,43 +1055,50 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                                 <path
                                   d="M7 14.5l5-5 5 5"
                                   stroke="currentColor"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
                               </svg>
                             </div>
                           </div>
 
                           {isActivityDropdownOpen && (
-                            <div className="top-[81px] absolute left-0 z-30 w-full rounded-lg bg-dark-900 max-h-[320px] overflow-y-auto overflow-x-hidden transition-all duration-200 shadow-xl p-2 border border-zinc-700">
-                              <ul className="space-y-1">
-                                {(Object.keys(activityLabels) as ActivityOption[]).map((act) => (
-                                  <li
-                                    key={act}
-                                    onClick={() => {
-                                      setActivityType(act);
-                                      setIsActivityDropdownOpen(false);
-                                    }}
-                                    className={`p-2 rounded-lg transition duration-200 font-sans text-base text-dark-100 cursor-pointer flex items-center justify-start ${
-                                      activityType === act ? 'bg-zinc-700 font-semibold' : 'hover:bg-dark-700'
-                                    }`}
-                                  >
-                                    <div className="w-full">
-                                      <div className="flex items-center justify-start gap-2">
-                                        {activityLabels[act]}
+                            <>
+                              <div
+                                className="fixed inset-0 z-40"
+                                onClick={() => setIsActivityDropdownOpen(false)}
+                              />
+                              <div className="top-full mt-1.5 absolute left-0 z-50 w-full rounded-lg bg-dark-900 max-h-[320px] overflow-y-auto overflow-x-hidden transition-all duration-200 shadow-2xl p-2 border border-zinc-700">
+                                <ul className="space-y-1">
+                                  {(Object.keys(activityLabels) as ActivityOption[]).map((act) => (
+                                    <li
+                                      key={act}
+                                      onClick={() => {
+                                        setActivityType(act);
+                                        setIsActivityDropdownOpen(false);
+                                        setIsSaved(false);
+                                      }}
+                                      className={`p-2 rounded-lg transition duration-200 hover:bg-grey-600 font-sans text-base text-dark-100 cursor-pointer flex items-center justify-start ${
+                                        activityType === act ? 'bg-grey-600 font-semibold' : ''
+                                      }`}
+                                    >
+                                      <div className="w-full">
+                                        <div className="flex items-center justify-start gap-2">
+                                          {activityLabels[act]}
+                                        </div>
                                       </div>
-                                    </div>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </>
                           )}
                         </div>
                       </div>
 
                       {activityType !== 'none' && (
-                        <div className="relative flex flex-col">
+                        <div className="relative flex flex-col sm:col-span-1">
                           <label className="text-sm font-medium text-dark-400 mb-2 flex items-start max-w-max justify-start">
                             Texto do status
                           </label>
@@ -1034,7 +1107,10 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                               type="text"
                               placeholder="Insira um texto de status"
                               value={statusText}
-                              onChange={(e) => setStatusText(e.target.value)}
+                              onChange={(e) => {
+                                setStatusText(e.target.value);
+                                setIsSaved(false);
+                              }}
                               className="bg-transparent outline-none border-none py-3 placeholder:text-dark-300 text-base text-dark-100 w-full px-4"
                             />
                           </div>
@@ -1042,7 +1118,7 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                       )}
 
                       {activityType === 'streaming' && (
-                        <div className="lg:col-span-2">
+                        <div className="sm:col-span-2">
                           <div className="relative flex flex-col">
                             <label className="text-sm font-medium text-dark-400 mb-2 flex items-start max-w-max justify-start">
                               Link da transmissão
@@ -1050,9 +1126,12 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                             <div className="overflow-hidden flex items-center justify-start group bg-dark-900 rounded-lg border border-solid transition-all duration-200 focus-within:ring-opacity-30 focus-within:ring-[4px] hover:border-brand-default focus-within:border-brand-default focus-within:ring-brand-default border-dark-900">
                               <input
                                 type="text"
-                                placeholder="Enter Twitch or Youtube URL"
+                                placeholder="https://twitch.tv/seucanal"
                                 value={streamUrl}
-                                onChange={(e) => setStreamUrl(e.target.value)}
+                                onChange={(e) => {
+                                  setStreamUrl(e.target.value);
+                                  setIsSaved(false);
+                                }}
                                 className="bg-transparent outline-none border-none py-3 placeholder:text-dark-300 text-base text-dark-100 w-full px-4"
                               />
                             </div>
@@ -1060,10 +1139,10 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                         </div>
                       )}
 
-                      <div className="lg:col-span-2 mt-2">
+                      <div className="sm:col-span-2 mt-2">
                         <button
                           onClick={handleSave}
-                          className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-brand-default text-dark-900 hover:bg-brand-hover active:bg-brand-default active:bg-opacity-40 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-default !px-8 text-base px-4 py-2 cursor-pointer font-bold"
+                          className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-brand-default text-dark-100 hover:bg-brand-hover active:bg-brand-default active:bg-opacity-40 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-default !px-8 text-base px-4 py-2 cursor-pointer"
                         >
                           <div className="flex flex-grow justify-center max-w-full">
                             <span className="transition-all duration-200 whitespace-nowrap text-ellipsis overflow-hidden block w-full shrink-0 text-center">
@@ -1074,11 +1153,10 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                       </div>
                     </div>
                   </div>
-                </div>
 
-                  {/* Right: Previews in Discord (Col 5 / 4) */}
-                  <div className="lg:col-span-5 xl:col-span-4 w-full space-y-4">
-                      {/* Member List Preview */}
+                  {/* Seção 3: Pré-visualizações */}
+                  <div className="lg:col-span-12 xl:col-span-4 w-full">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-5 items-start">
                       <div>
                         <p className="text-dark-400 text-sm font-medium mb-2">
                           Pré-visualização da lista de membros
@@ -1105,9 +1183,9 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                             <div className="min-w-0 flex-1">
                               <div className="flex items-center justify-start gap-1.5">
                                 <p className="text-white text-sm font-medium text-ellipsis overflow-hidden max-w-[120px] whitespace-nowrap">
-                                  {botName || 'vixestudio'}
+                                  {botName || ''}
                                 </p>
-                                <div className="bg-[#5865F2] rounded px-1 text-[10px] font-semibold py-0.5 text-white uppercase">
+                                <div className="bg-discord-default rounded px-1 text-[10px] font-semibold py-0.5 text-white uppercase">
                                   APP
                                 </div>
                               </div>
@@ -1121,22 +1199,20 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                         </div>
                       </div>
 
-                      {/* Profile Preview */}
                       <div>
                         <p className="text-dark-400 text-sm font-medium mb-2">
                           Pré-visualização do perfil
                         </p>
                         <div className="bg-[#2E3036] rounded-lg overflow-hidden">
-                          <div className="h-[60px] bg-gradient-to-r from-[#5865F2] to-[#7289da] relative overflow-hidden">
+                          <div className="h-[60px] bg-gradient-to-r from-discord-default to-[#7289da] relative overflow-hidden">
                             {botBanner && (
                               <img
                                 src={botBanner}
-                                alt="Banner de Perfil"
+                                alt="Banner"
                                 className="w-full h-full object-cover"
                               />
                             )}
                           </div>
-
                           <div className="px-4 relative">
                             <div className="flex items-end gap-2">
                               <div className="w-[72px] h-[72px] min-w-[72px] -mt-[36px] relative rounded-full bg-[#2E3036]">
@@ -1158,24 +1234,22 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                               </div>
                             </div>
                           </div>
-
                           <div className="px-4 pb-4">
                             <div className="mt-2">
                               <div className="flex items-center gap-1.5">
                                 <p className="text-white text-lg font-semibold">
-                                  {botName || 'vixestudio'}
+                                  {botName || ''}
                                 </p>
-                                <div className="bg-[#5865F2] rounded px-1.5 text-[10px] font-semibold py-0.5 text-white uppercase">
+                                <div className="bg-discord-default rounded px-1.5 text-[10px] font-semibold py-0.5 text-white uppercase">
                                   APP
                                 </div>
                               </div>
                               <p className="text-[#B5BAC1] text-sm">
                                 {botName
                                   ? `${botName.toLowerCase().replace(/\s+/g, '')}#0710`
-                                  : 'vixestudio#0710'}
+                                  : '#0710'}
                               </p>
                             </div>
-
                             {activityType !== 'none' && statusText && (
                               <div className="mt-3 bg-[#3A3C41] rounded-lg p-3 border border-white/5">
                                 <p className="text-[#B5BAC1] text-xs font-bold uppercase tracking-wider mb-1">
@@ -1197,6 +1271,7 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
                     </div>
                   </div>
                 </div>
+              </div>
             )}
 
             {/* Bottom Tip Banner */}

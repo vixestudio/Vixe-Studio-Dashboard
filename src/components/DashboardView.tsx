@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Search, SlidersHorizontal } from 'lucide-react';
+import { Search, SlidersHorizontal } from 'lucide-react';
 import { CategoryId, PluginItem } from '../types';
 import { CATEGORIES } from '../data/pluginsData';
 import { HeroBanner } from './HeroBanner';
@@ -40,25 +40,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
     }
   }, [selectedCategory]);
 
-  const scrollTabs = (direction: 'left' | 'right') => {
-    if (tabsContainerRef.current) {
-      const scrollAmount = direction === 'left' ? -240 : 240;
-      tabsContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
-
-  const handleNextCategory = () => {
-    const currentIndex = CATEGORIES.findIndex((c) => c.id === selectedCategory);
-    const nextIndex = (currentIndex + 1) % CATEGORIES.length;
-    onSelectCategory(CATEGORIES[nextIndex].id);
-  };
-
-  const handlePrevCategory = () => {
-    const currentIndex = CATEGORIES.findIndex((c) => c.id === selectedCategory);
-    const prevIndex = (currentIndex - 1 + CATEGORIES.length) % CATEGORIES.length;
-    onSelectCategory(CATEGORIES[prevIndex].id);
-  };
-
   // Filtered plugins based on category and search
   const filteredPlugins = useMemo(() => {
     return plugins.filter((plugin) => {
@@ -71,23 +52,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
       // Category tab match
       if (selectedCategory === 'todos') return true;
-      if (selectedCategory === 'populares') return plugin.popular;
       return plugin.category === selectedCategory;
     });
   }, [plugins, selectedCategory, searchQuery]);
 
   // Group plugins by category for structured layout
   const groupedSections = useMemo(() => {
-    if (selectedCategory === 'populares') {
-      return [
-        {
-          id: 'populares' as CategoryId,
-          name: 'Plugins Populares',
-          items: filteredPlugins,
-        },
-      ];
-    }
-
     if (selectedCategory !== 'todos') {
       const catInfo = CATEGORIES.find((c) => c.id === selectedCategory);
       return [
@@ -136,11 +106,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         name: 'Monetização',
         items: filteredPlugins.filter((p) => p.category === 'monetizacao'),
       },
-      {
-        id: 'web3',
-        name: 'Web3',
-        items: filteredPlugins.filter((p) => p.category === 'web3'),
-      },
     ];
 
     return sections.filter((sec) => sec.items.length > 0);
@@ -176,26 +141,20 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
         </div>
 
-        {/* Category Horizontal Filter Tabs with Horizontal Navigation */}
-        <div className="relative flex items-center border-b border-zinc-800 pb-2">
-          {/* Scroll Left / Previous Category Set */}
-          <button
-            type="button"
-            onClick={() => scrollTabs('left')}
-            aria-label="Passar categorias para a esquerda"
-            title="Categorias anteriores"
-            className="flex items-center justify-center w-7 h-7 rounded-lg bg-dark-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border border-zinc-700 mr-1.5 shrink-0 transition-colors cursor-pointer shadow-xs active:scale-95"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-
+        {/* Category Horizontal Filter Tabs */}
+        <div className="border-b border-zinc-800 pb-2">
           {/* Scrollable Tabs List */}
           <div
             ref={tabsContainerRef}
-            className="flex items-center gap-1.5 overflow-x-auto scroll-smooth scrollbar-none text-xs flex-1 py-0.5"
+            className="flex items-center gap-1.5 overflow-x-auto scroll-smooth scrollbar-none text-xs w-full py-0.5"
           >
             {CATEGORIES.map((category) => {
               const isSelected = selectedCategory === category.id;
+              const count =
+                category.id === 'todos'
+                  ? plugins.length
+                  : plugins.filter((p) => p.category === category.id).length;
+
               return (
                 <button
                   key={category.id}
@@ -210,7 +169,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   }`}
                 >
                   <span>{category.name}</span>
-                  {category.count > 0 && (
+                  {count > 0 && (
                     <span
                       className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
                         isSelected
@@ -218,24 +177,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                           : 'bg-dark-700 text-zinc-400'
                       }`}
                     >
-                      {category.count}
+                      {count}
                     </span>
                   )}
                 </button>
               );
             })}
           </div>
-
-          {/* Scroll Right / Next Category Set */}
-          <button
-            type="button"
-            onClick={() => scrollTabs('right')}
-            aria-label="Passar categorias para a direita"
-            title="Próximas categorias"
-            className="flex items-center justify-center w-7 h-7 rounded-lg bg-dark-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border border-zinc-700 ml-1.5 shrink-0 transition-colors cursor-pointer shadow-xs active:scale-95"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
         </div>
       </div>
 
@@ -283,7 +231,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
                         <div className="flex items-center gap-1.5">
                           {plugin.isNew && (
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-dark-700 text-zinc-300 border border-zinc-700">
+                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-dark-700 text-zinc-300 border border-zinc-700">
                               Novo!
                             </span>
                           )}
@@ -323,43 +271,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
           ))
         )}
-      </div>
-
-      {/* Bottom Category Stepper: Passar de Categoria */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 border-t border-zinc-800">
-        <button
-          type="button"
-          onClick={handlePrevCategory}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-dark-800 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 text-xs font-semibold transition-all cursor-pointer shadow-xs active:scale-95"
-        >
-          <ChevronLeft className="w-4 h-4" />
-          <span>Categoria anterior</span>
-        </button>
-
-        <div className="flex items-center gap-2 text-xs text-zinc-400">
-          <span>Categoria:</span>
-          <span className="font-bold text-white bg-dark-800 px-3 py-1 rounded-lg border border-zinc-700">
-            {CATEGORIES.find((c) => c.id === selectedCategory)?.name || 'Todos Os Plugins'}
-          </span>
-          {selectedCategory !== 'todos' && (
-            <button
-              type="button"
-              onClick={() => onSelectCategory('todos')}
-              className="text-zinc-400 hover:text-white underline underline-offset-4 ml-1 text-xs cursor-pointer transition-colors"
-            >
-              (Ver todos)
-            </button>
-          )}
-        </div>
-
-        <button
-          type="button"
-          onClick={handleNextCategory}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-dark-800 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 text-xs font-semibold transition-all cursor-pointer shadow-xs active:scale-95"
-        >
-          <span>Próxima categoria</span>
-          <ChevronRight className="w-4 h-4" />
-        </button>
       </div>
     </div>
   );
