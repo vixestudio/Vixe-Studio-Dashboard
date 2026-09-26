@@ -170,8 +170,12 @@ export const TicketsView: React.FC<TicketsViewProps> = ({ currentServer, onBackT
   };
 
   return (
-    <div className="space-y-6 pb-16 animate-fadeIn" id="dashboard__content">
-      {/* Header */}
+    <div
+      className="flex flex-1 overflow-y-auto relative px-6 lg:px-10 py-0 lg:py-10 animate-fadeIn"
+      id="dashboard__content"
+    >
+      <div className="min-h-full w-full max-w-[1540px] mx-auto space-y-6 pb-16">
+        {/* Header */}
           <div className="flex justify-between mb-8 lg:mb-6">
             <div className="flex flex-col grow items-center lg:items-start">
               <div className="bg-dark-800 sm:bg-transparent flex items-center justify-between w-[calc(100%+48px)] sm:w-full px-6 py-4 sm:px-0 sm:py-0 mb-3 sm:mb-0">
@@ -671,6 +675,7 @@ export const TicketsView: React.FC<TicketsViewProps> = ({ currentServer, onBackT
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

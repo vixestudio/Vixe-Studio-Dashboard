@@ -103,6 +103,8 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
   const [removeBotReactions, setRemoveBotReactions] = useState(false);
   const [minMessageAge, setMinMessageAge] = useState('Sem mínimo');
   const [maxMessageAge, setMaxMessageAge] = useState('Sem máximo');
+  const [minAgeDropdownOpen, setMinAgeDropdownOpen] = useState(false);
+  const [maxAgeDropdownOpen, setMaxAgeDropdownOpen] = useState(false);
 
   // Restrictions: Roles
   const [roleRestrictionMode, setRoleRestrictionMode] = useState<'only' | 'except'>('except');
@@ -252,82 +254,142 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
         <div className="w-full min-h-full transition-all flex flex-col opacity-100">
           {/* Top Sticky Header */}
           <div
-            className="transition-all duration-200 md:px-10 md:py-6 flex flex-col md:flex-row items-center justify-between bg-dark-700 sticky top-0 z-20 -mr-[24px] -ml-[24px] md:-mr-[40px] md:-ml-[40px] transform sm:-translate-y-[40px] md:shadow-lg rounded-b-xl border-b border-zinc-800/80 mb-6"
+            className="transition-all duration-200 md:px-10 md:py-6 flex flex-col md:flex-row items-center justify-between bg-dark-700 sticky top-0 z-10 -mr-[24px] -ml-[24px] md:-mr-[40px] md:-ml-[40px] transform sm:-translate-y-[40px]"
             id="edit-item-header"
           >
-            <div className="flex mb-4 sm:mb-0 items-center justify-between md:justify-start bg-dark-800 sm:bg-dark-700 w-full px-6 md:px-0 py-4 md:py-0">
-              <button
-                type="button"
+            <div className="flex mb-6 sm:mb-0 items-center justify-between md:justify-start bg-dark-800 sm:bg-dark-700 w-full px-8 md:px-0 py-6 md:py-0">
+              <svg
                 onClick={onBack}
-                className="p-2 text-zinc-400 hover:text-white cursor-pointer mr-3 rounded-lg hover:bg-zinc-800 transition-colors"
-                title="Voltar aos Starboards"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="sc-eldPxv kAGEjM cursor-pointer mr-3"
+                data-main="#9B9D9F"
               >
+                <path
+                  d="M14.5 17l-5-5 5-5"
+                  stroke="#9B9D9F"
+                  data-stroke="main"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <div className="flex items-center justify-start">
+                <div className="group rounded px-2 py-1 w-auto flex items-center justify-start max-w-[50vw] lg:max-w-[30vw] hover:bg-brand-hover focus-within:bg-brand-hover">
+                  <div
+                    contentEditable
+                    suppressContentEditableWarning
+                    id="item_header__name"
+                    placeholder="New Starboard"
+                    onBlur={(e) => setStarboardName(e.currentTarget.textContent?.trim() || 'New Starboard')}
+                    className="plugin_header__contenteditable border-0 outline-none text-dark-100 text-h5 font-bold bg-transparent transition-all duration-200 rounded w-auto whitespace-nowrap overflow-hidden"
+                    translate="no"
+                  >
+                    {starboardName}
+                  </div>
+                </div>
                 <svg
+                  onClick={() => {
+                    const el = document.getElementById('item_header__name');
+                    if (el) el.focus();
+                  }}
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5"
+                  className="sc-eldPxv dIglqQ cursor-pointer"
+                  data-main="#9B9D9F"
+                  data-secondary="rgba(154,161,181,0.16)"
                 >
                   <path
-                    d="M14.5 17l-5-5 5-5"
-                    stroke="currentColor"
+                    d="M9.31 10.448l4.57-4.57a3 3 0 014.241 4.243l-4.57 4.57a15.501 15.501 0 01-7.2 4.077l-.884.22a.376.376 0 01-.455-.455l.22-.883a15.501 15.501 0 014.078-7.202z"
+                    fill="rgba(154,161,181,0.16)"
+                    data-fill="secondary"
+                  />
+                  <path
+                    d="M17.25 10.992c-2.121.707-4.95-2.121-4.242-4.242m.871-.871l-4.57 4.57a15.501 15.501 0 00-4.077 7.2l-.22.884a.376.376 0 00.455.455l.883-.22a15.501 15.501 0 007.202-4.078l4.57-4.57a3 3 0 10-4.243-4.241z"
+                    stroke="#9B9D9F"
+                    data-stroke="main"
                     strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
                   />
                 </svg>
-              </button>
-
-              <div className="flex items-center justify-start gap-2">
-                <div className="group rounded-lg px-2.5 py-1 w-auto flex items-center justify-start max-w-[50vw] lg:max-w-[30vw] hover:bg-zinc-800/70 focus-within:bg-zinc-800/90 transition-colors border border-transparent focus-within:border-zinc-700">
-                  <input
-                    type="text"
-                    value={starboardName}
-                    onChange={(e) => setStarboardName(e.target.value)}
-                    id="item_header__name"
-                    placeholder="New Starboard"
-                    className="border-0 outline-none text-white text-xl md:text-2xl font-bold bg-transparent transition-all rounded w-auto"
-                  />
-                </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const el = document.getElementById('item_header__name');
-                    if (el) el.focus();
-                  }}
-                  className="text-zinc-400 hover:text-white p-1 cursor-pointer"
-                  title="Editar nome"
-                >
-                  <Edit2 className="w-4 h-4 text-zinc-400" />
-                </button>
               </div>
+              <div />
             </div>
 
-            {/* Actions: Descartar & Salvar */}
-            <div className="flex justify-end items-center gap-3 w-full md:w-max px-6 md:px-0 pb-4 md:pb-0">
+            <div className="flex justify-center lg:grid gap-3 lg:grid-flow-col lg:auto-cols-max w-full md:w-max px-8 md:px-0 pb-8 md:pb-0 flex-wrap">
               <button
                 type="button"
                 onClick={onBack}
-                className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-white bg-opacity-10 text-white hover:bg-opacity-20 active:bg-opacity-5 text-sm font-semibold px-4 py-2 cursor-pointer"
+                className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-danger-default bg-opacity-[0.14] text-danger-default hover:bg-opacity-[0.25] active:bg-opacity-[0.08] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-opacity-[0.14] text-base px-4 py-2 cursor-pointer"
               >
-                <span className="whitespace-nowrap">Descartar</span>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="sc-eldPxv fpIvEY inline-block mr-1.5"
+                  data-main="#9B9D9F"
+                  data-secondary="rgba(154,161,181,0.16)"
+                >
+                  <path
+                    d="M5 7.033h14v5.143c0 1.575-.222 3.142-.658 4.654a5.627 5.627 0 01-4.46 3.999l-.158.026a10.344 10.344 0 01-3.448 0l-.158-.026a5.627 5.627 0 01-4.46-3.999A16.783 16.783 0 015 12.176V7.033z"
+                    fill="rgba(154,161,181,0.16)"
+                    data-fill="secondary"
+                  />
+                  <path
+                    d="M3 6.283a.75.75 0 000 1.5v-1.5zm18 1.5a.75.75 0 000-1.5v1.5zm-16-.75v-.75h-.75v.75H5zm14 0h.75v-.75H19v.75zm-.658 9.797l.72.208-.72-.208zm-4.618 4.025l.125.74-.125-.74zm-3.448 0l.125-.74-.125.74zm-.158-.026l-.125.74.125-.74zm-4.46-3.999l-.72.208.72-.208zm8.224 3.999l-.125-.74.125.74zm-6.04-15.34l.681.315-.68-.315zm.976-1.308l-.5-.558.5.558zm1.46-.874l.26.703-.26-.703zm3.444 0l.261-.703-.26.703zm2.435 2.182l.681-.314-.68.314zM3 7.783h18v-1.5H3v1.5zm10.757 12.306l-.158.027.25 1.479.158-.027-.25-1.479zm-3.356.027l-.158-.027-.25 1.48.158.026.25-1.48zM18.25 7.033v5.143h1.5V7.033h-1.5zm-12.5 5.143V7.033h-1.5v5.143h1.5zm12.5 0c0 1.505-.212 3.002-.629 4.446l1.441.416c.456-1.58.688-3.217.688-4.862h-1.5zm-4.651 7.94a9.595 9.595 0 01-3.198 0l-.25 1.479c1.224.207 2.474.207 3.698 0l-.25-1.48zm-3.356-.027a4.877 4.877 0 01-3.864-3.467l-1.441.416a6.377 6.377 0 005.055 4.53l.25-1.479zM6.38 16.622a16.033 16.033 0 01-.629-4.446h-1.5c0 1.645.231 3.282.688 4.862l1.44-.416zm7.628 4.946a6.377 6.377 0 005.055-4.53l-1.44-.416a4.877 4.877 0 01-3.865 3.467l.25 1.48zM8.25 7.033c0-.42.092-.837.273-1.229l-1.361-.63a4.422 4.422 0 00-.412 1.859h1.5zm.273-1.229c.182-.393.45-.755.796-1.064L8.317 3.623c-.49.44-.884.966-1.155 1.552l1.361.63zM9.32 4.74c.345-.31.759-.559 1.22-.73l-.522-1.406c-.63.234-1.209.579-1.7 1.019L9.32 4.74zm1.22-.73c.461-.171.958-.26 1.461-.26v-1.5c-.679 0-1.352.12-1.983.354l.522 1.406zM12 3.75c.503 0 1 .089 1.461.26l.522-1.406A5.707 5.707 0 0012 2.25v1.5zm1.461.26c.461.171.875.42 1.22.73l1.002-1.117a5.317 5.317 0 00-1.7-1.02l-.522 1.407zm1.22.73c.345.309.614.671.796 1.064l1.361-.63a4.784 4.784 0 00-1.156-1.551l-1 1.117zm.796 1.064c.181.392.273.81.273 1.229h1.5c0-.64-.14-1.272-.412-1.858l-1.361.63zM5 7.783h14v-1.5H5v1.5z"
+                    fill="#9B9D9F"
+                    data-fill="main"
+                  />
+                  <path
+                    d="M10 12v4m4-4v4"
+                    stroke="#9B9D9F"
+                    data-stroke="main"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="flex flex grow justify-center max-w-full">
+                  <span className="transition-all duration-200 whitespace-nowrap text-ellipsis overflow-hidden block w-full shrink-0 text-center">
+                    Deletar
+                  </span>
+                </div>
+              </button>
+              <button
+                type="button"
+                onClick={onBack}
+                className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-white bg-opacity-10 text-white hover:bg-opacity-20 active:bg-opacity-5 active:text-opacity-60 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-opacity-10 text-base px-4 py-2 cursor-pointer"
+              >
+                <div className="flex flex grow justify-center max-w-full">
+                  <span className="transition-all duration-200 whitespace-nowrap text-ellipsis overflow-hidden block w-full shrink-0 text-center">
+                    Descartar
+                  </span>
+                </div>
               </button>
               <button
                 type="button"
                 onClick={handleSave}
-                className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-zinc-950 text-sm font-bold px-5 py-2 cursor-pointer shadow hover:shadow-amber-500/20"
+                className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-brand-default text-dark-100 hover:bg-brand-hover active:bg-brand-default active:bg-opacity-40 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-default text-base px-4 py-2 cursor-pointer"
               >
-                <span className="whitespace-nowrap">Salvar</span>
+                <div className="flex flex grow justify-center max-w-full">
+                  <span className="transition-all duration-200 whitespace-nowrap text-ellipsis overflow-hidden block w-full shrink-0 text-center">
+                    Salvar
+                  </span>
+                </div>
               </button>
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="transform sm:-translate-y-[40px] space-y-4">
             {/* Info Banner */}
-            <div className="flex items-start gap-2.5 p-3.5 rounded-xl text-xs border border-amber-500/20 bg-amber-500/10 text-amber-200/90 mb-4 leading-relaxed">
-              <Info className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+            <div className="flex items-start gap-2.5 p-3.5 rounded-xl text-xs border border-zinc-700/60 bg-dark-800 text-dark-200 mb-4 leading-relaxed">
+              <Info className="w-4 h-4 text-brand-light flex-shrink-0 mt-0.5" />
               <span>
                 Mensagens só podem ser promovidas a este starboard uma vez por minuto. Se o limite for atingido, a mensagem será promovida quando receber outra reação mais tarde.
               </span>
@@ -429,7 +491,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                                   setSelectedChannel('⭐・starboard-auto');
                                   setChannelDropdownOpen(false);
                                 }}
-                                className="flex p-2.5 rounded-lg items-center text-amber-400 text-sm font-medium hover:bg-zinc-800 cursor-pointer transition-colors"
+                                className="flex p-2.5 rounded-lg items-center text-brand-light text-sm font-medium hover:bg-zinc-800 cursor-pointer transition-colors"
                               >
                                 <Plus className="w-4 h-4 mr-2" />
                                 Crie um canal de starboard para mim
@@ -459,7 +521,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                                       <span>{ch}</span>
                                     </div>
                                     {selectedChannel === ch && (
-                                      <Check className="w-4 h-4 text-amber-400" />
+                                      <Check className="w-4 h-4 text-brand-default" />
                                     )}
                                   </div>
                                 ))}
@@ -541,7 +603,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                             <button
                               type="button"
                               onClick={() => setEmojiPickerOpen(!emojiPickerOpen)}
-                              className="bg-dark-900 border h-[42px] border-zinc-700 px-4 rounded-xl hover:border-amber-500 cursor-pointer hover:bg-zinc-800 flex items-center justify-center text-zinc-300 font-bold transition-all text-lg"
+                              className="bg-dark-900 border h-[42px] border-zinc-700 px-4 rounded-xl hover:border-brand-default cursor-pointer hover:bg-zinc-800 flex items-center justify-center text-zinc-300 font-bold transition-all text-lg"
                               title="Adicionar emoji"
                             >
                               +
@@ -563,7 +625,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                                       }}
                                       className={`w-8 h-8 rounded-lg flex items-center justify-center text-lg transition-transform hover:scale-110 cursor-pointer ${
                                         emojis.includes(em)
-                                          ? 'bg-amber-500/20 border border-amber-500'
+                                          ? 'bg-brand-default/20 border border-brand-default text-white'
                                           : 'hover:bg-zinc-800'
                                       }`}
                                     >
@@ -582,7 +644,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                                   />
                                   <button
                                     type="submit"
-                                    className="px-2.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-zinc-950 text-xs font-bold rounded-lg cursor-pointer shrink-0"
+                                    className="px-2.5 py-1.5 bg-brand-default hover:bg-brand-hover text-dark-900 text-xs font-bold rounded-lg cursor-pointer shrink-0"
                                   >
                                     Adicionar
                                   </button>
@@ -622,7 +684,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                               onChange={(e) =>
                                 setReactionLimit(Math.max(1, parseInt(e.target.value) || 1))
                               }
-                              className="w-full bg-dark-900 border border-zinc-700 rounded-xl py-2 px-3 text-center text-white font-bold text-base outline-none focus:border-amber-500"
+                              className="w-full bg-dark-900 border border-zinc-700 rounded-xl py-2 px-3 text-center text-white font-bold text-base outline-none focus:border-brand-default"
                             />
                           </div>
 
@@ -1160,7 +1222,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                       onChange={setMultipleReactionsPerUser}
                       label="Permitir múltiplas reações por usuário"
                       description="Quando ativado, cada reação com emoji do mesmo usuário irá contar separadamente para o limite. Só se aplica quando vários emojis estão configurados."
-                      activeColor="amber"
+                      activeColor="brand"
                       switchPosition="left"
                     />
 
@@ -1171,7 +1233,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                         onChange={setAutoReactPosts}
                         label="Reagir automaticamente às publicações"
                         description="Adicione reações automaticamente às publicações do Starboard para que os usuários possam continuar votando."
-                        activeColor="amber"
+                        activeColor="brand"
                         switchPosition="left"
                       />
 
@@ -1183,7 +1245,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                         <div
                           className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 transition-colors ${
                             firstEmojiOnly
-                              ? 'bg-amber-500 border-amber-500 text-zinc-950'
+                              ? 'bg-brand-default border-brand-default text-dark-900'
                               : 'border-zinc-700 bg-dark-900 text-transparent'
                           }`}
                         >
@@ -1204,7 +1266,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                       onChange={setAllowNsfw}
                       label="Permitir mensagens de canais NSFW"
                       description="Permitir que mensagens de canais marcados como conteúdo adulto sejam promovidas se o canal do starboard for seguro."
-                      activeColor="amber"
+                      activeColor="brand"
                       switchPosition="left"
                     />
 
@@ -1214,7 +1276,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                       onChange={setHideSpoilers}
                       label="Ocultar spoilers"
                       description="Preservar marcações ||spoiler|| e mascarar anexos com aviso de spoiler por padrão."
-                      activeColor="amber"
+                      activeColor="brand"
                       switchPosition="left"
                     />
                   </div>
@@ -1232,9 +1294,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                 className="text-white flex justify-between items-start hover:bg-zinc-800/30 transition-all py-4 lg:py-5 px-6 cursor-pointer select-none"
               >
                 <div className="flex flex-col w-full pr-4 max-w-[760px]">
-                  <div className="sub_feature_title flex items-center text-lg font-semibold text-white">
-                    Anti-Abuso
-                  </div>
+                  <div className="sub_feature_title flex items-center text-lg font-semibold text-white">Anti-Abuso</div>
                   <div className="mt-1 text-sm text-zinc-400">
                     Configure como o starboard lida com a prevenção de abusos e casos extremos
                   </div>
@@ -1252,167 +1312,228 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
 
               {antiAbuseSectionOpen && (
                 <div className="text-base transition-all">
-                  <div className="p-6 pt-0 border-t border-zinc-800/60 mt-1 space-y-6 pt-4">
-                    {/* Toggle: Remover ao desfazer a reação de estrela */}
+                  <div className="p-6 pt-0 border-t border-zinc-800/60 mt-1 space-y-5 pt-4">
+                    {/* Item 1: Remover ao desfazer a reação de estrela */}
                     <div>
                       <DiscordSwitch
                         checked={removeOnUnstar}
                         onChange={setRemoveOnUnstar}
                         label="Remover ao desfazer a reação de estrela"
                         description="Remover a publicação do starboard quando as reações ficarem abaixo do limite"
-                        activeColor="amber"
+                        activeColor="brand"
                         switchPosition="left"
                       />
 
-                      <div
-                        onClick={() => setRepostCooldown(!repostCooldown)}
-                        className="pl-[68px] mt-3 flex items-start gap-3 cursor-pointer select-none"
-                      >
+                      <div className="pl-[68px] mt-2">
                         <div
-                          className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 transition-colors ${
-                            repostCooldown
-                              ? 'bg-amber-500 border-amber-500 text-zinc-950'
-                              : 'border-zinc-700 bg-dark-900 text-transparent'
-                          }`}
+                          onClick={() => setRepostCooldown(!repostCooldown)}
+                          className="flex items-start gap-3 cursor-pointer select-none"
                         >
-                          {repostCooldown && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                        </div>
-                        <div>
-                          <p className="text-white text-sm font-medium">Tempo de espera para repostar</p>
-                          <p className="text-zinc-400 text-xs leading-relaxed">
-                            Quando um usuário remove uma publicação da sua lista de favoritos, ele não pode reativá-la por 60 segundos. Outros usuários ainda podem reativá-la.
-                          </p>
+                          <div
+                            className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 transition-colors shrink-0 ${
+                              repostCooldown
+                                ? 'bg-brand-default border-brand-default text-dark-900'
+                                : 'border-zinc-700 bg-dark-900 text-transparent'
+                            }`}
+                          >
+                            {repostCooldown && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                          </div>
+                          <div>
+                            <p className="text-white text-sm font-medium">Tempo de espera para repostar</p>
+                            <p className="text-zinc-400 text-xs leading-relaxed">
+                              Quando um usuário remove uma publicação da sua lista de favoritos, ele não pode reativá-la por 60 segundos. Outros usuários ainda podem reativá-la.
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Toggle: Remover ao excluir */}
+                    {/* Item 2: Remover ao excluir */}
                     <DiscordSwitch
                       checked={removeOnDelete}
                       onChange={setRemoveOnDelete}
                       label="Remover ao excluir"
                       description="Remova a publicação do starboard quando a publicação original for apagada."
-                      activeColor="amber"
+                      activeColor="brand"
                       switchPosition="left"
                     />
 
-                    {/* Toggle: Ignorar auto-reações de estrelas */}
+                    {/* Item 3: Ignorar auto-reações de estrelas */}
                     <div>
                       <DiscordSwitch
                         checked={ignoreSelfStar}
                         onChange={setIgnoreSelfStar}
                         label="Ignorar auto-reações de estrelas"
                         description="As estrelas inseridas pelo próprio autor não serão contabilizadas no limite do starboard"
-                        activeColor="amber"
+                        activeColor="brand"
                         switchPosition="left"
                       />
 
-                      <div
-                        onClick={() => setRemoveSelfReactions(!removeSelfReactions)}
-                        className="pl-[68px] mt-3 flex items-start gap-3 cursor-pointer select-none"
-                      >
+                      <div className="pl-[68px] mt-2">
                         <div
-                          className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 transition-colors ${
-                            removeSelfReactions
-                              ? 'bg-amber-500 border-amber-500 text-zinc-950'
-                              : 'border-zinc-700 bg-dark-900 text-transparent'
-                          }`}
+                          onClick={() => setRemoveSelfReactions(!removeSelfReactions)}
+                          className="flex items-start gap-3 cursor-pointer select-none"
                         >
-                          {removeSelfReactions && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                        </div>
-                        <div>
-                          <p className="text-white text-sm font-medium">
-                            Remover reações inseridas pelo próprio autor
-                          </p>
-                          <p className="text-zinc-400 text-xs leading-relaxed">
-                            Remover automaticamente a reação quando alguém destacar a própria mensagem com estrela
-                          </p>
+                          <div
+                            className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 transition-colors shrink-0 ${
+                              removeSelfReactions
+                                ? 'bg-brand-default border-brand-default text-dark-900'
+                                : 'border-zinc-700 bg-dark-900 text-transparent'
+                            }`}
+                          >
+                            {removeSelfReactions && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                          </div>
+                          <div>
+                            <p className="text-white text-sm font-medium">Remover reações inseridas pelo próprio autor</p>
+                            <p className="text-zinc-400 text-xs leading-relaxed">
+                              Remover automaticamente a reação quando alguém destacar a própria mensagem com estrela
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Toggle: Bloquear reações a mensagens de bots */}
+                    {/* Item 4: Bloquear reações a mensagens de bots */}
                     <div>
                       <DiscordSwitch
                         checked={blockBotReactions}
                         onChange={setBlockBotReactions}
                         label="Bloquear reações a mensagens de bots"
                         description="Reações às mensagens de bots não serão contabilizadas no limite"
-                        activeColor="amber"
+                        activeColor="brand"
                         switchPosition="left"
                       />
 
-                      <div
-                        onClick={() => setRemoveBotReactions(!removeBotReactions)}
-                        className="pl-[68px] mt-3 flex items-start gap-3 cursor-pointer select-none"
-                      >
+                      <div className="pl-[68px] mt-2">
                         <div
-                          className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 transition-colors ${
-                            removeBotReactions
-                              ? 'bg-amber-500 border-amber-500 text-zinc-950'
-                              : 'border-zinc-700 bg-dark-900 text-transparent'
-                          }`}
+                          onClick={() => setRemoveBotReactions(!removeBotReactions)}
+                          className="flex items-start gap-3 cursor-pointer select-none"
                         >
-                          {removeBotReactions && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                        </div>
-                        <div>
-                          <p className="text-white text-sm font-medium">Remover reações</p>
-                          <p className="text-zinc-400 text-xs leading-relaxed">
-                            Remover automaticamente as reações às mensagens do bot
-                          </p>
+                          <div
+                            className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 transition-colors shrink-0 ${
+                              removeBotReactions
+                                ? 'bg-brand-default border-brand-default text-dark-900'
+                                : 'border-zinc-700 bg-dark-900 text-transparent'
+                            }`}
+                          >
+                            {removeBotReactions && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                          </div>
+                          <div>
+                            <p className="text-white text-sm font-medium">Remover reações</p>
+                            <p className="text-zinc-400 text-xs leading-relaxed">
+                              Remover automaticamente as reações às mensagens do bot
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Dropdowns: Idade mínima e máxima */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                      <div>
-                        <label className="text-sm font-medium text-zinc-300 block mb-1.5">
-                          Idade mínima da mensagem
-                        </label>
-                        <select
-                          value={minMessageAge}
-                          onChange={(e) => setMinMessageAge(e.target.value)}
-                          className="w-full px-3.5 py-2.5 bg-dark-900 border border-zinc-700 rounded-xl text-white text-sm outline-none focus:border-amber-500 cursor-pointer"
-                        >
-                          <option value="Sem mínimo">Sem mínimo</option>
-                          <option value="1 minuto">1 minuto</option>
-                          <option value="5 minutos">5 minutos</option>
-                          <option value="10 minutos">10 minutos</option>
-                          <option value="30 minutos">30 minutos</option>
-                          <option value="1 hora">1 hora</option>
-                          <option value="12 horas">12 horas</option>
-                          <option value="24 horas">24 horas</option>
-                        </select>
-                        <p className="text-[11px] text-zinc-400 mt-1">
-                          A idade mínima que uma mensagem deve ter para poder ser favoritada.
-                        </p>
+                    {/* Item 5: Idade mínima da mensagem */}
+                      <div className="flex flex-col gap-3">
+                        <span className="text-sm text-dark-200">Idade mínima da mensagem</span>
+                        <div className="relative w-48">
+                          <div translate="no">
+                            <div
+                              onClick={() => {
+                                minAgeDropdownOpen ? setMinAgeDropdownOpen(false) : (setMinAgeDropdownOpen(true), setMaxAgeDropdownOpen(false));
+                              }}
+                              className="overflow-hidden flex items-center justify-start group bg-dark-900 rounded-lg border border-solid transition-all duration-200 hover:border-brand-default border-dark-900 cursor-pointer"
+                            >
+                              <div className="bg-transparent outline-none border-none w-full cursor-pointer flex justify-between items-center text-dark-100 py-3 px-4 text-base">
+                                <div className="flex-1 min-w-0 overflow-hidden text-sm">{minMessageAge}</div>
+                                <svg
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className={`transition-all flex-shrink-0 ml-auto ${minAgeDropdownOpen ? '' : 'rotate-180'}`}
+                                >
+                                  <path d="M7 14.5l5-5 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                              </div>
+                            </div>
+
+                            {minAgeDropdownOpen && (
+                              <div className="top-[50px] absolute left-0 z-20 w-full rounded-lg bg-dark-900 max-h-[320px] overflow-y-auto overflow-x-hidden transition-all duration-200 shadow-xl border border-dark-700 p-2 transform">
+                                <ul>
+                                  {['Sem mínimo', '1 minuto', '5 minutos', '10 minutos', '30 minutos', '1 hora'].map((opt) => (
+                                    <li
+                                      key={opt}
+                                      onClick={() => {
+                                        setMinMessageAge(opt);
+                                        setMinAgeDropdownOpen(false);
+                                      }}
+                                      className={`p-2 rounded-lg transition duration-200 hover:bg-dark-700 font-sans text-sm text-dark-100 cursor-pointer flex items-center justify-start ${
+                                        minMessageAge === opt ? 'bg-dark-700 font-semibold' : ''
+                                      }`}
+                                    >
+                                      <div className="w-full">{opt}</div>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <span className="text-xs text-dark-400">
+                          A idade mínima que uma mensagem deve ter para poder ser favoritada. Para desativar esse requisito, defina como 0.
+                        </span>
                       </div>
 
-                      <div>
-                        <label className="text-sm font-medium text-zinc-300 block mb-1.5">
-                          Idade máxima da mensagem
-                        </label>
-                        <select
-                          value={maxMessageAge}
-                          onChange={(e) => setMaxMessageAge(e.target.value)}
-                          className="w-full px-3.5 py-2.5 bg-dark-900 border border-zinc-700 rounded-xl text-white text-sm outline-none focus:border-amber-500 cursor-pointer"
-                        >
-                          <option value="Sem máximo">Sem máximo</option>
-                          <option value="1 hora">1 hora</option>
-                          <option value="6 horas">6 horas</option>
-                          <option value="12 horas">12 horas</option>
-                          <option value="1 dia">1 dia</option>
-                          <option value="3 dias">3 dias</option>
-                          <option value="7 dias">7 dias</option>
-                          <option value="14 dias">14 dias</option>
-                          <option value="30 dias">30 dias</option>
-                        </select>
-                        <p className="text-[11px] text-zinc-400 mt-1">
-                          Limite de tempo que uma mensagem deve ter para ser favoritada.
-                        </p>
+                      {/* Item 6: Idade máxima da mensagem */}
+                      <div className="flex flex-col gap-3">
+                        <span className="text-sm text-dark-200">Idade máxima da mensagem</span>
+                        <div className="relative w-48">
+                          <div translate="no">
+                            <div
+                              onClick={() => {
+                                setMaxAgeDropdownOpen(!maxAgeDropdownOpen);
+                                setMinAgeDropdownOpen(false);
+                              }}
+                              className="overflow-hidden flex items-center justify-start group bg-dark-900 rounded-lg border border-solid transition-all duration-200 hover:border-brand-default border-dark-900 cursor-pointer"
+                            >
+                              <div className="bg-transparent outline-none border-none w-full cursor-pointer flex justify-between items-center text-dark-100 py-3 px-4 text-base">
+                                <div className="flex-1 min-w-0 overflow-hidden text-sm">{maxMessageAge}</div>
+                                <svg
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className={`transition-all flex-shrink-0 ml-auto ${maxAgeDropdownOpen ? '' : 'rotate-180'}`}
+                                >
+                                  <path d="M7 14.5l5-5 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                              </div>
+                            </div>
+
+                            {maxAgeDropdownOpen && (
+                              <div className="top-[50px] absolute left-0 z-20 w-full rounded-lg bg-dark-900 max-h-[320px] overflow-y-auto overflow-x-hidden transition-all duration-200 shadow-xl border border-dark-700 p-2 transform">
+                                <ul>
+                                  {['Sem máximo', '1 hora', '6 horas', '12 horas', '1 dia', '3 dias', '7 dias', '14 dias', '30 dias'].map((opt) => (
+                                    <li
+                                      key={opt}
+                                      onClick={() => {
+                                        setMaxMessageAge(opt);
+                                        setMaxAgeDropdownOpen(false);
+                                      }}
+                                      className={`p-2 rounded-lg transition duration-200 hover:bg-dark-700 font-sans text-sm text-dark-100 cursor-pointer flex items-center justify-start ${
+                                        maxMessageAge === opt ? 'bg-dark-700 font-semibold' : ''
+                                      }`}
+                                    >
+                                      <div className="w-full">{opt}</div>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <span className="text-xs text-dark-400">
+                          Limite de tempo que uma mensagem deve ter para ser favoritada. Para desativar esse requisito, defina como 0.
+                        </span>
                       </div>
-                    </div>
                   </div>
                 </div>
               )}
@@ -1463,12 +1584,12 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                           <div
                             className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                               roleRestrictionMode === 'only'
-                                ? 'border-amber-500 bg-amber-500'
+                                ? 'border-brand-default bg-brand-default'
                                 : 'border-zinc-600 bg-dark-900'
                             }`}
                           >
                             {roleRestrictionMode === 'only' && (
-                              <div className="w-2 h-2 rounded-full bg-zinc-950" />
+                              <div className="w-2 h-2 rounded-full bg-dark-900" />
                             )}
                           </div>
                           <p className="text-sm text-zinc-200">
@@ -1483,12 +1604,12 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                           <div
                             className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                               roleRestrictionMode === 'except'
-                                ? 'border-amber-500 bg-amber-500'
+                                ? 'border-brand-default bg-brand-default'
                                 : 'border-zinc-600 bg-dark-900'
                             }`}
                           >
                             {roleRestrictionMode === 'except' && (
-                              <div className="w-2 h-2 rounded-full bg-zinc-950" />
+                              <div className="w-2 h-2 rounded-full bg-dark-900" />
                             )}
                           </div>
                           <p className="text-sm text-zinc-200">
@@ -1582,7 +1703,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                                         />
                                         <span>{role.name}</span>
                                       </div>
-                                      {isSelected && <Check className="w-4 h-4 text-amber-400" />}
+                                      {isSelected && <Check className="w-4 h-4 text-brand-default" />}
                                     </li>
                                   );
                                 })}
@@ -1607,12 +1728,12 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                           <div
                             className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                               channelRestrictionMode === 'only'
-                                ? 'border-amber-500 bg-amber-500'
+                                ? 'border-brand-default bg-brand-default'
                                 : 'border-zinc-600 bg-dark-900'
                             }`}
                           >
                             {channelRestrictionMode === 'only' && (
-                              <div className="w-2 h-2 rounded-full bg-zinc-950" />
+                              <div className="w-2 h-2 rounded-full bg-dark-900" />
                             )}
                           </div>
                           <p className="text-sm text-zinc-200">
@@ -1627,12 +1748,12 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                           <div
                             className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                               channelRestrictionMode === 'except'
-                                ? 'border-amber-500 bg-amber-500'
+                                ? 'border-brand-default bg-brand-default'
                                 : 'border-zinc-600 bg-dark-900'
                             }`}
                           >
                             {channelRestrictionMode === 'except' && (
-                              <div className="w-2 h-2 rounded-full bg-zinc-950" />
+                              <div className="w-2 h-2 rounded-full bg-dark-900" />
                             )}
                           </div>
                           <p className="text-sm text-zinc-200">
@@ -1755,7 +1876,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                                         title="Clique para selecionar ou desmarcar toda a categoria"
                                       >
                                         <span>{cat.name}</span>
-                                        <span className="text-[10px] text-amber-400 lowercase font-normal">
+                                        <span className="text-[10px] text-brand-light lowercase font-normal">
                                           {allInCatSelected
                                             ? 'desmarcar todos'
                                             : 'selecionar todos'}
@@ -1777,7 +1898,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
                                                 <div
                                                   className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
                                                     isChecked
-                                                      ? 'bg-amber-500 border-amber-500 text-zinc-950'
+                                                      ? 'bg-brand-default border-brand-default text-dark-900'
                                                       : 'border-zinc-700 bg-dark-800 text-transparent'
                                                   }`}
                                                 >
@@ -1852,7 +1973,7 @@ export const StarboardConfigPage: React.FC<StarboardConfigPageProps> = ({
               >
                 <div className="p-3.5 flex-1 space-y-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] text-white font-bold">
+                    <div className="w-5 h-5 rounded-full bg-zinc-700 flex items-center justify-center text-[10px] text-white font-bold">
                       U
                     </div>
                     <span className="text-xs font-bold text-white">Membro Da Comunidade</span>

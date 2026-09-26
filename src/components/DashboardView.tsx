@@ -112,8 +112,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   }, [selectedCategory, filteredPlugins]);
 
   return (
-    <div className="space-y-8 pb-16 animate-fadeIn">
-      {/* Top Radiant Hero Banner */}
+    <div
+      className="flex flex-1 overflow-y-auto relative px-6 lg:px-10 py-0 lg:py-10 animate-fadeIn"
+      id="dashboard__content"
+    >
+      <div className="min-h-full w-full max-w-[1540px] mx-auto space-y-8 pb-16">
+        {/* Top Radiant Hero Banner */}
       <HeroBanner onOpenDirectImageModal={onOpenDirectImageModal} />
 
       {/* Plugins Section Header & Tabs */}
@@ -271,6 +275,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
           ))
         )}
+      </div>
       </div>
     </div>
   );

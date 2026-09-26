@@ -187,7 +187,7 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 sm:gap-2 mb-1 flex-wrap">
           <span className="font-bold text-white text-sm">Vixe Bot</span>
-          <span className="text-[10px] bg-indigo-600 text-white font-bold px-1.5 py-0.5 rounded-md">
+          <span className="text-[10px] bg-[#5865F2] text-white font-bold px-1.5 py-0.5 rounded-md">
             BOT
           </span>
           <span className="text-xs text-zinc-400">Hoje às 15:42</span>
@@ -317,8 +317,12 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
   );
 
   return (
-    <div id="dashboard__content" className="w-full flex flex-col animate-fadeIn">
-      {/* Header Action Bar */}
+    <div
+      className="flex flex-1 overflow-y-auto relative px-6 lg:px-10 py-0 lg:py-10 animate-fadeIn"
+      id="dashboard__content"
+    >
+      <div className="min-h-full w-full max-w-[1540px] mx-auto space-y-6 pb-16">
+        {/* Header Action Bar */}
       <div className="mb-6 pt-4 lg:pt-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-dark-700/60 pb-5">
         <div className="flex items-center justify-start w-full sm:w-auto">
           <button
@@ -1385,7 +1389,7 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
                             </p>
                             <button
                               type="button"
-                              className="mt-2 bg-white text-dark-900 font-bold py-2 px-4 rounded-xl text-xs hover:bg-blue-50 transition-colors cursor-pointer shadow-sm"
+                              className="mt-2 bg-brand-default text-dark-900 font-bold py-2 px-4 rounded-xl text-xs hover:bg-brand-hover active:bg-brand-default transition-all cursor-pointer shadow-sm"
                             >
                               Comece a ganhar dinheiro
                             </button>
@@ -1450,6 +1454,7 @@ export const CreateGiveawayView: React.FC<CreateGiveawayViewProps> = ({
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

@@ -227,8 +227,12 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
   );
 
   return (
-    <div className="space-y-6 pb-16 animate-fadeIn" id="dashboard__content">
-      {/* Header Bar */}
+    <div
+      className="flex flex-1 overflow-y-auto relative px-6 lg:px-10 py-0 lg:py-10 animate-fadeIn"
+      id="dashboard__content"
+    >
+      <div className="min-h-full w-full max-w-[1540px] mx-auto space-y-6 pb-16">
+        {/* Header Bar */}
       <div className="flex justify-between mb-2">
             <div className="flex flex-col grow items-center lg:items-start">
               <div className="bg-dark-800 sm:bg-transparent flex items-center justify-between w-full px-4 py-3 sm:px-0 sm:py-0 mb-3 sm:mb-0 rounded-xl sm:rounded-none border border-zinc-800 sm:border-none">
@@ -1332,6 +1336,7 @@ export const BotCustomizerView: React.FC<BotCustomizerViewProps> = ({
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

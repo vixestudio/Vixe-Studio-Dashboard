@@ -82,13 +82,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
   });
 
   useEffect(() => {
-    if (activeScreen === 'giveaways') {
+    if (activeScreen === 'giveaways' || activeScreen === 'economy') {
       setOpenSections((prev) => ({ ...prev, engajamento: true }));
     } else if (activeScreen === 'tickets' || activeScreen === 'commands') {
       setOpenSections((prev) => ({ ...prev, gerenciar: true }));
     } else if (activeScreen === 'customizer' || activeScreen === 'ai') {
       setOpenSections((prev) => ({ ...prev, ia: true }));
-    } else if (activeScreen === 'emojis' || activeScreen === 'embeds') {
+    } else if (activeScreen === 'emojis' || activeScreen === 'embeds' || activeScreen === 'temp-channels') {
       setOpenSections((prev) => ({ ...prev, utilidades: true }));
     }
   }, [activeScreen]);
@@ -559,8 +559,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <span className="truncate">Canais de estatísticas</span>
                 </button>
                 <button
-                  onClick={() => handleNavClick('painel', 'utilidades')}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
+                  id="nav-temp-channels-btn"
+                  onClick={() => handleNavClick('temp-channels')}
+                  className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left transition-colors cursor-pointer ${
+                    activeScreen === 'temp-channels'
+                      ? 'bg-zinc-800 text-white font-semibold border border-zinc-700'
+                      : 'text-zinc-300 hover:text-white hover:bg-zinc-800/70'
+                  }`}
                 >
                   <Volume2 className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
                   <span className="truncate">Canais Temporários</span>
@@ -701,8 +706,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <span className="truncate">Aniversários</span>
                 </button>
                 <button
-                  onClick={() => handleNavClick('painel', 'engajamento')}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition-colors cursor-pointer"
+                  id="nav-economy-btn"
+                  onClick={() => handleNavClick('economy')}
+                  className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-left transition-colors cursor-pointer ${
+                    activeScreen === 'economy'
+                      ? 'bg-zinc-800 text-white font-semibold border border-zinc-700'
+                      : 'text-zinc-300 hover:text-white hover:bg-zinc-800/70'
+                  }`}
                 >
                   <Landmark className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
                   <span className="truncate">Economia</span>

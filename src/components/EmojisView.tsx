@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { ServerInfo } from '../types';
 import { CommandConfigPage } from './CommandConfigPage';
+import { DiscordSwitch } from './common';
 
 interface EmojisViewProps {
   currentServer?: ServerInfo | null;
@@ -235,7 +236,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
             <div className="flex flex-col grow items-start">
               <div className="flex items-center gap-3 mb-2">
                 <h4 className="font-bold text-white text-2xl lg:text-3xl flex items-center gap-2">
-                  <Smile className="w-7 h-7 text-indigo-400" />
+                  <Smile className="w-7 h-7 text-brand-light" />
                   <span>Emojis</span>
                 </h4>
               </div>
@@ -333,7 +334,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                     <div className="p-6 pt-0 border-t border-zinc-800/60">
                       <div className="flex flex-col gap-3 mt-4">
                         {/* Command: /add_emoji */}
-                        <div className="flex items-center justify-between w-full shadow-xs relative rounded-xl p-5 bg-dark-900 border border-zinc-800/80 transition-all hover:border-indigo-500/40">
+                        <div className="flex items-center justify-between w-full shadow-xs relative rounded-xl p-5 bg-dark-900 border border-zinc-800/80 transition-all hover:border-zinc-700">
                           <div className="flex flex-col pr-4">
                             <h5 className="flex items-center gap-2 text-base font-bold text-white">
                               <span>/add_emoji</span>
@@ -352,25 +353,11 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
 
                           <div className="flex items-center gap-3 shrink-0">
                             {/* Toggle Switch */}
-                            <button
-                              type="button"
-                              onClick={() => setAddEmojiEnabled(!addEmojiEnabled)}
-                              className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                                addEmojiEnabled ? 'bg-indigo-600' : 'bg-zinc-700'
-                              }`}
-                            >
-                              <div
-                                className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center h-5 w-5 bg-white shadow ${
-                                  addEmojiEnabled ? 'translate-x-8' : 'translate-x-1'
-                                }`}
-                              >
-                                <div
-                                  className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                                    addEmojiEnabled ? 'bg-indigo-600' : 'bg-zinc-400'
-                                  }`}
-                                />
-                              </div>
-                            </button>
+                            <DiscordSwitch
+                              checked={addEmojiEnabled}
+                              onChange={setAddEmojiEnabled}
+                              activeColor="brand"
+                            />
 
                             {/* Edit Pencil Button */}
                             <button
@@ -385,7 +372,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                         </div>
 
                         {/* Command: /remove_emoji */}
-                        <div className="flex items-center justify-between w-full shadow-xs relative rounded-xl p-5 bg-dark-900 border border-zinc-800/80 transition-all hover:border-indigo-500/40">
+                        <div className="flex items-center justify-between w-full shadow-xs relative rounded-xl p-5 bg-dark-900 border border-zinc-800/80 transition-all hover:border-zinc-700">
                           <div className="flex flex-col pr-4">
                             <h5 className="flex items-center gap-2 text-base font-bold text-white">
                               <span>/remove_emoji</span>
@@ -396,25 +383,11 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                           </div>
 
                           <div className="flex items-center gap-3 shrink-0">
-                            <button
-                              type="button"
-                              onClick={() => setRemoveEmojiEnabled(!removeEmojiEnabled)}
-                              className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                                removeEmojiEnabled ? 'bg-indigo-600' : 'bg-zinc-700'
-                              }`}
-                            >
-                              <div
-                                className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center h-5 w-5 bg-white shadow ${
-                                  removeEmojiEnabled ? 'translate-x-8' : 'translate-x-1'
-                                }`}
-                              >
-                                <div
-                                  className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                                    removeEmojiEnabled ? 'bg-indigo-600' : 'bg-zinc-400'
-                                  }`}
-                                />
-                              </div>
-                            </button>
+                            <DiscordSwitch
+                              checked={removeEmojiEnabled}
+                              onChange={setRemoveEmojiEnabled}
+                              activeColor="brand"
+                            />
 
                             <button
                               type="button"
@@ -428,7 +401,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                         </div>
 
                         {/* Command: /emoji_info */}
-                        <div className="flex items-center justify-between w-full shadow-xs relative rounded-xl p-5 bg-dark-900 border border-zinc-800/80 transition-all hover:border-indigo-500/40">
+                        <div className="flex items-center justify-between w-full shadow-xs relative rounded-xl p-5 bg-dark-900 border border-zinc-800/80 transition-all hover:border-zinc-700">
                           <div className="flex flex-col pr-4">
                             <h5 className="flex items-center gap-2 text-base font-bold text-white">
                               <span>/emoji_info</span>
@@ -439,25 +412,11 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                           </div>
 
                           <div className="flex items-center gap-3 shrink-0">
-                            <button
-                              type="button"
-                              onClick={() => setEmojiInfoEnabled(!emojiInfoEnabled)}
-                              className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                                emojiInfoEnabled ? 'bg-indigo-600' : 'bg-zinc-700'
-                              }`}
-                            >
-                              <div
-                                className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center h-5 w-5 bg-white shadow ${
-                                  emojiInfoEnabled ? 'translate-x-8' : 'translate-x-1'
-                                }`}
-                              >
-                                <div
-                                  className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                                    emojiInfoEnabled ? 'bg-indigo-600' : 'bg-zinc-400'
-                                  }`}
-                                />
-                              </div>
-                            </button>
+                            <DiscordSwitch
+                              checked={emojiInfoEnabled}
+                              onChange={setEmojiInfoEnabled}
+                              activeColor="brand"
+                            />
 
                             <button
                               type="button"
@@ -486,7 +445,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                         value={gallerySearch}
                         onChange={(e) => setGallerySearch(e.target.value)}
                         placeholder="Buscar emojis na galeria..."
-                        className="w-full pl-10 pr-4 py-2 bg-dark-800 border border-zinc-800 rounded-lg text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
+                        className="w-full pl-10 pr-4 py-2 bg-dark-800 border border-zinc-800 rounded-lg text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-brand-default"
                       />
                     </div>
 
@@ -495,9 +454,9 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                         <button
                           key={cat}
                           onClick={() => setGalleryFilter(cat)}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
                             galleryFilter === cat
-                              ? 'bg-indigo-600 text-white'
+                              ? 'bg-brand-default text-dark-900 font-bold shadow-sm'
                               : 'bg-dark-800 text-zinc-400 hover:text-white hover:bg-zinc-700'
                           }`}
                         >
@@ -530,10 +489,10 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                           <button
                             onClick={() => handleAddFromGallery(emoji)}
                             disabled={isAdded}
-                            className={`w-full py-1.5 px-2 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+                            className={`w-full py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                               isAdded
                                 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 cursor-default'
-                                : 'bg-indigo-600 hover:bg-indigo-500 text-white'
+                                : 'bg-brand-default hover:bg-brand-hover text-dark-900 shadow-sm'
                             }`}
                           >
                             {isAdded ? (
@@ -567,7 +526,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                           {staticCount} <span className="text-xs text-zinc-500 font-normal">/ 50</span>
                         </h4>
                       </div>
-                      <div className="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-sm">
+                      <div className="w-10 h-10 rounded-lg bg-brand-default/10 text-brand-default flex items-center justify-center font-bold text-sm">
                         {Math.round((staticCount / 50) * 100)}%
                       </div>
                     </div>
@@ -587,7 +546,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                     <div className="flex items-center">
                       <button
                         onClick={() => setShowUploadModal(true)}
-                        className="w-full h-full min-h-[64px] rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer shadow"
+                        className="w-full h-full min-h-[64px] rounded-xl bg-brand-default hover:bg-brand-hover text-dark-900 font-bold text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-sm"
                       >
                         <Upload className="w-4 h-4" />
                         <span>Fazer Upload de Emoji</span>
@@ -659,7 +618,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
           <div className="bg-dark-800 border border-zinc-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <Upload className="w-5 h-5 text-indigo-400" />
+                <Upload className="w-5 h-5 text-brand-default" />
                 <span>Adicionar Novo Emoji</span>
               </h3>
               <button
@@ -685,7 +644,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                     value={newEmojiName}
                     onChange={(e) => setNewEmojiName(e.target.value)}
                     placeholder="meu_emoji"
-                    className="w-full pl-6 pr-6 py-2.5 bg-dark-900 border border-zinc-700 rounded-lg text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
+                    className="w-full pl-6 pr-6 py-2.5 bg-dark-900 border border-zinc-700 rounded-lg text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-brand-default"
                   />
                   <span className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">
                     :
@@ -702,7 +661,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                   value={newEmojiUrl}
                   onChange={(e) => setNewEmojiUrl(e.target.value)}
                   placeholder="https://exemplo.com/emoji.png"
-                  className="w-full px-3.5 py-2.5 bg-dark-900 border border-zinc-700 rounded-lg text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3.5 py-2.5 bg-dark-900 border border-zinc-700 rounded-lg text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-brand-default"
                 />
               </div>
 
@@ -712,7 +671,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                   id="animated_check"
                   checked={newEmojiAnimated}
                   onChange={(e) => setNewEmojiAnimated(e.target.checked)}
-                  className="w-4 h-4 rounded bg-dark-900 border-zinc-700 text-indigo-600 focus:ring-indigo-500"
+                  className="w-4 h-4 rounded bg-dark-900 border-zinc-700 accent-white"
                 />
                 <label htmlFor="animated_check" className="text-xs text-zinc-300 cursor-pointer">
                   Emoji Animado (.gif)
@@ -729,7 +688,7 @@ export const EmojisView: React.FC<EmojisViewProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-colors cursor-pointer"
+                  className="px-5 py-2 rounded-lg text-sm font-bold bg-brand-default hover:bg-brand-hover text-dark-900 transition-colors cursor-pointer shadow-sm"
                 >
                   Salvar Emoji
                 </button>

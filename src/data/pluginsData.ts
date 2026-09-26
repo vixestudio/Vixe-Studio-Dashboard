@@ -242,7 +242,8 @@ export const INITIAL_PLUGINS: PluginItem[] = [
     iconBgColor: 'bg-dark-700',
     iconTextColor: 'text-dark-200',
     isActive: false,
-    popular: false,
+    popular: true,
+    targetScreen: 'temp-channels',
   },
 
   // Alertas Sociais
@@ -390,7 +391,8 @@ export const INITIAL_PLUGINS: PluginItem[] = [
     iconBgColor: 'bg-dark-700',
     iconTextColor: 'text-dark-200',
     isActive: false,
-    popular: false,
+    popular: true,
+    targetScreen: 'economy',
   },
 
   // IA Vixe

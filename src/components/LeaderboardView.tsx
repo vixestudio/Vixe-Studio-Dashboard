@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { LeaderboardUser, ServerInfo } from '../types';
 import { LEADERBOARD_USERS, SERVER_CATEGORIES, SERVER_CHANNELS } from '../data/mockData';
-import { DiscordSwitch, DiscordChannelSelect } from './common';
+import { DiscordSwitch, DiscordChannelSelect, UnsavedChangesBar } from './common';
 
 interface LeaderboardViewProps {
   currentServer: ServerInfo;
@@ -173,8 +173,12 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
   // ==========================================
   if (viewMode === 'rankings') {
     return (
-      <div className="space-y-8 pb-16 animate-fadeIn">
-        {/* Navigation Bar back to Settings */}
+      <div
+        className="flex flex-1 overflow-y-auto relative px-6 lg:px-10 py-0 lg:py-10 animate-fadeIn"
+        id="dashboard__content"
+      >
+        <div className="min-h-full w-full max-w-[1540px] mx-auto space-y-8 pb-16">
+          {/* Navigation Bar back to Settings */}
         <div className="flex items-center justify-between">
           <button
             onClick={() => setViewMode('settings')}
@@ -466,6 +470,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
             ))}
           </div>
         </div>
+        </div>
       </div>
     );
   }
@@ -475,8 +480,12 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
   // Matches exact MEE6 DOM layout and styling
   // ==========================================
   return (
-    <div className="w-full min-h-full transition-all flex flex-col opacity-100 pb-24 animate-fadeIn">
-      {/* Save Toast Notification */}
+    <div
+      className="flex flex-1 overflow-y-auto relative px-6 lg:px-10 py-0 lg:py-10 animate-fadeIn"
+      id="dashboard__content"
+    >
+      <div className="min-h-full w-full max-w-[1540px] mx-auto w-full min-h-full transition-all flex flex-col opacity-100 pb-24">
+        {/* Save Toast Notification */}
       {showSaveToast && (
         <div className="fixed top-20 right-6 z-50 bg-emerald-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg shadow-xl flex items-center gap-2 animate-in fade-in slide-in-from-top-3 duration-200">
           <Check className="w-4 h-4" />
@@ -620,7 +629,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
                   onClick={() =>
                     alert('Redirecionando para as opções de monetização e assinaturas do servidor!')
                   }
-                  className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-dark-900 font-bold text-base px-4 py-2 hover:brightness-110 active:brightness-90 shadow-sm cursor-pointer"
+                  className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-brand-default hover:bg-brand-hover active:bg-brand-default active:bg-opacity-40 text-dark-900 font-bold text-base px-4 py-2 shadow-sm cursor-pointer"
                 >
                   <div className="flex flex grow justify-center max-w-full">
                     <span className="transition-all duration-200 whitespace-nowrap text-ellipsis overflow-hidden block w-full shrink-0 text-center">
@@ -689,29 +698,15 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
       </div>
 
       {/* Floating Unsaved Changes Bar */}
-      {hasChanges && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-2xl bg-dark-800/95 backdrop-blur-md border border-dark-600 shadow-2xl rounded-2xl px-5 py-3.5 flex items-center justify-between gap-4 animate-in slide-in-from-bottom-5 duration-200 select-none">
-          <div className="flex flex-1 text-dark-100 font-medium text-sm">
-            Mudanças detectadas! Por favor, salve ou cancele.
-          </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-white bg-opacity-10 text-white hover:bg-opacity-20 active:bg-opacity-5 text-sm px-4 py-2 cursor-pointer font-medium"
-            >
-              Cancelar
-            </button>
-            <button
-              type="button"
-              onClick={handleSave}
-              className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-brand-default text-dark-900 hover:bg-brand-hover active:bg-brand-default active:bg-opacity-40 text-sm px-4 py-2 font-bold cursor-pointer shadow-sm"
-            >
-              Salvar
-            </button>
-          </div>
-        </div>
-      )}
+      <UnsavedChangesBar
+        show={hasChanges}
+        onSave={handleSave}
+        onReset={handleCancel}
+        message="Mudanças detectadas! Por favor, salve ou cancele."
+        saveLabel="Salvar"
+        resetLabel="Cancelar"
+      />
+      </div>
     </div>
   );
 };

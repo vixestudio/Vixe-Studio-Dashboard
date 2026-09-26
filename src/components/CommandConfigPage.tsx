@@ -211,7 +211,7 @@ export const CommandConfigPage: React.FC<CommandConfigPageProps> = ({
                 <button
                   type="button"
                   onClick={handleSave}
-                  className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 text-sm font-semibold shadow cursor-pointer"
+                  className="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center gap-1.5 bg-brand-default text-dark-900 hover:bg-brand-hover active:bg-brand-default text-sm px-5 py-2 font-bold cursor-pointer shadow-sm"
                 >
                   <span>Salvar e Fechar</span>
                 </button>
@@ -265,12 +265,12 @@ export const CommandConfigPage: React.FC<CommandConfigPageProps> = ({
                           <div
                             className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                               roleMode === 'deny_all_except'
-                                ? 'border-indigo-500 bg-indigo-600'
+                                ? 'border-brand-default bg-brand-default'
                                 : 'border-zinc-600 bg-dark-700'
                             }`}
                           >
                             {roleMode === 'deny_all_except' && (
-                              <div className="w-2 h-2 rounded-full bg-white" />
+                              <div className="w-2 h-2 rounded-full bg-dark-900" />
                             )}
                           </div>
                           <p className="text-sm text-zinc-200">
@@ -349,10 +349,10 @@ export const CommandConfigPage: React.FC<CommandConfigPageProps> = ({
                                         />
                                         <span>{role.name}</span>
                                       </div>
-                                      {isSelected && <Check className="w-4 h-4 text-indigo-400" />}
-                                    </li>
-                                  );
-                                })}
+                                        {isSelected && <Check className="w-4 h-4 text-brand-default" />}
+                                      </li>
+                                   );
+                                 })}
                               </ul>
                             </div>
                           )}
@@ -366,12 +366,12 @@ export const CommandConfigPage: React.FC<CommandConfigPageProps> = ({
                           <div
                             className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                               roleMode === 'allow_all_except'
-                                ? 'border-indigo-500 bg-indigo-600'
+                                ? 'border-brand-default bg-brand-default'
                                 : 'border-zinc-600 bg-dark-700'
                             }`}
                           >
                             {roleMode === 'allow_all_except' && (
-                              <div className="w-2 h-2 rounded-full bg-white" />
+                              <div className="w-2 h-2 rounded-full bg-dark-900" />
                             )}
                           </div>
                           <p className="text-sm text-zinc-200">
@@ -397,12 +397,12 @@ export const CommandConfigPage: React.FC<CommandConfigPageProps> = ({
                           <div
                             className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                               channelMode === 'deny_all_except'
-                                ? 'border-indigo-500 bg-indigo-600'
+                                ? 'border-brand-default bg-brand-default'
                                 : 'border-zinc-600 bg-dark-700'
                             }`}
                           >
                             {channelMode === 'deny_all_except' && (
-                              <div className="w-2 h-2 rounded-full bg-white" />
+                              <div className="w-2 h-2 rounded-full bg-dark-900" />
                             )}
                           </div>
                           <p className="text-sm text-zinc-200">
@@ -418,12 +418,12 @@ export const CommandConfigPage: React.FC<CommandConfigPageProps> = ({
                           <div
                             className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                               channelMode === 'allow_all_except'
-                                ? 'border-indigo-500 bg-indigo-600'
+                                ? 'border-brand-default bg-brand-default'
                                 : 'border-zinc-600 bg-dark-700'
                             }`}
                           >
                             {channelMode === 'allow_all_except' && (
-                              <div className="w-2 h-2 rounded-full bg-white" />
+                              <div className="w-2 h-2 rounded-full bg-dark-900" />
                             )}
                           </div>
                           <p className="text-sm text-zinc-200">
@@ -501,12 +501,12 @@ export const CommandConfigPage: React.FC<CommandConfigPageProps> = ({
                                           <div
                                             className={`w-4 h-4 rounded border mr-2.5 flex items-center justify-center transition-colors ${
                                               isChecked
-                                                ? 'bg-indigo-600 border-indigo-500'
+                                                ? 'bg-brand-default border-brand-default'
                                                 : 'border-zinc-600 bg-dark-700'
                                             }`}
                                           >
                                             {isChecked && (
-                                              <Check className="w-3 h-3 text-white" />
+                                              <Check className="w-3 h-3 text-dark-900 stroke-[3]" />
                                             )}
                                           </div>
                                           <span>{chan}</span>
@@ -741,12 +741,12 @@ export const CommandConfigPage: React.FC<CommandConfigPageProps> = ({
                             <div
                               className={`min-w-[1.25rem] min-h-[1.25rem] w-5 h-5 rounded-full border flex items-center justify-center mt-0.5 transition-colors ${
                                 visibility === 'public'
-                                  ? 'border-indigo-500 bg-indigo-600'
+                                  ? 'border-brand-default bg-brand-default'
                                   : 'border-zinc-600 bg-dark-700'
                               }`}
                             >
                               {visibility === 'public' && (
-                                <div className="w-2 h-2 rounded-full bg-white" />
+                                <div className="w-2 h-2 rounded-full bg-dark-900" />
                               )}
                             </div>
                             <div>
@@ -767,12 +767,12 @@ export const CommandConfigPage: React.FC<CommandConfigPageProps> = ({
                             <div
                               className={`min-w-[1.25rem] min-h-[1.25rem] w-5 h-5 rounded-full border flex items-center justify-center mt-0.5 transition-colors ${
                                 visibility === 'anonymous'
-                                  ? 'border-indigo-500 bg-indigo-600'
+                                  ? 'border-brand-default bg-brand-default'
                                   : 'border-zinc-600 bg-dark-700'
                               }`}
                             >
                               {visibility === 'anonymous' && (
-                                <div className="w-2 h-2 rounded-full bg-white" />
+                                <div className="w-2 h-2 rounded-full bg-dark-900" />
                               )}
                             </div>
                             <div>
@@ -793,12 +793,12 @@ export const CommandConfigPage: React.FC<CommandConfigPageProps> = ({
                             <div
                               className={`min-w-[1.25rem] min-h-[1.25rem] w-5 h-5 rounded-full border flex items-center justify-center mt-0.5 transition-colors ${
                                 visibility === 'ephemeral'
-                                  ? 'border-indigo-500 bg-indigo-600'
+                                  ? 'border-brand-default bg-brand-default'
                                   : 'border-zinc-600 bg-dark-700'
                               }`}
                             >
                               {visibility === 'ephemeral' && (
-                                <div className="w-2 h-2 rounded-full bg-white" />
+                                <div className="w-2 h-2 rounded-full bg-dark-900" />
                               )}
                             </div>
                             <div>
@@ -821,7 +821,7 @@ export const CommandConfigPage: React.FC<CommandConfigPageProps> = ({
                         <div className="bg-[#2E3036] px-5 py-5 rounded-xl max-w-xl grid grid-cols-1 gap-4 select-none border border-[#202225]">
                           {/* User Message */}
                           <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 min-w-[40px] rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold text-sm">
+                            <div className="w-10 h-10 min-w-[40px] rounded-full bg-zinc-700 flex items-center justify-center text-white font-bold text-sm">
                               🐕
                             </div>
                             <div>

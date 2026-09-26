@@ -76,8 +76,12 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
   });
 
   return (
-    <div className="space-y-6 pb-16 animate-fadeIn" id="dashboard__content">
-      {/* Header area */}
+    <div
+      className="flex flex-1 overflow-y-auto relative px-6 lg:px-10 py-0 lg:py-10 animate-fadeIn"
+      id="dashboard__content"
+    >
+      <div className="min-h-full w-full max-w-[1540px] mx-auto space-y-6 pb-16">
+        {/* Header area */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-zinc-800 pb-5">
             <div className="flex items-center gap-3">
               {onBackToDashboard && (
@@ -341,6 +345,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

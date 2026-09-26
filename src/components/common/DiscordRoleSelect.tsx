@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { X, Check } from 'lucide-react';
 import { DiscordRole } from '../../types';
 import { ROLES_LIST as DEFAULT_ROLES } from '../../data/mockData';
+import { DiscordColorPicker } from './DiscordColorPicker';
 
 export interface DiscordRoleSelectProps {
   id?: string;
@@ -47,7 +48,6 @@ export const DiscordRoleSelect: React.FC<DiscordRoleSelectProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const colorInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setCurrentRoles(roles);
@@ -311,29 +311,13 @@ export const DiscordRoleSelect: React.FC<DiscordRoleSelectProps> = ({
               {/* Color Picker Swatches Row */}
               <div className="relative w-full max-w-[360px]">
                 <div className="bg-dark-900 rounded-lg flex items-center cursor-pointer p-4 justify-between">
-                  {/* Color wheel with hidden native color picker */}
-                  <div
-                    className="flex items-center justify-center h-8 w-8 relative cursor-pointer"
-                    onClick={() => colorInputRef.current?.click()}
-                    title="Escolher cor personalizada"
-                  >
-                    <input
-                      ref={colorInputRef}
-                      type="color"
-                      value={selectedColor.startsWith('#') ? selectedColor : '#607d8a'}
-                      onChange={(e) => setSelectedColor(e.target.value)}
-                      className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+                  {/* Color wheel with Discord popover color picker */}
+                  <div className="relative">
+                    <DiscordColorPicker
+                      color={selectedColor}
+                      onChange={setSelectedColor}
+                      triggerType="wheel"
                     />
-                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="8.001" cy="1.778" r="1.778" fill="#B072FF" />
-                      <circle cx="12.446" cy="3.556" r="1.778" fill="#FF7673" />
-                      <circle cx="14.223" cy="8" r="1.778" fill="#FFBB5C" />
-                      <circle cx="12.446" cy="12.444" r="1.778" fill="#FFD74E" />
-                      <circle cx="8.001" cy="14.222" r="1.778" fill="#6DE194" />
-                      <circle cx="3.556" cy="12.444" r="1.778" fill="#63ECDB" />
-                      <circle cx="1.779" cy="8" r="1.778" fill="#5ACFF5" />
-                      <circle cx="3.556" cy="3.556" r="1.778" fill="#70B1FF" />
-                    </svg>
                   </div>
 
                   {/* Preset Swatches */}

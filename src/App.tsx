@@ -15,6 +15,8 @@ import { GiveawaysView } from './components/GiveawaysView';
 import { EmojisView } from './components/EmojisView';
 import { StarboardsView } from './components/StarboardsView';
 import { SettingsView } from './components/SettingsView';
+import { EconomyView } from './components/EconomyView';
+import { TemporaryChannelsView } from './components/TemporaryChannelsView';
 import { PluginConfigModal } from './components/PluginConfigModal';
 import { DirectImageModal } from './components/DirectImageModal';
 import { CategoryId, PluginItem, ServerInfo } from './types';
@@ -81,7 +83,7 @@ export default function App() {
         <div className="flex-1 min-w-0 lg:pl-64 flex flex-col w-full">
           <main
             id="main-content-area"
-            className="flex-1 w-[1280px] max-w-full min-w-0 px-4 sm:px-6 lg:px-8 xl:px-10 py-6 mx-auto transition-all"
+            className="flex-1 flex flex-col min-w-0 w-full relative transition-all"
           >
             {activeScreen === 'painel' && (
               <DashboardView
@@ -155,6 +157,21 @@ export default function App() {
 
             {activeScreen === 'starboards' && (
               <StarboardsView
+                currentServer={currentServer}
+                onBackToDashboard={() => handleNavigate('painel')}
+              />
+            )}
+
+            {activeScreen === 'economy' && (
+              <EconomyView
+                currentServer={currentServer}
+                onBackToDashboard={() => handleNavigate('painel')}
+                onOpenDirectImageModal={() => setIsDirectImageModalOpen(true)}
+              />
+            )}
+
+            {activeScreen === 'temp-channels' && (
+              <TemporaryChannelsView
                 currentServer={currentServer}
                 onBackToDashboard={() => handleNavigate('painel')}
               />

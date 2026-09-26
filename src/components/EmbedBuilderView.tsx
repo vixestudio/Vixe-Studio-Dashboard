@@ -81,8 +81,12 @@ export const EmbedBuilderView: React.FC<EmbedBuilderViewProps> = ({
   };
 
   return (
-    <div className="space-y-8 pb-16 animate-fadeIn">
-      {/* Header */}
+    <div
+      className="flex flex-1 overflow-y-auto relative px-6 lg:px-10 py-0 lg:py-10 animate-fadeIn"
+      id="dashboard__content"
+    >
+      <div className="min-h-full w-full max-w-[1540px] mx-auto space-y-8 pb-16">
+        {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-dark-700 pb-6">
         <div>
           <div className="flex items-center gap-2">
@@ -148,7 +152,7 @@ export const EmbedBuilderView: React.FC<EmbedBuilderViewProps> = ({
                   <DiscordColorPicker
                     color={embed.color}
                     onChange={(newColor) => setEmbed({ ...embed, color: newColor })}
-                    triggerType="swatch"
+                    triggerType="wheel"
                   />
                   <input
                     type="text"
@@ -500,6 +504,7 @@ export const EmbedBuilderView: React.FC<EmbedBuilderViewProps> = ({
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

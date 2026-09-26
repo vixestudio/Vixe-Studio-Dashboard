@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { ServerInfo } from '../types';
 import { CreateGiveawayView } from './CreateGiveawayView';
+import { DiscordSwitch } from './common';
 
 interface Giveaway {
   id: string;
@@ -160,8 +161,12 @@ export const GiveawaysView: React.FC<GiveawaysViewProps> = ({
   }
 
   return (
-    <div id="dashboard__content" className="w-full flex flex-col animate-fadeIn">
-      {/* Header Section */}
+    <div
+      className="flex flex-1 overflow-y-auto relative px-6 lg:px-10 py-0 lg:py-10 animate-fadeIn"
+      id="dashboard__content"
+    >
+      <div className="min-h-full w-full max-w-[1540px] mx-auto space-y-6 pb-16">
+        {/* Header Section */}
           <div className="flex justify-between mb-8 lg:mb-6">
             <div className="flex flex-col grow items-center lg:items-start">
               <div className="bg-dark-800 sm:bg-transparent flex items-center justify-between w-[calc(100%+24px)] -mx-3 sm:mx-0 sm:w-full px-6 py-4 sm:px-0 sm:py-0 mb-3 sm:mb-0 rounded-2xl sm:rounded-none">
@@ -176,49 +181,15 @@ export const GiveawaysView: React.FC<GiveawaysViewProps> = ({
                   <Gift className="w-6 h-6 text-brand-default hidden sm:inline-block" />
                   <span>Sorteios</span>
                 </h4>
-                <div>
-                  <div className="flex justify-start cursor-pointer gap-2.5 items-center">
-                    <div className="flex justify-start cursor-pointer gap-2.5 items-center flex-row-reverse">
-                      <div
-                        onClick={() => setIsPluginActive(!isPluginActive)}
-                        className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                          isPluginActive ? 'bg-brand-default' : 'bg-dark-700'
-                        }`}
-                      >
-                        <div className="absolute left-0 top-0 w-full h-full flex items-center justify-start px-1.5 pointer-events-none">
-                          <div
-                            className={`text-xs font-semibold ${
-                              isPluginActive ? 'text-dark-900' : 'text-dark-400'
-                            }`}
-                            translate="no"
-                          >
-                            {isPluginActive ? 'ON' : 'OFF'}
-                          </div>
-                        </div>
-                        <div
-                          className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center bg-grey-100 h-5 w-5 shadow-sm ${
-                            isPluginActive ? 'translate-x-8' : 'translate-x-1'
-                          }`}
-                        >
-                          <div
-                            className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                              isPluginActive ? 'bg-brand-default' : 'bg-dark-500'
-                            }`}
-                          />
-                        </div>
-                      </div>
-                      <label
-                        onClick={() => setIsPluginActive(!isPluginActive)}
-                        className="select-none cursor-pointer flex flex-col gap-0.5"
-                      >
-                        <div className="text-dark-100 text-base">
-                          <p className="text-sm text-dark-100 hidden md:inline-block font-medium">
-                            {isPluginActive ? 'Ativo' : 'Desativado'}
-                          </p>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
+                <div className="flex items-center gap-2.5">
+                  <span className="text-sm text-dark-100 hidden md:inline-block font-medium">
+                    {isPluginActive ? 'Ativo' : 'Desativado'}
+                  </span>
+                  <DiscordSwitch
+                    checked={isPluginActive}
+                    onChange={setIsPluginActive}
+                    activeColor="brand"
+                  />
                 </div>
               </div>
               <p className="text-base text-dark-300 max-w-[830px] ml-0 w-full mt-3 text-center sm:text-left">
@@ -670,7 +641,7 @@ export const GiveawaysView: React.FC<GiveawaysViewProps> = ({
                 <div className="text-base transition-all">
                   <div className="p-6 pt-0 space-y-3">
                     {/* Command: /reroll */}
-                    <div className="flex items-center w-full shadow-xs relative rounded-xl p-5 bg-dark-900 border border-dark-700/80 transition-all hover:border-blue-supplementary justify-between gap-4">
+                    <div className="flex items-center w-full shadow-xs relative rounded-xl p-5 bg-dark-900 border border-dark-700/80 transition-all hover:border-dark-600 justify-between gap-4">
                       <div className="flex flex-col">
                         <h5 className="flex text-body font-bold text-dark-100 font-mono text-sm">
                           /reroll
@@ -681,24 +652,11 @@ export const GiveawaysView: React.FC<GiveawaysViewProps> = ({
                       </div>
 
                       <div className="flex items-center gap-3 ml-auto">
-                        <div
-                          onClick={() => setIsRerollActive(!isRerollActive)}
-                          className={`shrink-0 rounded-full transition-all duration-200 overflow-hidden relative cursor-pointer h-[28px] w-[56px] ${
-                            isRerollActive ? 'bg-brand-default' : 'bg-dark-700'
-                          }`}
-                        >
-                          <div
-                            className={`rounded-full top-1 absolute transition-all duration-200 transform flex items-center justify-center bg-grey-100 h-5 w-5 shadow-xs ${
-                              isRerollActive ? 'translate-x-8' : 'translate-x-1'
-                            }`}
-                          >
-                            <div
-                              className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                                isRerollActive ? 'bg-brand-default' : 'bg-dark-500'
-                              }`}
-                            />
-                          </div>
-                        </div>
+                        <DiscordSwitch
+                          checked={isRerollActive}
+                          onChange={setIsRerollActive}
+                          activeColor="brand"
+                        />
 
                         <button
                           onClick={() => setShowRerollConfig(true)}
@@ -711,7 +669,7 @@ export const GiveawaysView: React.FC<GiveawaysViewProps> = ({
                     </div>
 
                     {/* Command: /giveaway start */}
-                    <div className="flex items-center w-full shadow-xs relative rounded-xl p-5 bg-dark-900 border border-dark-700/80 transition-all hover:border-blue-supplementary justify-between gap-4">
+                    <div className="flex items-center w-full shadow-xs relative rounded-xl p-5 bg-dark-900 border border-dark-700/80 transition-all hover:border-dark-600 justify-between gap-4">
                       <div className="flex flex-col">
                         <h5 className="flex text-body font-bold text-dark-100 font-mono text-sm">
                           /giveaway start
@@ -786,6 +744,7 @@ export const GiveawaysView: React.FC<GiveawaysViewProps> = ({
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };
